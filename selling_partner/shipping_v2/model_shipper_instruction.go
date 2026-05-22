@@ -1,0 +1,107 @@
+package shipping_v2
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the ShipperInstruction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ShipperInstruction{}
+
+// ShipperInstruction The shipper instruction.
+type ShipperInstruction struct {
+	// The delivery notes for the shipment
+	DeliveryNotes *string `json:"deliveryNotes,omitempty"`
+}
+
+// NewShipperInstruction instantiates a new ShipperInstruction object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewShipperInstruction() *ShipperInstruction {
+	this := ShipperInstruction{}
+	return &this
+}
+
+// NewShipperInstructionWithDefaults instantiates a new ShipperInstruction object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewShipperInstructionWithDefaults() *ShipperInstruction {
+	this := ShipperInstruction{}
+	return &this
+}
+
+// GetDeliveryNotes returns the DeliveryNotes field value if set, zero value otherwise.
+func (o *ShipperInstruction) GetDeliveryNotes() string {
+	if o == nil || IsNil(o.DeliveryNotes) {
+		var ret string
+		return ret
+	}
+	return *o.DeliveryNotes
+}
+
+// GetDeliveryNotesOk returns a tuple with the DeliveryNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ShipperInstruction) GetDeliveryNotesOk() (*string, bool) {
+	if o == nil || IsNil(o.DeliveryNotes) {
+		return nil, false
+	}
+	return o.DeliveryNotes, true
+}
+
+// HasDeliveryNotes returns a boolean if a field has been set.
+func (o *ShipperInstruction) HasDeliveryNotes() bool {
+	if o != nil && !IsNil(o.DeliveryNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeliveryNotes gets a reference to the given string and assigns it to the DeliveryNotes field.
+func (o *ShipperInstruction) SetDeliveryNotes(v string) {
+	o.DeliveryNotes = &v
+}
+
+func (o ShipperInstruction) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DeliveryNotes) {
+		toSerialize["deliveryNotes"] = o.DeliveryNotes
+	}
+	return toSerialize, nil
+}
+
+type NullableShipperInstruction struct {
+	value *ShipperInstruction
+	isSet bool
+}
+
+func (v NullableShipperInstruction) Get() *ShipperInstruction {
+	return v.value
+}
+
+func (v *NullableShipperInstruction) Set(val *ShipperInstruction) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableShipperInstruction) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableShipperInstruction) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableShipperInstruction(val *ShipperInstruction) *NullableShipperInstruction {
+	return &NullableShipperInstruction{value: val, isSet: true}
+}
+
+func (v NullableShipperInstruction) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableShipperInstruction) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

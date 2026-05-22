@@ -1,0 +1,107 @@
+package awd_20240509
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the InboundPreferences type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InboundPreferences{}
+
+// InboundPreferences Preferences that can be passed in context of an inbound order
+type InboundPreferences struct {
+	// Pass a preferred region so that the inbound order can be shipped to an AWD warehouse located in that region. This doesn't guarantee the order to be assigned in the specified destination region as it depends on warehouse capacity availability. AWD currently supports following region IDs: [us-west, us-east, us-southcentral, us-southeast]
+	DestinationRegion *string `json:"destinationRegion,omitempty"`
+}
+
+// NewInboundPreferences instantiates a new InboundPreferences object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInboundPreferences() *InboundPreferences {
+	this := InboundPreferences{}
+	return &this
+}
+
+// NewInboundPreferencesWithDefaults instantiates a new InboundPreferences object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInboundPreferencesWithDefaults() *InboundPreferences {
+	this := InboundPreferences{}
+	return &this
+}
+
+// GetDestinationRegion returns the DestinationRegion field value if set, zero value otherwise.
+func (o *InboundPreferences) GetDestinationRegion() string {
+	if o == nil || IsNil(o.DestinationRegion) {
+		var ret string
+		return ret
+	}
+	return *o.DestinationRegion
+}
+
+// GetDestinationRegionOk returns a tuple with the DestinationRegion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InboundPreferences) GetDestinationRegionOk() (*string, bool) {
+	if o == nil || IsNil(o.DestinationRegion) {
+		return nil, false
+	}
+	return o.DestinationRegion, true
+}
+
+// HasDestinationRegion returns a boolean if a field has been set.
+func (o *InboundPreferences) HasDestinationRegion() bool {
+	if o != nil && !IsNil(o.DestinationRegion) {
+		return true
+	}
+
+	return false
+}
+
+// SetDestinationRegion gets a reference to the given string and assigns it to the DestinationRegion field.
+func (o *InboundPreferences) SetDestinationRegion(v string) {
+	o.DestinationRegion = &v
+}
+
+func (o InboundPreferences) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DestinationRegion) {
+		toSerialize["destinationRegion"] = o.DestinationRegion
+	}
+	return toSerialize, nil
+}
+
+type NullableInboundPreferences struct {
+	value *InboundPreferences
+	isSet bool
+}
+
+func (v NullableInboundPreferences) Get() *InboundPreferences {
+	return v.value
+}
+
+func (v *NullableInboundPreferences) Set(val *InboundPreferences) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableInboundPreferences) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableInboundPreferences) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableInboundPreferences(val *InboundPreferences) *NullableInboundPreferences {
+	return &NullableInboundPreferences{value: val, isSet: true}
+}
+
+func (v NullableInboundPreferences) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableInboundPreferences) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

@@ -1,0 +1,214 @@
+package replenishment20221107
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the Promotion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Promotion{}
+
+// Promotion Offer promotions to include in the result filter criteria.
+type Promotion struct {
+	SellingPartnerFundedBaseDiscount   *DiscountFunding `json:"sellingPartnerFundedBaseDiscount,omitempty"`
+	SellingPartnerFundedTieredDiscount *DiscountFunding `json:"sellingPartnerFundedTieredDiscount,omitempty"`
+	AmazonFundedBaseDiscount           *DiscountFunding `json:"amazonFundedBaseDiscount,omitempty"`
+	AmazonFundedTieredDiscount         *DiscountFunding `json:"amazonFundedTieredDiscount,omitempty"`
+}
+
+// NewPromotion instantiates a new Promotion object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewPromotion() *Promotion {
+	this := Promotion{}
+	return &this
+}
+
+// NewPromotionWithDefaults instantiates a new Promotion object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewPromotionWithDefaults() *Promotion {
+	this := Promotion{}
+	return &this
+}
+
+// GetSellingPartnerFundedBaseDiscount returns the SellingPartnerFundedBaseDiscount field value if set, zero value otherwise.
+func (o *Promotion) GetSellingPartnerFundedBaseDiscount() DiscountFunding {
+	if o == nil || IsNil(o.SellingPartnerFundedBaseDiscount) {
+		var ret DiscountFunding
+		return ret
+	}
+	return *o.SellingPartnerFundedBaseDiscount
+}
+
+// GetSellingPartnerFundedBaseDiscountOk returns a tuple with the SellingPartnerFundedBaseDiscount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Promotion) GetSellingPartnerFundedBaseDiscountOk() (*DiscountFunding, bool) {
+	if o == nil || IsNil(o.SellingPartnerFundedBaseDiscount) {
+		return nil, false
+	}
+	return o.SellingPartnerFundedBaseDiscount, true
+}
+
+// HasSellingPartnerFundedBaseDiscount returns a boolean if a field has been set.
+func (o *Promotion) HasSellingPartnerFundedBaseDiscount() bool {
+	if o != nil && !IsNil(o.SellingPartnerFundedBaseDiscount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSellingPartnerFundedBaseDiscount gets a reference to the given DiscountFunding and assigns it to the SellingPartnerFundedBaseDiscount field.
+func (o *Promotion) SetSellingPartnerFundedBaseDiscount(v DiscountFunding) {
+	o.SellingPartnerFundedBaseDiscount = &v
+}
+
+// GetSellingPartnerFundedTieredDiscount returns the SellingPartnerFundedTieredDiscount field value if set, zero value otherwise.
+func (o *Promotion) GetSellingPartnerFundedTieredDiscount() DiscountFunding {
+	if o == nil || IsNil(o.SellingPartnerFundedTieredDiscount) {
+		var ret DiscountFunding
+		return ret
+	}
+	return *o.SellingPartnerFundedTieredDiscount
+}
+
+// GetSellingPartnerFundedTieredDiscountOk returns a tuple with the SellingPartnerFundedTieredDiscount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Promotion) GetSellingPartnerFundedTieredDiscountOk() (*DiscountFunding, bool) {
+	if o == nil || IsNil(o.SellingPartnerFundedTieredDiscount) {
+		return nil, false
+	}
+	return o.SellingPartnerFundedTieredDiscount, true
+}
+
+// HasSellingPartnerFundedTieredDiscount returns a boolean if a field has been set.
+func (o *Promotion) HasSellingPartnerFundedTieredDiscount() bool {
+	if o != nil && !IsNil(o.SellingPartnerFundedTieredDiscount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSellingPartnerFundedTieredDiscount gets a reference to the given DiscountFunding and assigns it to the SellingPartnerFundedTieredDiscount field.
+func (o *Promotion) SetSellingPartnerFundedTieredDiscount(v DiscountFunding) {
+	o.SellingPartnerFundedTieredDiscount = &v
+}
+
+// GetAmazonFundedBaseDiscount returns the AmazonFundedBaseDiscount field value if set, zero value otherwise.
+func (o *Promotion) GetAmazonFundedBaseDiscount() DiscountFunding {
+	if o == nil || IsNil(o.AmazonFundedBaseDiscount) {
+		var ret DiscountFunding
+		return ret
+	}
+	return *o.AmazonFundedBaseDiscount
+}
+
+// GetAmazonFundedBaseDiscountOk returns a tuple with the AmazonFundedBaseDiscount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Promotion) GetAmazonFundedBaseDiscountOk() (*DiscountFunding, bool) {
+	if o == nil || IsNil(o.AmazonFundedBaseDiscount) {
+		return nil, false
+	}
+	return o.AmazonFundedBaseDiscount, true
+}
+
+// HasAmazonFundedBaseDiscount returns a boolean if a field has been set.
+func (o *Promotion) HasAmazonFundedBaseDiscount() bool {
+	if o != nil && !IsNil(o.AmazonFundedBaseDiscount) {
+		return true
+	}
+
+	return false
+}
+
+// SetAmazonFundedBaseDiscount gets a reference to the given DiscountFunding and assigns it to the AmazonFundedBaseDiscount field.
+func (o *Promotion) SetAmazonFundedBaseDiscount(v DiscountFunding) {
+	o.AmazonFundedBaseDiscount = &v
+}
+
+// GetAmazonFundedTieredDiscount returns the AmazonFundedTieredDiscount field value if set, zero value otherwise.
+func (o *Promotion) GetAmazonFundedTieredDiscount() DiscountFunding {
+	if o == nil || IsNil(o.AmazonFundedTieredDiscount) {
+		var ret DiscountFunding
+		return ret
+	}
+	return *o.AmazonFundedTieredDiscount
+}
+
+// GetAmazonFundedTieredDiscountOk returns a tuple with the AmazonFundedTieredDiscount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Promotion) GetAmazonFundedTieredDiscountOk() (*DiscountFunding, bool) {
+	if o == nil || IsNil(o.AmazonFundedTieredDiscount) {
+		return nil, false
+	}
+	return o.AmazonFundedTieredDiscount, true
+}
+
+// HasAmazonFundedTieredDiscount returns a boolean if a field has been set.
+func (o *Promotion) HasAmazonFundedTieredDiscount() bool {
+	if o != nil && !IsNil(o.AmazonFundedTieredDiscount) {
+		return true
+	}
+
+	return false
+}
+
+// SetAmazonFundedTieredDiscount gets a reference to the given DiscountFunding and assigns it to the AmazonFundedTieredDiscount field.
+func (o *Promotion) SetAmazonFundedTieredDiscount(v DiscountFunding) {
+	o.AmazonFundedTieredDiscount = &v
+}
+
+func (o Promotion) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SellingPartnerFundedBaseDiscount) {
+		toSerialize["sellingPartnerFundedBaseDiscount"] = o.SellingPartnerFundedBaseDiscount
+	}
+	if !IsNil(o.SellingPartnerFundedTieredDiscount) {
+		toSerialize["sellingPartnerFundedTieredDiscount"] = o.SellingPartnerFundedTieredDiscount
+	}
+	if !IsNil(o.AmazonFundedBaseDiscount) {
+		toSerialize["amazonFundedBaseDiscount"] = o.AmazonFundedBaseDiscount
+	}
+	if !IsNil(o.AmazonFundedTieredDiscount) {
+		toSerialize["amazonFundedTieredDiscount"] = o.AmazonFundedTieredDiscount
+	}
+	return toSerialize, nil
+}
+
+type NullablePromotion struct {
+	value *Promotion
+	isSet bool
+}
+
+func (v NullablePromotion) Get() *Promotion {
+	return v.value
+}
+
+func (v *NullablePromotion) Set(val *Promotion) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullablePromotion) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullablePromotion) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullablePromotion(val *Promotion) *NullablePromotion {
+	return &NullablePromotion{value: val, isSet: true}
+}
+
+func (v NullablePromotion) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullablePromotion) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

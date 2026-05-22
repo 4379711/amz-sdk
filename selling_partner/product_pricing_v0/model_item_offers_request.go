@@ -1,0 +1,255 @@
+package product_pricing_v0
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the ItemOffersRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ItemOffersRequest{}
+
+// ItemOffersRequest List of request parameters can be accepted by `ItemOffersRequests` operation
+type ItemOffersRequest struct {
+	// The resource path of the operation you are calling in batch without any query parameters.  If you are calling `getItemOffersBatch`, supply the path of `getItemOffers`.  **Example:** `/products/pricing/v0/items/B000P6Q7MY/offers`  If you are calling `getListingOffersBatch`, supply the path of `getListingOffers`.  **Example:** `/products/pricing/v0/listings/B000P6Q7MY/offers`
+	Uri    string     `json:"uri"`
+	Method HttpMethod `json:"method"`
+	// A mapping of additional HTTP headers to send/receive for the individual batch request.
+	Headers *map[string]string `json:"headers,omitempty"`
+	// A marketplace identifier. Specifies the marketplace for which prices are returned.
+	MarketplaceId string        `json:"MarketplaceId"`
+	ItemCondition ItemCondition `json:"ItemCondition"`
+	CustomerType  *CustomerType `json:"CustomerType,omitempty"`
+}
+
+type _ItemOffersRequest ItemOffersRequest
+
+// NewItemOffersRequest instantiates a new ItemOffersRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewItemOffersRequest(uri string, method HttpMethod, marketplaceId string, itemCondition ItemCondition) *ItemOffersRequest {
+	this := ItemOffersRequest{}
+	this.Uri = uri
+	this.Method = method
+	this.MarketplaceId = marketplaceId
+	this.ItemCondition = itemCondition
+	return &this
+}
+
+// NewItemOffersRequestWithDefaults instantiates a new ItemOffersRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewItemOffersRequestWithDefaults() *ItemOffersRequest {
+	this := ItemOffersRequest{}
+	return &this
+}
+
+// GetUri returns the Uri field value
+func (o *ItemOffersRequest) GetUri() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Uri
+}
+
+// GetUriOk returns a tuple with the Uri field value
+// and a boolean to check if the value has been set.
+func (o *ItemOffersRequest) GetUriOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Uri, true
+}
+
+// SetUri sets field value
+func (o *ItemOffersRequest) SetUri(v string) {
+	o.Uri = v
+}
+
+// GetMethod returns the Method field value
+func (o *ItemOffersRequest) GetMethod() HttpMethod {
+	if o == nil {
+		var ret HttpMethod
+		return ret
+	}
+
+	return o.Method
+}
+
+// GetMethodOk returns a tuple with the Method field value
+// and a boolean to check if the value has been set.
+func (o *ItemOffersRequest) GetMethodOk() (*HttpMethod, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Method, true
+}
+
+// SetMethod sets field value
+func (o *ItemOffersRequest) SetMethod(v HttpMethod) {
+	o.Method = v
+}
+
+// GetHeaders returns the Headers field value if set, zero value otherwise.
+func (o *ItemOffersRequest) GetHeaders() map[string]string {
+	if o == nil || IsNil(o.Headers) {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Headers
+}
+
+// GetHeadersOk returns a tuple with the Headers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ItemOffersRequest) GetHeadersOk() (*map[string]string, bool) {
+	if o == nil || IsNil(o.Headers) {
+		return nil, false
+	}
+	return o.Headers, true
+}
+
+// HasHeaders returns a boolean if a field has been set.
+func (o *ItemOffersRequest) HasHeaders() bool {
+	if o != nil && !IsNil(o.Headers) {
+		return true
+	}
+
+	return false
+}
+
+// SetHeaders gets a reference to the given map[string]string and assigns it to the Headers field.
+func (o *ItemOffersRequest) SetHeaders(v map[string]string) {
+	o.Headers = &v
+}
+
+// GetMarketplaceId returns the MarketplaceId field value
+func (o *ItemOffersRequest) GetMarketplaceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MarketplaceId
+}
+
+// GetMarketplaceIdOk returns a tuple with the MarketplaceId field value
+// and a boolean to check if the value has been set.
+func (o *ItemOffersRequest) GetMarketplaceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MarketplaceId, true
+}
+
+// SetMarketplaceId sets field value
+func (o *ItemOffersRequest) SetMarketplaceId(v string) {
+	o.MarketplaceId = v
+}
+
+// GetItemCondition returns the ItemCondition field value
+func (o *ItemOffersRequest) GetItemCondition() ItemCondition {
+	if o == nil {
+		var ret ItemCondition
+		return ret
+	}
+
+	return o.ItemCondition
+}
+
+// GetItemConditionOk returns a tuple with the ItemCondition field value
+// and a boolean to check if the value has been set.
+func (o *ItemOffersRequest) GetItemConditionOk() (*ItemCondition, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ItemCondition, true
+}
+
+// SetItemCondition sets field value
+func (o *ItemOffersRequest) SetItemCondition(v ItemCondition) {
+	o.ItemCondition = v
+}
+
+// GetCustomerType returns the CustomerType field value if set, zero value otherwise.
+func (o *ItemOffersRequest) GetCustomerType() CustomerType {
+	if o == nil || IsNil(o.CustomerType) {
+		var ret CustomerType
+		return ret
+	}
+	return *o.CustomerType
+}
+
+// GetCustomerTypeOk returns a tuple with the CustomerType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ItemOffersRequest) GetCustomerTypeOk() (*CustomerType, bool) {
+	if o == nil || IsNil(o.CustomerType) {
+		return nil, false
+	}
+	return o.CustomerType, true
+}
+
+// HasCustomerType returns a boolean if a field has been set.
+func (o *ItemOffersRequest) HasCustomerType() bool {
+	if o != nil && !IsNil(o.CustomerType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerType gets a reference to the given CustomerType and assigns it to the CustomerType field.
+func (o *ItemOffersRequest) SetCustomerType(v CustomerType) {
+	o.CustomerType = &v
+}
+
+func (o ItemOffersRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["uri"] = o.Uri
+	toSerialize["method"] = o.Method
+	if !IsNil(o.Headers) {
+		toSerialize["headers"] = o.Headers
+	}
+	toSerialize["MarketplaceId"] = o.MarketplaceId
+	toSerialize["ItemCondition"] = o.ItemCondition
+	if !IsNil(o.CustomerType) {
+		toSerialize["CustomerType"] = o.CustomerType
+	}
+	return toSerialize, nil
+}
+
+type NullableItemOffersRequest struct {
+	value *ItemOffersRequest
+	isSet bool
+}
+
+func (v NullableItemOffersRequest) Get() *ItemOffersRequest {
+	return v.value
+}
+
+func (v *NullableItemOffersRequest) Set(val *ItemOffersRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableItemOffersRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableItemOffersRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableItemOffersRequest(val *ItemOffersRequest) *NullableItemOffersRequest {
+	return &NullableItemOffersRequest{value: val, isSet: true}
+}
+
+func (v NullableItemOffersRequest) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableItemOffersRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

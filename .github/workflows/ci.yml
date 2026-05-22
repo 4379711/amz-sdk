@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: build & vet & test (pkg/)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache-dependency-path: go.sum
+
+      - name: go mod download
+        run: go mod download
+
+      - name: go vet ./...
+        run: go vet ./...
+
+      - name: go build ./...
+        run: go build ./...
+
+      # Only pkg/ has hermetic unit tests. Live integration code lives in a
+      # local-only `test/` directory (gitignored) and requires LwA credentials,
+      # so it is intentionally never run on CI.
+      - name: go test ./pkg/...
+        run: go test -race -count=1 ./pkg/...

@@ -1,0 +1,180 @@
+package vendor_orders
+
+import (
+	"github.com/bytedance/sonic"
+	"time"
+)
+
+// checks if the AcknowledgementStatusDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AcknowledgementStatusDetails{}
+
+// AcknowledgementStatusDetails Details of item quantity ordered
+type AcknowledgementStatusDetails struct {
+	// The date when the line item was confirmed by vendor. Must be in ISO-8601 date/time format.
+	AcknowledgementDate *time.Time    `json:"acknowledgementDate,omitempty"`
+	AcceptedQuantity    *ItemQuantity `json:"acceptedQuantity,omitempty"`
+	RejectedQuantity    *ItemQuantity `json:"rejectedQuantity,omitempty"`
+}
+
+// NewAcknowledgementStatusDetails instantiates a new AcknowledgementStatusDetails object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewAcknowledgementStatusDetails() *AcknowledgementStatusDetails {
+	this := AcknowledgementStatusDetails{}
+	return &this
+}
+
+// NewAcknowledgementStatusDetailsWithDefaults instantiates a new AcknowledgementStatusDetails object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewAcknowledgementStatusDetailsWithDefaults() *AcknowledgementStatusDetails {
+	this := AcknowledgementStatusDetails{}
+	return &this
+}
+
+// GetAcknowledgementDate returns the AcknowledgementDate field value if set, zero value otherwise.
+func (o *AcknowledgementStatusDetails) GetAcknowledgementDate() time.Time {
+	if o == nil || IsNil(o.AcknowledgementDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.AcknowledgementDate
+}
+
+// GetAcknowledgementDateOk returns a tuple with the AcknowledgementDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AcknowledgementStatusDetails) GetAcknowledgementDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.AcknowledgementDate) {
+		return nil, false
+	}
+	return o.AcknowledgementDate, true
+}
+
+// HasAcknowledgementDate returns a boolean if a field has been set.
+func (o *AcknowledgementStatusDetails) HasAcknowledgementDate() bool {
+	if o != nil && !IsNil(o.AcknowledgementDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcknowledgementDate gets a reference to the given time.Time and assigns it to the AcknowledgementDate field.
+func (o *AcknowledgementStatusDetails) SetAcknowledgementDate(v time.Time) {
+	o.AcknowledgementDate = &v
+}
+
+// GetAcceptedQuantity returns the AcceptedQuantity field value if set, zero value otherwise.
+func (o *AcknowledgementStatusDetails) GetAcceptedQuantity() ItemQuantity {
+	if o == nil || IsNil(o.AcceptedQuantity) {
+		var ret ItemQuantity
+		return ret
+	}
+	return *o.AcceptedQuantity
+}
+
+// GetAcceptedQuantityOk returns a tuple with the AcceptedQuantity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AcknowledgementStatusDetails) GetAcceptedQuantityOk() (*ItemQuantity, bool) {
+	if o == nil || IsNil(o.AcceptedQuantity) {
+		return nil, false
+	}
+	return o.AcceptedQuantity, true
+}
+
+// HasAcceptedQuantity returns a boolean if a field has been set.
+func (o *AcknowledgementStatusDetails) HasAcceptedQuantity() bool {
+	if o != nil && !IsNil(o.AcceptedQuantity) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcceptedQuantity gets a reference to the given ItemQuantity and assigns it to the AcceptedQuantity field.
+func (o *AcknowledgementStatusDetails) SetAcceptedQuantity(v ItemQuantity) {
+	o.AcceptedQuantity = &v
+}
+
+// GetRejectedQuantity returns the RejectedQuantity field value if set, zero value otherwise.
+func (o *AcknowledgementStatusDetails) GetRejectedQuantity() ItemQuantity {
+	if o == nil || IsNil(o.RejectedQuantity) {
+		var ret ItemQuantity
+		return ret
+	}
+	return *o.RejectedQuantity
+}
+
+// GetRejectedQuantityOk returns a tuple with the RejectedQuantity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AcknowledgementStatusDetails) GetRejectedQuantityOk() (*ItemQuantity, bool) {
+	if o == nil || IsNil(o.RejectedQuantity) {
+		return nil, false
+	}
+	return o.RejectedQuantity, true
+}
+
+// HasRejectedQuantity returns a boolean if a field has been set.
+func (o *AcknowledgementStatusDetails) HasRejectedQuantity() bool {
+	if o != nil && !IsNil(o.RejectedQuantity) {
+		return true
+	}
+
+	return false
+}
+
+// SetRejectedQuantity gets a reference to the given ItemQuantity and assigns it to the RejectedQuantity field.
+func (o *AcknowledgementStatusDetails) SetRejectedQuantity(v ItemQuantity) {
+	o.RejectedQuantity = &v
+}
+
+func (o AcknowledgementStatusDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AcknowledgementDate) {
+		toSerialize["acknowledgementDate"] = o.AcknowledgementDate
+	}
+	if !IsNil(o.AcceptedQuantity) {
+		toSerialize["acceptedQuantity"] = o.AcceptedQuantity
+	}
+	if !IsNil(o.RejectedQuantity) {
+		toSerialize["rejectedQuantity"] = o.RejectedQuantity
+	}
+	return toSerialize, nil
+}
+
+type NullableAcknowledgementStatusDetails struct {
+	value *AcknowledgementStatusDetails
+	isSet bool
+}
+
+func (v NullableAcknowledgementStatusDetails) Get() *AcknowledgementStatusDetails {
+	return v.value
+}
+
+func (v *NullableAcknowledgementStatusDetails) Set(val *AcknowledgementStatusDetails) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableAcknowledgementStatusDetails) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableAcknowledgementStatusDetails) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableAcknowledgementStatusDetails(val *AcknowledgementStatusDetails) *NullableAcknowledgementStatusDetails {
+	return &NullableAcknowledgementStatusDetails{value: val, isSet: true}
+}
+
+func (v NullableAcknowledgementStatusDetails) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableAcknowledgementStatusDetails) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

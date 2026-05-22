@@ -1,0 +1,375 @@
+package fulfillment_outbound_20200701
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the CreateFulfillmentOrderItem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateFulfillmentOrderItem{}
+
+// CreateFulfillmentOrderItem Item information for creating a fulfillment order.
+type CreateFulfillmentOrderItem struct {
+	// The seller SKU of the item.
+	SellerSku string `json:"sellerSku"`
+	// A fulfillment order item identifier that the seller creates to track fulfillment order items. Used to disambiguate multiple fulfillment items that have the same `SellerSKU`. For example, the seller might assign different `SellerFulfillmentOrderItemId` values to two items in a fulfillment order that share the same `SellerSKU` but have different `GiftMessage` values.
+	SellerFulfillmentOrderItemId string `json:"sellerFulfillmentOrderItemId"`
+	// The item quantity.
+	Quantity int32 `json:"quantity"`
+	// A message to the gift recipient, if applicable.
+	GiftMessage *string `json:"giftMessage,omitempty"`
+	// Item-specific text that displays in recipient-facing materials such as the outbound shipment packing slip.
+	DisplayableComment *string `json:"displayableComment,omitempty"`
+	// Amazon's fulfillment network SKU of the item.
+	FulfillmentNetworkSku *string `json:"fulfillmentNetworkSku,omitempty"`
+	PerUnitDeclaredValue  *Money  `json:"perUnitDeclaredValue,omitempty"`
+	PerUnitPrice          *Money  `json:"perUnitPrice,omitempty"`
+	PerUnitTax            *Money  `json:"perUnitTax,omitempty"`
+}
+
+type _CreateFulfillmentOrderItem CreateFulfillmentOrderItem
+
+// NewCreateFulfillmentOrderItem instantiates a new CreateFulfillmentOrderItem object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewCreateFulfillmentOrderItem(sellerSku string, sellerFulfillmentOrderItemId string, quantity int32) *CreateFulfillmentOrderItem {
+	this := CreateFulfillmentOrderItem{}
+	this.SellerSku = sellerSku
+	this.SellerFulfillmentOrderItemId = sellerFulfillmentOrderItemId
+	this.Quantity = quantity
+	return &this
+}
+
+// NewCreateFulfillmentOrderItemWithDefaults instantiates a new CreateFulfillmentOrderItem object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewCreateFulfillmentOrderItemWithDefaults() *CreateFulfillmentOrderItem {
+	this := CreateFulfillmentOrderItem{}
+	return &this
+}
+
+// GetSellerSku returns the SellerSku field value
+func (o *CreateFulfillmentOrderItem) GetSellerSku() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SellerSku
+}
+
+// GetSellerSkuOk returns a tuple with the SellerSku field value
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetSellerSkuOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SellerSku, true
+}
+
+// SetSellerSku sets field value
+func (o *CreateFulfillmentOrderItem) SetSellerSku(v string) {
+	o.SellerSku = v
+}
+
+// GetSellerFulfillmentOrderItemId returns the SellerFulfillmentOrderItemId field value
+func (o *CreateFulfillmentOrderItem) GetSellerFulfillmentOrderItemId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SellerFulfillmentOrderItemId
+}
+
+// GetSellerFulfillmentOrderItemIdOk returns a tuple with the SellerFulfillmentOrderItemId field value
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetSellerFulfillmentOrderItemIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SellerFulfillmentOrderItemId, true
+}
+
+// SetSellerFulfillmentOrderItemId sets field value
+func (o *CreateFulfillmentOrderItem) SetSellerFulfillmentOrderItemId(v string) {
+	o.SellerFulfillmentOrderItemId = v
+}
+
+// GetQuantity returns the Quantity field value
+func (o *CreateFulfillmentOrderItem) GetQuantity() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetQuantityOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Quantity, true
+}
+
+// SetQuantity sets field value
+func (o *CreateFulfillmentOrderItem) SetQuantity(v int32) {
+	o.Quantity = v
+}
+
+// GetGiftMessage returns the GiftMessage field value if set, zero value otherwise.
+func (o *CreateFulfillmentOrderItem) GetGiftMessage() string {
+	if o == nil || IsNil(o.GiftMessage) {
+		var ret string
+		return ret
+	}
+	return *o.GiftMessage
+}
+
+// GetGiftMessageOk returns a tuple with the GiftMessage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetGiftMessageOk() (*string, bool) {
+	if o == nil || IsNil(o.GiftMessage) {
+		return nil, false
+	}
+	return o.GiftMessage, true
+}
+
+// HasGiftMessage returns a boolean if a field has been set.
+func (o *CreateFulfillmentOrderItem) HasGiftMessage() bool {
+	if o != nil && !IsNil(o.GiftMessage) {
+		return true
+	}
+
+	return false
+}
+
+// SetGiftMessage gets a reference to the given string and assigns it to the GiftMessage field.
+func (o *CreateFulfillmentOrderItem) SetGiftMessage(v string) {
+	o.GiftMessage = &v
+}
+
+// GetDisplayableComment returns the DisplayableComment field value if set, zero value otherwise.
+func (o *CreateFulfillmentOrderItem) GetDisplayableComment() string {
+	if o == nil || IsNil(o.DisplayableComment) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayableComment
+}
+
+// GetDisplayableCommentOk returns a tuple with the DisplayableComment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetDisplayableCommentOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayableComment) {
+		return nil, false
+	}
+	return o.DisplayableComment, true
+}
+
+// HasDisplayableComment returns a boolean if a field has been set.
+func (o *CreateFulfillmentOrderItem) HasDisplayableComment() bool {
+	if o != nil && !IsNil(o.DisplayableComment) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayableComment gets a reference to the given string and assigns it to the DisplayableComment field.
+func (o *CreateFulfillmentOrderItem) SetDisplayableComment(v string) {
+	o.DisplayableComment = &v
+}
+
+// GetFulfillmentNetworkSku returns the FulfillmentNetworkSku field value if set, zero value otherwise.
+func (o *CreateFulfillmentOrderItem) GetFulfillmentNetworkSku() string {
+	if o == nil || IsNil(o.FulfillmentNetworkSku) {
+		var ret string
+		return ret
+	}
+	return *o.FulfillmentNetworkSku
+}
+
+// GetFulfillmentNetworkSkuOk returns a tuple with the FulfillmentNetworkSku field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetFulfillmentNetworkSkuOk() (*string, bool) {
+	if o == nil || IsNil(o.FulfillmentNetworkSku) {
+		return nil, false
+	}
+	return o.FulfillmentNetworkSku, true
+}
+
+// HasFulfillmentNetworkSku returns a boolean if a field has been set.
+func (o *CreateFulfillmentOrderItem) HasFulfillmentNetworkSku() bool {
+	if o != nil && !IsNil(o.FulfillmentNetworkSku) {
+		return true
+	}
+
+	return false
+}
+
+// SetFulfillmentNetworkSku gets a reference to the given string and assigns it to the FulfillmentNetworkSku field.
+func (o *CreateFulfillmentOrderItem) SetFulfillmentNetworkSku(v string) {
+	o.FulfillmentNetworkSku = &v
+}
+
+// GetPerUnitDeclaredValue returns the PerUnitDeclaredValue field value if set, zero value otherwise.
+func (o *CreateFulfillmentOrderItem) GetPerUnitDeclaredValue() Money {
+	if o == nil || IsNil(o.PerUnitDeclaredValue) {
+		var ret Money
+		return ret
+	}
+	return *o.PerUnitDeclaredValue
+}
+
+// GetPerUnitDeclaredValueOk returns a tuple with the PerUnitDeclaredValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetPerUnitDeclaredValueOk() (*Money, bool) {
+	if o == nil || IsNil(o.PerUnitDeclaredValue) {
+		return nil, false
+	}
+	return o.PerUnitDeclaredValue, true
+}
+
+// HasPerUnitDeclaredValue returns a boolean if a field has been set.
+func (o *CreateFulfillmentOrderItem) HasPerUnitDeclaredValue() bool {
+	if o != nil && !IsNil(o.PerUnitDeclaredValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetPerUnitDeclaredValue gets a reference to the given Money and assigns it to the PerUnitDeclaredValue field.
+func (o *CreateFulfillmentOrderItem) SetPerUnitDeclaredValue(v Money) {
+	o.PerUnitDeclaredValue = &v
+}
+
+// GetPerUnitPrice returns the PerUnitPrice field value if set, zero value otherwise.
+func (o *CreateFulfillmentOrderItem) GetPerUnitPrice() Money {
+	if o == nil || IsNil(o.PerUnitPrice) {
+		var ret Money
+		return ret
+	}
+	return *o.PerUnitPrice
+}
+
+// GetPerUnitPriceOk returns a tuple with the PerUnitPrice field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetPerUnitPriceOk() (*Money, bool) {
+	if o == nil || IsNil(o.PerUnitPrice) {
+		return nil, false
+	}
+	return o.PerUnitPrice, true
+}
+
+// HasPerUnitPrice returns a boolean if a field has been set.
+func (o *CreateFulfillmentOrderItem) HasPerUnitPrice() bool {
+	if o != nil && !IsNil(o.PerUnitPrice) {
+		return true
+	}
+
+	return false
+}
+
+// SetPerUnitPrice gets a reference to the given Money and assigns it to the PerUnitPrice field.
+func (o *CreateFulfillmentOrderItem) SetPerUnitPrice(v Money) {
+	o.PerUnitPrice = &v
+}
+
+// GetPerUnitTax returns the PerUnitTax field value if set, zero value otherwise.
+func (o *CreateFulfillmentOrderItem) GetPerUnitTax() Money {
+	if o == nil || IsNil(o.PerUnitTax) {
+		var ret Money
+		return ret
+	}
+	return *o.PerUnitTax
+}
+
+// GetPerUnitTaxOk returns a tuple with the PerUnitTax field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateFulfillmentOrderItem) GetPerUnitTaxOk() (*Money, bool) {
+	if o == nil || IsNil(o.PerUnitTax) {
+		return nil, false
+	}
+	return o.PerUnitTax, true
+}
+
+// HasPerUnitTax returns a boolean if a field has been set.
+func (o *CreateFulfillmentOrderItem) HasPerUnitTax() bool {
+	if o != nil && !IsNil(o.PerUnitTax) {
+		return true
+	}
+
+	return false
+}
+
+// SetPerUnitTax gets a reference to the given Money and assigns it to the PerUnitTax field.
+func (o *CreateFulfillmentOrderItem) SetPerUnitTax(v Money) {
+	o.PerUnitTax = &v
+}
+
+func (o CreateFulfillmentOrderItem) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["sellerSku"] = o.SellerSku
+	toSerialize["sellerFulfillmentOrderItemId"] = o.SellerFulfillmentOrderItemId
+	toSerialize["quantity"] = o.Quantity
+	if !IsNil(o.GiftMessage) {
+		toSerialize["giftMessage"] = o.GiftMessage
+	}
+	if !IsNil(o.DisplayableComment) {
+		toSerialize["displayableComment"] = o.DisplayableComment
+	}
+	if !IsNil(o.FulfillmentNetworkSku) {
+		toSerialize["fulfillmentNetworkSku"] = o.FulfillmentNetworkSku
+	}
+	if !IsNil(o.PerUnitDeclaredValue) {
+		toSerialize["perUnitDeclaredValue"] = o.PerUnitDeclaredValue
+	}
+	if !IsNil(o.PerUnitPrice) {
+		toSerialize["perUnitPrice"] = o.PerUnitPrice
+	}
+	if !IsNil(o.PerUnitTax) {
+		toSerialize["perUnitTax"] = o.PerUnitTax
+	}
+	return toSerialize, nil
+}
+
+type NullableCreateFulfillmentOrderItem struct {
+	value *CreateFulfillmentOrderItem
+	isSet bool
+}
+
+func (v NullableCreateFulfillmentOrderItem) Get() *CreateFulfillmentOrderItem {
+	return v.value
+}
+
+func (v *NullableCreateFulfillmentOrderItem) Set(val *CreateFulfillmentOrderItem) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCreateFulfillmentOrderItem) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCreateFulfillmentOrderItem) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCreateFulfillmentOrderItem(val *CreateFulfillmentOrderItem) *NullableCreateFulfillmentOrderItem {
+	return &NullableCreateFulfillmentOrderItem{value: val, isSet: true}
+}
+
+func (v NullableCreateFulfillmentOrderItem) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableCreateFulfillmentOrderItem) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

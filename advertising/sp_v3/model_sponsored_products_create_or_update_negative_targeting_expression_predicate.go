@@ -1,0 +1,136 @@
+package sp_v3
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate{}
+
+// SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate struct for SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate
+type SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate struct {
+	Type SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateType `json:"type"`
+	// The expression value
+	Value *string `json:"value,omitempty"`
+}
+
+type _SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate
+
+// NewSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate instantiates a new SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate(type_ SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateType) *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate {
+	this := SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate{}
+	this.Type = type_
+	return &this
+}
+
+// NewSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateWithDefaults instantiates a new SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateWithDefaults() *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate {
+	this := SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate{}
+	return &this
+}
+
+// GetType returns the Type field value
+func (o *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) GetType() SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateType {
+	if o == nil {
+		var ret SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateType
+		return ret
+	}
+
+	return o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value
+// and a boolean to check if the value has been set.
+func (o *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) GetTypeOk() (*SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Type, true
+}
+
+// SetType sets field value
+func (o *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) SetType(v SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicateType) {
+	o.Type = v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) GetValue() string {
+	if o == nil || IsNil(o.Value) {
+		var ret string
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) GetValueOk() (*string, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) SetValue(v string) {
+	o.Value = &v
+}
+
+func (o SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	return toSerialize, nil
+}
+
+type NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate struct {
+	value *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate
+	isSet bool
+}
+
+func (v NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) Get() *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate {
+	return v.value
+}
+
+func (v *NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) Set(val *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate(val *SponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) *NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate {
+	return &NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate{value: val, isSet: true}
+}
+
+func (v NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableSponsoredProductsCreateOrUpdateNegativeTargetingExpressionPredicate) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

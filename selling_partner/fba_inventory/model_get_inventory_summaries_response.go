@@ -1,0 +1,179 @@
+package fba_inventory
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the GetInventorySummariesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetInventorySummariesResponse{}
+
+// GetInventorySummariesResponse The Response schema.
+type GetInventorySummariesResponse struct {
+	Payload    *GetInventorySummariesResult `json:"payload,omitempty"`
+	Pagination *Pagination                  `json:"pagination,omitempty"`
+	// A list of error responses returned when a request is unsuccessful.
+	Errors []Error `json:"errors,omitempty"`
+}
+
+// NewGetInventorySummariesResponse instantiates a new GetInventorySummariesResponse object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewGetInventorySummariesResponse() *GetInventorySummariesResponse {
+	this := GetInventorySummariesResponse{}
+	return &this
+}
+
+// NewGetInventorySummariesResponseWithDefaults instantiates a new GetInventorySummariesResponse object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewGetInventorySummariesResponseWithDefaults() *GetInventorySummariesResponse {
+	this := GetInventorySummariesResponse{}
+	return &this
+}
+
+// GetPayload returns the Payload field value if set, zero value otherwise.
+func (o *GetInventorySummariesResponse) GetPayload() GetInventorySummariesResult {
+	if o == nil || IsNil(o.Payload) {
+		var ret GetInventorySummariesResult
+		return ret
+	}
+	return *o.Payload
+}
+
+// GetPayloadOk returns a tuple with the Payload field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetInventorySummariesResponse) GetPayloadOk() (*GetInventorySummariesResult, bool) {
+	if o == nil || IsNil(o.Payload) {
+		return nil, false
+	}
+	return o.Payload, true
+}
+
+// HasPayload returns a boolean if a field has been set.
+func (o *GetInventorySummariesResponse) HasPayload() bool {
+	if o != nil && !IsNil(o.Payload) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayload gets a reference to the given GetInventorySummariesResult and assigns it to the Payload field.
+func (o *GetInventorySummariesResponse) SetPayload(v GetInventorySummariesResult) {
+	o.Payload = &v
+}
+
+// GetPagination returns the Pagination field value if set, zero value otherwise.
+func (o *GetInventorySummariesResponse) GetPagination() Pagination {
+	if o == nil || IsNil(o.Pagination) {
+		var ret Pagination
+		return ret
+	}
+	return *o.Pagination
+}
+
+// GetPaginationOk returns a tuple with the Pagination field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetInventorySummariesResponse) GetPaginationOk() (*Pagination, bool) {
+	if o == nil || IsNil(o.Pagination) {
+		return nil, false
+	}
+	return o.Pagination, true
+}
+
+// HasPagination returns a boolean if a field has been set.
+func (o *GetInventorySummariesResponse) HasPagination() bool {
+	if o != nil && !IsNil(o.Pagination) {
+		return true
+	}
+
+	return false
+}
+
+// SetPagination gets a reference to the given Pagination and assigns it to the Pagination field.
+func (o *GetInventorySummariesResponse) SetPagination(v Pagination) {
+	o.Pagination = &v
+}
+
+// GetErrors returns the Errors field value if set, zero value otherwise.
+func (o *GetInventorySummariesResponse) GetErrors() []Error {
+	if o == nil || IsNil(o.Errors) {
+		var ret []Error
+		return ret
+	}
+	return o.Errors
+}
+
+// GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetInventorySummariesResponse) GetErrorsOk() ([]Error, bool) {
+	if o == nil || IsNil(o.Errors) {
+		return nil, false
+	}
+	return o.Errors, true
+}
+
+// HasErrors returns a boolean if a field has been set.
+func (o *GetInventorySummariesResponse) HasErrors() bool {
+	if o != nil && !IsNil(o.Errors) {
+		return true
+	}
+
+	return false
+}
+
+// SetErrors gets a reference to the given []Error and assigns it to the Errors field.
+func (o *GetInventorySummariesResponse) SetErrors(v []Error) {
+	o.Errors = v
+}
+
+func (o GetInventorySummariesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Payload) {
+		toSerialize["payload"] = o.Payload
+	}
+	if !IsNil(o.Pagination) {
+		toSerialize["pagination"] = o.Pagination
+	}
+	if !IsNil(o.Errors) {
+		toSerialize["errors"] = o.Errors
+	}
+	return toSerialize, nil
+}
+
+type NullableGetInventorySummariesResponse struct {
+	value *GetInventorySummariesResponse
+	isSet bool
+}
+
+func (v NullableGetInventorySummariesResponse) Get() *GetInventorySummariesResponse {
+	return v.value
+}
+
+func (v *NullableGetInventorySummariesResponse) Set(val *GetInventorySummariesResponse) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableGetInventorySummariesResponse) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableGetInventorySummariesResponse) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableGetInventorySummariesResponse(val *GetInventorySummariesResponse) *NullableGetInventorySummariesResponse {
+	return &NullableGetInventorySummariesResponse{value: val, isSet: true}
+}
+
+func (v NullableGetInventorySummariesResponse) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableGetInventorySummariesResponse) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

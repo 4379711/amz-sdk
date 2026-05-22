@@ -1,0 +1,100 @@
+package merchant_fulfillment_v0
+
+import (
+	"fmt"
+	"github.com/bytedance/sonic"
+)
+
+// HazmatType Hazardous materials options for a package. Consult the terms and conditions for each carrier for more information on hazardous materials.
+type HazmatType string
+
+// List of HazmatType
+const (
+	HAZMATTYPE_NONE      HazmatType = "None"
+	HAZMATTYPE_LQ_HAZMAT HazmatType = "LQHazmat"
+)
+
+// All allowed values of HazmatType enum
+var AllowedHazmatTypeEnumValues = []HazmatType{
+	HAZMATTYPE_NONE,
+	HAZMATTYPE_LQ_HAZMAT,
+}
+
+func (v *HazmatType) UnmarshalJSON(src []byte) error {
+	var value string
+	err := sonic.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := HazmatType(value)
+	for _, existing := range AllowedHazmatTypeEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid HazmatType", value)
+}
+
+// NewHazmatTypeFromValue returns a pointer to a valid HazmatType
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewHazmatTypeFromValue(v string) (*HazmatType, error) {
+	ev := HazmatType(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for HazmatType: valid values are %v", v, AllowedHazmatTypeEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v HazmatType) IsValid() bool {
+	for _, existing := range AllowedHazmatTypeEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to HazmatType value
+func (v HazmatType) Ptr() *HazmatType {
+	return &v
+}
+
+type NullableHazmatType struct {
+	value *HazmatType
+	isSet bool
+}
+
+func (v NullableHazmatType) Get() *HazmatType {
+	return v.value
+}
+
+func (v *NullableHazmatType) Set(val *HazmatType) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableHazmatType) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableHazmatType) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableHazmatType(val *HazmatType) *NullableHazmatType {
+	return &NullableHazmatType{value: val, isSet: true}
+}
+
+func (v NullableHazmatType) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableHazmatType) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

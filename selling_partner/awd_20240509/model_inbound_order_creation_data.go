@@ -1,0 +1,200 @@
+package awd_20240509
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the InboundOrderCreationData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InboundOrderCreationData{}
+
+// InboundOrderCreationData Payload for creating an inbound order.
+type InboundOrderCreationData struct {
+	// Reference ID that can be used to correlate the order with partner resources.
+	ExternalReferenceId *string `json:"externalReferenceId,omitempty"`
+	OriginAddress       Address `json:"originAddress"`
+	// List of packages to be inbounded.
+	PackagesToInbound []DistributionPackageQuantity `json:"packagesToInbound"`
+	Preferences       *InboundPreferences           `json:"preferences,omitempty"`
+}
+
+type _InboundOrderCreationData InboundOrderCreationData
+
+// NewInboundOrderCreationData instantiates a new InboundOrderCreationData object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInboundOrderCreationData(originAddress Address, packagesToInbound []DistributionPackageQuantity) *InboundOrderCreationData {
+	this := InboundOrderCreationData{}
+	this.OriginAddress = originAddress
+	this.PackagesToInbound = packagesToInbound
+	return &this
+}
+
+// NewInboundOrderCreationDataWithDefaults instantiates a new InboundOrderCreationData object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInboundOrderCreationDataWithDefaults() *InboundOrderCreationData {
+	this := InboundOrderCreationData{}
+	return &this
+}
+
+// GetExternalReferenceId returns the ExternalReferenceId field value if set, zero value otherwise.
+func (o *InboundOrderCreationData) GetExternalReferenceId() string {
+	if o == nil || IsNil(o.ExternalReferenceId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalReferenceId
+}
+
+// GetExternalReferenceIdOk returns a tuple with the ExternalReferenceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InboundOrderCreationData) GetExternalReferenceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalReferenceId) {
+		return nil, false
+	}
+	return o.ExternalReferenceId, true
+}
+
+// HasExternalReferenceId returns a boolean if a field has been set.
+func (o *InboundOrderCreationData) HasExternalReferenceId() bool {
+	if o != nil && !IsNil(o.ExternalReferenceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalReferenceId gets a reference to the given string and assigns it to the ExternalReferenceId field.
+func (o *InboundOrderCreationData) SetExternalReferenceId(v string) {
+	o.ExternalReferenceId = &v
+}
+
+// GetOriginAddress returns the OriginAddress field value
+func (o *InboundOrderCreationData) GetOriginAddress() Address {
+	if o == nil {
+		var ret Address
+		return ret
+	}
+
+	return o.OriginAddress
+}
+
+// GetOriginAddressOk returns a tuple with the OriginAddress field value
+// and a boolean to check if the value has been set.
+func (o *InboundOrderCreationData) GetOriginAddressOk() (*Address, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OriginAddress, true
+}
+
+// SetOriginAddress sets field value
+func (o *InboundOrderCreationData) SetOriginAddress(v Address) {
+	o.OriginAddress = v
+}
+
+// GetPackagesToInbound returns the PackagesToInbound field value
+func (o *InboundOrderCreationData) GetPackagesToInbound() []DistributionPackageQuantity {
+	if o == nil {
+		var ret []DistributionPackageQuantity
+		return ret
+	}
+
+	return o.PackagesToInbound
+}
+
+// GetPackagesToInboundOk returns a tuple with the PackagesToInbound field value
+// and a boolean to check if the value has been set.
+func (o *InboundOrderCreationData) GetPackagesToInboundOk() ([]DistributionPackageQuantity, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PackagesToInbound, true
+}
+
+// SetPackagesToInbound sets field value
+func (o *InboundOrderCreationData) SetPackagesToInbound(v []DistributionPackageQuantity) {
+	o.PackagesToInbound = v
+}
+
+// GetPreferences returns the Preferences field value if set, zero value otherwise.
+func (o *InboundOrderCreationData) GetPreferences() InboundPreferences {
+	if o == nil || IsNil(o.Preferences) {
+		var ret InboundPreferences
+		return ret
+	}
+	return *o.Preferences
+}
+
+// GetPreferencesOk returns a tuple with the Preferences field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InboundOrderCreationData) GetPreferencesOk() (*InboundPreferences, bool) {
+	if o == nil || IsNil(o.Preferences) {
+		return nil, false
+	}
+	return o.Preferences, true
+}
+
+// HasPreferences returns a boolean if a field has been set.
+func (o *InboundOrderCreationData) HasPreferences() bool {
+	if o != nil && !IsNil(o.Preferences) {
+		return true
+	}
+
+	return false
+}
+
+// SetPreferences gets a reference to the given InboundPreferences and assigns it to the Preferences field.
+func (o *InboundOrderCreationData) SetPreferences(v InboundPreferences) {
+	o.Preferences = &v
+}
+
+func (o InboundOrderCreationData) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ExternalReferenceId) {
+		toSerialize["externalReferenceId"] = o.ExternalReferenceId
+	}
+	toSerialize["originAddress"] = o.OriginAddress
+	toSerialize["packagesToInbound"] = o.PackagesToInbound
+	if !IsNil(o.Preferences) {
+		toSerialize["preferences"] = o.Preferences
+	}
+	return toSerialize, nil
+}
+
+type NullableInboundOrderCreationData struct {
+	value *InboundOrderCreationData
+	isSet bool
+}
+
+func (v NullableInboundOrderCreationData) Get() *InboundOrderCreationData {
+	return v.value
+}
+
+func (v *NullableInboundOrderCreationData) Set(val *InboundOrderCreationData) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableInboundOrderCreationData) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableInboundOrderCreationData) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableInboundOrderCreationData(val *InboundOrderCreationData) *NullableInboundOrderCreationData {
+	return &NullableInboundOrderCreationData{value: val, isSet: true}
+}
+
+func (v NullableInboundOrderCreationData) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableInboundOrderCreationData) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

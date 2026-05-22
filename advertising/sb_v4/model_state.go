@@ -1,0 +1,100 @@
+package sb_v4
+
+import (
+	"fmt"
+	"github.com/bytedance/sonic"
+)
+
+// State The budget rule state.
+type State string
+
+// List of state
+const (
+	STATE_ACTIVE State = "ACTIVE"
+	STATE_PAUSED State = "PAUSED"
+)
+
+// All allowed values of State enum
+var AllowedStateEnumValues = []State{
+	"ACTIVE",
+	"PAUSED",
+}
+
+func (v *State) UnmarshalJSON(src []byte) error {
+	var value string
+	err := sonic.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := State(value)
+	for _, existing := range AllowedStateEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid State", value)
+}
+
+// NewStateFromValue returns a pointer to a valid State
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewStateFromValue(v string) (*State, error) {
+	ev := State(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for State: valid values are %v", v, AllowedStateEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v State) IsValid() bool {
+	for _, existing := range AllowedStateEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to state value
+func (v State) Ptr() *State {
+	return &v
+}
+
+type NullableState struct {
+	value *State
+	isSet bool
+}
+
+func (v NullableState) Get() *State {
+	return v.value
+}
+
+func (v *NullableState) Set(val *State) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableState) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableState) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableState(val *State) *NullableState {
+	return &NullableState{value: val, isSet: true}
+}
+
+func (v NullableState) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableState) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

@@ -1,0 +1,162 @@
+package sp_v3
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the SponsoredProductsUnavailableResponseContent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SponsoredProductsUnavailableResponseContent{}
+
+// SponsoredProductsUnavailableResponseContent struct for SponsoredProductsUnavailableResponseContent
+type SponsoredProductsUnavailableResponseContent struct {
+	Code           SponsoredProductsErrorCode `json:"code"`
+	Message        string                     `json:"message"`
+	HttpStatusCode *string                    `json:"httpStatusCode,omitempty"`
+}
+
+type _SponsoredProductsUnavailableResponseContent SponsoredProductsUnavailableResponseContent
+
+// NewSponsoredProductsUnavailableResponseContent instantiates a new SponsoredProductsUnavailableResponseContent object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSponsoredProductsUnavailableResponseContent(code SponsoredProductsErrorCode, message string) *SponsoredProductsUnavailableResponseContent {
+	this := SponsoredProductsUnavailableResponseContent{}
+	this.Code = code
+	this.Message = message
+	return &this
+}
+
+// NewSponsoredProductsUnavailableResponseContentWithDefaults instantiates a new SponsoredProductsUnavailableResponseContent object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSponsoredProductsUnavailableResponseContentWithDefaults() *SponsoredProductsUnavailableResponseContent {
+	this := SponsoredProductsUnavailableResponseContent{}
+	return &this
+}
+
+// GetCode returns the Code field value
+func (o *SponsoredProductsUnavailableResponseContent) GetCode() SponsoredProductsErrorCode {
+	if o == nil {
+		var ret SponsoredProductsErrorCode
+		return ret
+	}
+
+	return o.Code
+}
+
+// GetCodeOk returns a tuple with the Code field value
+// and a boolean to check if the value has been set.
+func (o *SponsoredProductsUnavailableResponseContent) GetCodeOk() (*SponsoredProductsErrorCode, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Code, true
+}
+
+// SetCode sets field value
+func (o *SponsoredProductsUnavailableResponseContent) SetCode(v SponsoredProductsErrorCode) {
+	o.Code = v
+}
+
+// GetMessage returns the Message field value
+func (o *SponsoredProductsUnavailableResponseContent) GetMessage() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value
+// and a boolean to check if the value has been set.
+func (o *SponsoredProductsUnavailableResponseContent) GetMessageOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Message, true
+}
+
+// SetMessage sets field value
+func (o *SponsoredProductsUnavailableResponseContent) SetMessage(v string) {
+	o.Message = v
+}
+
+// GetHttpStatusCode returns the HttpStatusCode field value if set, zero value otherwise.
+func (o *SponsoredProductsUnavailableResponseContent) GetHttpStatusCode() string {
+	if o == nil || IsNil(o.HttpStatusCode) {
+		var ret string
+		return ret
+	}
+	return *o.HttpStatusCode
+}
+
+// GetHttpStatusCodeOk returns a tuple with the HttpStatusCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SponsoredProductsUnavailableResponseContent) GetHttpStatusCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.HttpStatusCode) {
+		return nil, false
+	}
+	return o.HttpStatusCode, true
+}
+
+// HasHttpStatusCode returns a boolean if a field has been set.
+func (o *SponsoredProductsUnavailableResponseContent) HasHttpStatusCode() bool {
+	if o != nil && !IsNil(o.HttpStatusCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetHttpStatusCode gets a reference to the given string and assigns it to the HttpStatusCode field.
+func (o *SponsoredProductsUnavailableResponseContent) SetHttpStatusCode(v string) {
+	o.HttpStatusCode = &v
+}
+
+func (o SponsoredProductsUnavailableResponseContent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["code"] = o.Code
+	toSerialize["message"] = o.Message
+	if !IsNil(o.HttpStatusCode) {
+		toSerialize["httpStatusCode"] = o.HttpStatusCode
+	}
+	return toSerialize, nil
+}
+
+type NullableSponsoredProductsUnavailableResponseContent struct {
+	value *SponsoredProductsUnavailableResponseContent
+	isSet bool
+}
+
+func (v NullableSponsoredProductsUnavailableResponseContent) Get() *SponsoredProductsUnavailableResponseContent {
+	return v.value
+}
+
+func (v *NullableSponsoredProductsUnavailableResponseContent) Set(val *SponsoredProductsUnavailableResponseContent) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSponsoredProductsUnavailableResponseContent) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSponsoredProductsUnavailableResponseContent) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSponsoredProductsUnavailableResponseContent(val *SponsoredProductsUnavailableResponseContent) *NullableSponsoredProductsUnavailableResponseContent {
+	return &NullableSponsoredProductsUnavailableResponseContent{value: val, isSet: true}
+}
+
+func (v NullableSponsoredProductsUnavailableResponseContent) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableSponsoredProductsUnavailableResponseContent) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

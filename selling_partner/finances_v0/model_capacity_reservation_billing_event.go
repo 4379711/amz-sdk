@@ -1,0 +1,218 @@
+package finances_v0
+
+import (
+	"github.com/bytedance/sonic"
+	"time"
+)
+
+// checks if the CapacityReservationBillingEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CapacityReservationBillingEvent{}
+
+// CapacityReservationBillingEvent An event related to a capacity reservation billing charge.
+type CapacityReservationBillingEvent struct {
+	// Indicates the type of transaction. For example, FBA Inventory Fee
+	TransactionType *string `json:"TransactionType,omitempty"`
+	// Fields with a schema type of date are in ISO 8601 date time format (for example GroupBeginDate).
+	PostedDate *time.Time `json:"PostedDate,omitempty"`
+	// A short description of the capacity reservation billing event.
+	Description       *string   `json:"Description,omitempty"`
+	TransactionAmount *Currency `json:"TransactionAmount,omitempty"`
+}
+
+// NewCapacityReservationBillingEvent instantiates a new CapacityReservationBillingEvent object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewCapacityReservationBillingEvent() *CapacityReservationBillingEvent {
+	this := CapacityReservationBillingEvent{}
+	return &this
+}
+
+// NewCapacityReservationBillingEventWithDefaults instantiates a new CapacityReservationBillingEvent object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewCapacityReservationBillingEventWithDefaults() *CapacityReservationBillingEvent {
+	this := CapacityReservationBillingEvent{}
+	return &this
+}
+
+// GetTransactionType returns the TransactionType field value if set, zero value otherwise.
+func (o *CapacityReservationBillingEvent) GetTransactionType() string {
+	if o == nil || IsNil(o.TransactionType) {
+		var ret string
+		return ret
+	}
+	return *o.TransactionType
+}
+
+// GetTransactionTypeOk returns a tuple with the TransactionType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CapacityReservationBillingEvent) GetTransactionTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.TransactionType) {
+		return nil, false
+	}
+	return o.TransactionType, true
+}
+
+// HasTransactionType returns a boolean if a field has been set.
+func (o *CapacityReservationBillingEvent) HasTransactionType() bool {
+	if o != nil && !IsNil(o.TransactionType) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionType gets a reference to the given string and assigns it to the TransactionType field.
+func (o *CapacityReservationBillingEvent) SetTransactionType(v string) {
+	o.TransactionType = &v
+}
+
+// GetPostedDate returns the PostedDate field value if set, zero value otherwise.
+func (o *CapacityReservationBillingEvent) GetPostedDate() time.Time {
+	if o == nil || IsNil(o.PostedDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PostedDate
+}
+
+// GetPostedDateOk returns a tuple with the PostedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CapacityReservationBillingEvent) GetPostedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PostedDate) {
+		return nil, false
+	}
+	return o.PostedDate, true
+}
+
+// HasPostedDate returns a boolean if a field has been set.
+func (o *CapacityReservationBillingEvent) HasPostedDate() bool {
+	if o != nil && !IsNil(o.PostedDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostedDate gets a reference to the given time.Time and assigns it to the PostedDate field.
+func (o *CapacityReservationBillingEvent) SetPostedDate(v time.Time) {
+	o.PostedDate = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *CapacityReservationBillingEvent) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CapacityReservationBillingEvent) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *CapacityReservationBillingEvent) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *CapacityReservationBillingEvent) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetTransactionAmount returns the TransactionAmount field value if set, zero value otherwise.
+func (o *CapacityReservationBillingEvent) GetTransactionAmount() Currency {
+	if o == nil || IsNil(o.TransactionAmount) {
+		var ret Currency
+		return ret
+	}
+	return *o.TransactionAmount
+}
+
+// GetTransactionAmountOk returns a tuple with the TransactionAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CapacityReservationBillingEvent) GetTransactionAmountOk() (*Currency, bool) {
+	if o == nil || IsNil(o.TransactionAmount) {
+		return nil, false
+	}
+	return o.TransactionAmount, true
+}
+
+// HasTransactionAmount returns a boolean if a field has been set.
+func (o *CapacityReservationBillingEvent) HasTransactionAmount() bool {
+	if o != nil && !IsNil(o.TransactionAmount) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionAmount gets a reference to the given Currency and assigns it to the TransactionAmount field.
+func (o *CapacityReservationBillingEvent) SetTransactionAmount(v Currency) {
+	o.TransactionAmount = &v
+}
+
+func (o CapacityReservationBillingEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TransactionType) {
+		toSerialize["TransactionType"] = o.TransactionType
+	}
+	if !IsNil(o.PostedDate) {
+		toSerialize["PostedDate"] = o.PostedDate
+	}
+	if !IsNil(o.Description) {
+		toSerialize["Description"] = o.Description
+	}
+	if !IsNil(o.TransactionAmount) {
+		toSerialize["TransactionAmount"] = o.TransactionAmount
+	}
+	return toSerialize, nil
+}
+
+type NullableCapacityReservationBillingEvent struct {
+	value *CapacityReservationBillingEvent
+	isSet bool
+}
+
+func (v NullableCapacityReservationBillingEvent) Get() *CapacityReservationBillingEvent {
+	return v.value
+}
+
+func (v *NullableCapacityReservationBillingEvent) Set(val *CapacityReservationBillingEvent) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCapacityReservationBillingEvent) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCapacityReservationBillingEvent) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCapacityReservationBillingEvent(val *CapacityReservationBillingEvent) *NullableCapacityReservationBillingEvent {
+	return &NullableCapacityReservationBillingEvent{value: val, isSet: true}
+}
+
+func (v NullableCapacityReservationBillingEvent) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableCapacityReservationBillingEvent) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

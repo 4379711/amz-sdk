@@ -1,0 +1,357 @@
+package awd_20240509
+
+import (
+	"github.com/bytedance/sonic"
+	"time"
+)
+
+// checks if the InboundOrder type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InboundOrder{}
+
+// InboundOrder Represents an AWD inbound order.
+type InboundOrder struct {
+	// Date when this order was created.
+	CreatedAt          time.Time           `json:"createdAt"`
+	DestinationDetails *DestinationDetails `json:"destinationDetails,omitempty"`
+	// Reference ID that can be used to correlate the order with partner resources.
+	ExternalReferenceId *string `json:"externalReferenceId,omitempty"`
+	// Inbound order ID.
+	OrderId       string        `json:"orderId"`
+	OrderStatus   InboundStatus `json:"orderStatus"`
+	OriginAddress Address       `json:"originAddress"`
+	// List of packages to be inbounded.
+	PackagesToInbound []DistributionPackageQuantity `json:"packagesToInbound"`
+	Preferences       *InboundPreferences           `json:"preferences,omitempty"`
+	// Date when this order was last updated.
+	UpdatedAt *time.Time `json:"updatedAt,omitempty"`
+}
+
+type _InboundOrder InboundOrder
+
+// NewInboundOrder instantiates a new InboundOrder object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInboundOrder(createdAt time.Time, orderId string, orderStatus InboundStatus, originAddress Address, packagesToInbound []DistributionPackageQuantity) *InboundOrder {
+	this := InboundOrder{}
+	this.CreatedAt = createdAt
+	this.OrderId = orderId
+	this.OrderStatus = orderStatus
+	this.OriginAddress = originAddress
+	this.PackagesToInbound = packagesToInbound
+	return &this
+}
+
+// NewInboundOrderWithDefaults instantiates a new InboundOrder object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInboundOrderWithDefaults() *InboundOrder {
+	this := InboundOrder{}
+	return &this
+}
+
+// GetCreatedAt returns the CreatedAt field value
+func (o *InboundOrder) GetCreatedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *InboundOrder) SetCreatedAt(v time.Time) {
+	o.CreatedAt = v
+}
+
+// GetDestinationDetails returns the DestinationDetails field value if set, zero value otherwise.
+func (o *InboundOrder) GetDestinationDetails() DestinationDetails {
+	if o == nil || IsNil(o.DestinationDetails) {
+		var ret DestinationDetails
+		return ret
+	}
+	return *o.DestinationDetails
+}
+
+// GetDestinationDetailsOk returns a tuple with the DestinationDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetDestinationDetailsOk() (*DestinationDetails, bool) {
+	if o == nil || IsNil(o.DestinationDetails) {
+		return nil, false
+	}
+	return o.DestinationDetails, true
+}
+
+// HasDestinationDetails returns a boolean if a field has been set.
+func (o *InboundOrder) HasDestinationDetails() bool {
+	if o != nil && !IsNil(o.DestinationDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetDestinationDetails gets a reference to the given DestinationDetails and assigns it to the DestinationDetails field.
+func (o *InboundOrder) SetDestinationDetails(v DestinationDetails) {
+	o.DestinationDetails = &v
+}
+
+// GetExternalReferenceId returns the ExternalReferenceId field value if set, zero value otherwise.
+func (o *InboundOrder) GetExternalReferenceId() string {
+	if o == nil || IsNil(o.ExternalReferenceId) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalReferenceId
+}
+
+// GetExternalReferenceIdOk returns a tuple with the ExternalReferenceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetExternalReferenceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalReferenceId) {
+		return nil, false
+	}
+	return o.ExternalReferenceId, true
+}
+
+// HasExternalReferenceId returns a boolean if a field has been set.
+func (o *InboundOrder) HasExternalReferenceId() bool {
+	if o != nil && !IsNil(o.ExternalReferenceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalReferenceId gets a reference to the given string and assigns it to the ExternalReferenceId field.
+func (o *InboundOrder) SetExternalReferenceId(v string) {
+	o.ExternalReferenceId = &v
+}
+
+// GetOrderId returns the OrderId field value
+func (o *InboundOrder) GetOrderId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OrderId
+}
+
+// GetOrderIdOk returns a tuple with the OrderId field value
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetOrderIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OrderId, true
+}
+
+// SetOrderId sets field value
+func (o *InboundOrder) SetOrderId(v string) {
+	o.OrderId = v
+}
+
+// GetOrderStatus returns the OrderStatus field value
+func (o *InboundOrder) GetOrderStatus() InboundStatus {
+	if o == nil {
+		var ret InboundStatus
+		return ret
+	}
+
+	return o.OrderStatus
+}
+
+// GetOrderStatusOk returns a tuple with the OrderStatus field value
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetOrderStatusOk() (*InboundStatus, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OrderStatus, true
+}
+
+// SetOrderStatus sets field value
+func (o *InboundOrder) SetOrderStatus(v InboundStatus) {
+	o.OrderStatus = v
+}
+
+// GetOriginAddress returns the OriginAddress field value
+func (o *InboundOrder) GetOriginAddress() Address {
+	if o == nil {
+		var ret Address
+		return ret
+	}
+
+	return o.OriginAddress
+}
+
+// GetOriginAddressOk returns a tuple with the OriginAddress field value
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetOriginAddressOk() (*Address, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OriginAddress, true
+}
+
+// SetOriginAddress sets field value
+func (o *InboundOrder) SetOriginAddress(v Address) {
+	o.OriginAddress = v
+}
+
+// GetPackagesToInbound returns the PackagesToInbound field value
+func (o *InboundOrder) GetPackagesToInbound() []DistributionPackageQuantity {
+	if o == nil {
+		var ret []DistributionPackageQuantity
+		return ret
+	}
+
+	return o.PackagesToInbound
+}
+
+// GetPackagesToInboundOk returns a tuple with the PackagesToInbound field value
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetPackagesToInboundOk() ([]DistributionPackageQuantity, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PackagesToInbound, true
+}
+
+// SetPackagesToInbound sets field value
+func (o *InboundOrder) SetPackagesToInbound(v []DistributionPackageQuantity) {
+	o.PackagesToInbound = v
+}
+
+// GetPreferences returns the Preferences field value if set, zero value otherwise.
+func (o *InboundOrder) GetPreferences() InboundPreferences {
+	if o == nil || IsNil(o.Preferences) {
+		var ret InboundPreferences
+		return ret
+	}
+	return *o.Preferences
+}
+
+// GetPreferencesOk returns a tuple with the Preferences field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetPreferencesOk() (*InboundPreferences, bool) {
+	if o == nil || IsNil(o.Preferences) {
+		return nil, false
+	}
+	return o.Preferences, true
+}
+
+// HasPreferences returns a boolean if a field has been set.
+func (o *InboundOrder) HasPreferences() bool {
+	if o != nil && !IsNil(o.Preferences) {
+		return true
+	}
+
+	return false
+}
+
+// SetPreferences gets a reference to the given InboundPreferences and assigns it to the Preferences field.
+func (o *InboundOrder) SetPreferences(v InboundPreferences) {
+	o.Preferences = &v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *InboundOrder) GetUpdatedAt() time.Time {
+	if o == nil || IsNil(o.UpdatedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InboundOrder) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.UpdatedAt) {
+		return nil, false
+	}
+	return o.UpdatedAt, true
+}
+
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *InboundOrder) HasUpdatedAt() bool {
+	if o != nil && !IsNil(o.UpdatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *InboundOrder) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
+}
+
+func (o InboundOrder) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["createdAt"] = o.CreatedAt
+	if !IsNil(o.DestinationDetails) {
+		toSerialize["destinationDetails"] = o.DestinationDetails
+	}
+	if !IsNil(o.ExternalReferenceId) {
+		toSerialize["externalReferenceId"] = o.ExternalReferenceId
+	}
+	toSerialize["orderId"] = o.OrderId
+	toSerialize["orderStatus"] = o.OrderStatus
+	toSerialize["originAddress"] = o.OriginAddress
+	toSerialize["packagesToInbound"] = o.PackagesToInbound
+	if !IsNil(o.Preferences) {
+		toSerialize["preferences"] = o.Preferences
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updatedAt"] = o.UpdatedAt
+	}
+	return toSerialize, nil
+}
+
+type NullableInboundOrder struct {
+	value *InboundOrder
+	isSet bool
+}
+
+func (v NullableInboundOrder) Get() *InboundOrder {
+	return v.value
+}
+
+func (v *NullableInboundOrder) Set(val *InboundOrder) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableInboundOrder) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableInboundOrder) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableInboundOrder(val *InboundOrder) *NullableInboundOrder {
+	return &NullableInboundOrder{value: val, isSet: true}
+}
+
+func (v NullableInboundOrder) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableInboundOrder) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

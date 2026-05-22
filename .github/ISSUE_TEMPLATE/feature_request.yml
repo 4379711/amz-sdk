@@ -1,0 +1,59 @@
+name: Feature request
+description: Suggest new API coverage or a capability improvement.
+title: "[feat] <short summary>"
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement!
+
+        Most feature requests fall into two buckets:
+        1. **New API surface** — e.g. tracking a new dated SP-API version, adding an Ads endpoint that just shipped.
+        2. **Library capability** — e.g. expose a new event hook, support a new region, add a configuration knob.
+
+        Please pick the right form below.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of feature?
+      options:
+        - New generated API package (e.g. new SP-API dated version)
+        - Extend existing generated API package
+        - pkg/ capability (auth / cache / events / HTTP / observability)
+        - Documentation / examples
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      placeholder: |
+        e.g. "I'm migrating from `fulfillment_inbound_v0` to the 2024 redesign and need step-2 placement workflows."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: |
+        For new generated packages, please include the Amazon OpenAPI source URL / version you'd generate from.
+        For pkg/ changes, describe the new exported API and how it interacts with the existing `IAuth` / events.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you tried, or other designs you thought about and rejected.
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Links to Amazon docs, related issues, sample request / response payloads.

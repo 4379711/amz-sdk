@@ -1,0 +1,211 @@
+package orders_v0
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the OrdersList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrdersList{}
+
+// OrdersList A list of orders along with additional information to make subsequent API calls.
+type OrdersList struct {
+	// A list of orders.
+	Orders []Order `json:"Orders"`
+	// When present and not empty, pass this string token in the next request to return the next response page.
+	NextToken *string `json:"NextToken,omitempty"`
+	// Use this date to select orders that were last updated before (or at) a specified time. An update is defined as any change in order status, including the creation of a new order. Includes updates made by Amazon and by the seller. All dates must be in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) format.
+	LastUpdatedBefore *string `json:"LastUpdatedBefore,omitempty"`
+	// Use this date to select orders created before (or at) a specified time. Only orders placed before the specified time are returned. The date must be in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) format.
+	CreatedBefore *string `json:"CreatedBefore,omitempty"`
+}
+
+type _OrdersList OrdersList
+
+// NewOrdersList instantiates a new OrdersList object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewOrdersList(orders []Order) *OrdersList {
+	this := OrdersList{}
+	this.Orders = orders
+	return &this
+}
+
+// NewOrdersListWithDefaults instantiates a new OrdersList object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewOrdersListWithDefaults() *OrdersList {
+	this := OrdersList{}
+	return &this
+}
+
+// GetOrders returns the Orders field value
+func (o *OrdersList) GetOrders() []Order {
+	if o == nil {
+		var ret []Order
+		return ret
+	}
+
+	return o.Orders
+}
+
+// GetOrdersOk returns a tuple with the Orders field value
+// and a boolean to check if the value has been set.
+func (o *OrdersList) GetOrdersOk() ([]Order, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Orders, true
+}
+
+// SetOrders sets field value
+func (o *OrdersList) SetOrders(v []Order) {
+	o.Orders = v
+}
+
+// GetNextToken returns the NextToken field value if set, zero value otherwise.
+func (o *OrdersList) GetNextToken() string {
+	if o == nil || IsNil(o.NextToken) {
+		var ret string
+		return ret
+	}
+	return *o.NextToken
+}
+
+// GetNextTokenOk returns a tuple with the NextToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrdersList) GetNextTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.NextToken) {
+		return nil, false
+	}
+	return o.NextToken, true
+}
+
+// HasNextToken returns a boolean if a field has been set.
+func (o *OrdersList) HasNextToken() bool {
+	if o != nil && !IsNil(o.NextToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextToken gets a reference to the given string and assigns it to the NextToken field.
+func (o *OrdersList) SetNextToken(v string) {
+	o.NextToken = &v
+}
+
+// GetLastUpdatedBefore returns the LastUpdatedBefore field value if set, zero value otherwise.
+func (o *OrdersList) GetLastUpdatedBefore() string {
+	if o == nil || IsNil(o.LastUpdatedBefore) {
+		var ret string
+		return ret
+	}
+	return *o.LastUpdatedBefore
+}
+
+// GetLastUpdatedBeforeOk returns a tuple with the LastUpdatedBefore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrdersList) GetLastUpdatedBeforeOk() (*string, bool) {
+	if o == nil || IsNil(o.LastUpdatedBefore) {
+		return nil, false
+	}
+	return o.LastUpdatedBefore, true
+}
+
+// HasLastUpdatedBefore returns a boolean if a field has been set.
+func (o *OrdersList) HasLastUpdatedBefore() bool {
+	if o != nil && !IsNil(o.LastUpdatedBefore) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdatedBefore gets a reference to the given string and assigns it to the LastUpdatedBefore field.
+func (o *OrdersList) SetLastUpdatedBefore(v string) {
+	o.LastUpdatedBefore = &v
+}
+
+// GetCreatedBefore returns the CreatedBefore field value if set, zero value otherwise.
+func (o *OrdersList) GetCreatedBefore() string {
+	if o == nil || IsNil(o.CreatedBefore) {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBefore
+}
+
+// GetCreatedBeforeOk returns a tuple with the CreatedBefore field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrdersList) GetCreatedBeforeOk() (*string, bool) {
+	if o == nil || IsNil(o.CreatedBefore) {
+		return nil, false
+	}
+	return o.CreatedBefore, true
+}
+
+// HasCreatedBefore returns a boolean if a field has been set.
+func (o *OrdersList) HasCreatedBefore() bool {
+	if o != nil && !IsNil(o.CreatedBefore) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBefore gets a reference to the given string and assigns it to the CreatedBefore field.
+func (o *OrdersList) SetCreatedBefore(v string) {
+	o.CreatedBefore = &v
+}
+
+func (o OrdersList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["Orders"] = o.Orders
+	if !IsNil(o.NextToken) {
+		toSerialize["NextToken"] = o.NextToken
+	}
+	if !IsNil(o.LastUpdatedBefore) {
+		toSerialize["LastUpdatedBefore"] = o.LastUpdatedBefore
+	}
+	if !IsNil(o.CreatedBefore) {
+		toSerialize["CreatedBefore"] = o.CreatedBefore
+	}
+	return toSerialize, nil
+}
+
+type NullableOrdersList struct {
+	value *OrdersList
+	isSet bool
+}
+
+func (v NullableOrdersList) Get() *OrdersList {
+	return v.value
+}
+
+func (v *NullableOrdersList) Set(val *OrdersList) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableOrdersList) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableOrdersList) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableOrdersList(val *OrdersList) *NullableOrdersList {
+	return &NullableOrdersList{value: val, isSet: true}
+}
+
+func (v NullableOrdersList) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableOrdersList) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

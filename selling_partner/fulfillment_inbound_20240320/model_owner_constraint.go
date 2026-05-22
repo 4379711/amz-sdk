@@ -1,0 +1,102 @@
+package fulfillment_inbound_20240320
+
+import (
+	"fmt"
+	"github.com/bytedance/sonic"
+)
+
+// OwnerConstraint A constraint that can apply to an individual owner. If no constraint is specified, both `AMAZON` and `SELLER` are acceptable.
+type OwnerConstraint string
+
+// List of OwnerConstraint
+const (
+	OWNERCONSTRAINT_AMAZON_ONLY OwnerConstraint = "AMAZON_ONLY"
+	OWNERCONSTRAINT_NONE_ONLY   OwnerConstraint = "NONE_ONLY"
+	OWNERCONSTRAINT_SELLER_ONLY OwnerConstraint = "SELLER_ONLY"
+)
+
+// All allowed values of OwnerConstraint enum
+var AllowedOwnerConstraintEnumValues = []OwnerConstraint{
+	OWNERCONSTRAINT_AMAZON_ONLY,
+	OWNERCONSTRAINT_NONE_ONLY,
+	OWNERCONSTRAINT_SELLER_ONLY,
+}
+
+func (v *OwnerConstraint) UnmarshalJSON(src []byte) error {
+	var value string
+	err := sonic.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := OwnerConstraint(value)
+	for _, existing := range AllowedOwnerConstraintEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid OwnerConstraint", value)
+}
+
+// NewOwnerConstraintFromValue returns a pointer to a valid OwnerConstraint
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewOwnerConstraintFromValue(v string) (*OwnerConstraint, error) {
+	ev := OwnerConstraint(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for OwnerConstraint: valid values are %v", v, AllowedOwnerConstraintEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v OwnerConstraint) IsValid() bool {
+	for _, existing := range AllowedOwnerConstraintEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to OwnerConstraint value
+func (v OwnerConstraint) Ptr() *OwnerConstraint {
+	return &v
+}
+
+type NullableOwnerConstraint struct {
+	value *OwnerConstraint
+	isSet bool
+}
+
+func (v NullableOwnerConstraint) Get() *OwnerConstraint {
+	return v.value
+}
+
+func (v *NullableOwnerConstraint) Set(val *OwnerConstraint) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableOwnerConstraint) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableOwnerConstraint) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableOwnerConstraint(val *OwnerConstraint) *NullableOwnerConstraint {
+	return &NullableOwnerConstraint{value: val, isSet: true}
+}
+
+func (v NullableOwnerConstraint) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableOwnerConstraint) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

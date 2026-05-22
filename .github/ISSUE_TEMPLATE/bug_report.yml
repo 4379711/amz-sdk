@@ -1,0 +1,112 @@
+name: Bug report
+description: Report a reproducible bug in amzsdk.
+title: "[bug] <short summary>"
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug!
+
+        **Before submitting**, please:
+        - Search [existing issues](../../issues?q=is%3Aissue) to avoid duplicates.
+        - Reproduce on the latest `master` (or specify the commit / tag you tested against).
+        - **Scrub credentials**: never paste `ClientID`, `ClientSecret`, `refresh_token`, `access_token`, full `Authorization` headers or seller PII. The last 8 characters of a token are enough for triage.
+        - If this is a **security** issue, do **not** post it here — follow [SECURITY.md](../../blob/master/SECURITY.md) instead.
+
+  - type: input
+    id: version
+    attributes:
+      label: amzsdk commit / tag
+      description: Which commit or tag did you reproduce on? (`git rev-parse --short HEAD`)
+      placeholder: e.g. master @ abc1234
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Affected component
+      multiple: true
+      options:
+        - pkg/ (auth contract / cache / events / configuration / http)
+        - advertising/auth
+        - advertising/sp_v3
+        - advertising/sb_v4
+        - advertising/sd_v1
+        - advertising/report_v3
+        - advertising/profiles_v2
+        - advertising/portfolios_v3
+        - advertising/product_metadata or product_eligibility
+        - advertising/ams
+        - selling_partner/auth
+        - selling_partner/orders_v0
+        - selling_partner/fba_inventory or fulfillment_inbound_*
+        - selling_partner/reports_20210630 or feeds_20210630
+        - selling_partner/catalog_items_20220401 or listings_items_20210801
+        - selling_partner/finances_* or product_pricing_*
+        - selling_partner/* (other dated package)
+        - Generated model is wrong vs. live Amazon contract
+        - Build / module path / generation tooling
+        - Documentation
+        - Other (please describe)
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: |
+        - OS: macOS 14.5
+        - Go: 1.26.0
+        - amzsdk dependents: <e.g. amz-ad-pilot v0.X.Y>
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Minimal reproduction
+      description: |
+        Ideally a Go test function (you can paste it inline) — that lets us reproduce in seconds. Use placeholder credentials if needed.
+      placeholder: |
+        ```go
+        func TestRepro(t *testing.T) {
+            auth := /* … */
+            cfg := pkg.NewConfiguration(auth)
+            client := sp_v3.NewAPIClient(cfg)
+            _, _, err := client.CampaignsAPI.ListSponsoredProductsCampaigns(ctx).Execute()
+            t.Log(err)
+        }
+        ```
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: |
+        Amazon's response is usually the most useful artefact — paste status code, body head, relevant headers (e.g. `x-amzn-RequestId`). **Scrub `Authorization` / `x-amz-access-token`.**
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and found nothing matching.
+          required: true
+        - label: I scrubbed credentials, refresh tokens and seller PII from logs / configs before pasting.
+          required: true
+        - label: I am willing to provide additional information if asked.
+          required: true

@@ -1,0 +1,144 @@
+package catalog_items_20220401
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the ItemVendorDetailsCategory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ItemVendorDetailsCategory{}
+
+// ItemVendorDetailsCategory The product category or subcategory that is associated with an Amazon catalog item.
+type ItemVendorDetailsCategory struct {
+	// The display name of the product category or subcategory.
+	DisplayName *string `json:"displayName,omitempty"`
+	// The code that identifies the product category or subcategory.
+	Value *string `json:"value,omitempty"`
+}
+
+// NewItemVendorDetailsCategory instantiates a new ItemVendorDetailsCategory object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewItemVendorDetailsCategory() *ItemVendorDetailsCategory {
+	this := ItemVendorDetailsCategory{}
+	return &this
+}
+
+// NewItemVendorDetailsCategoryWithDefaults instantiates a new ItemVendorDetailsCategory object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewItemVendorDetailsCategoryWithDefaults() *ItemVendorDetailsCategory {
+	this := ItemVendorDetailsCategory{}
+	return &this
+}
+
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+func (o *ItemVendorDetailsCategory) GetDisplayName() string {
+	if o == nil || IsNil(o.DisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayName
+}
+
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ItemVendorDetailsCategory) GetDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayName) {
+		return nil, false
+	}
+	return o.DisplayName, true
+}
+
+// HasDisplayName returns a boolean if a field has been set.
+func (o *ItemVendorDetailsCategory) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+func (o *ItemVendorDetailsCategory) SetDisplayName(v string) {
+	o.DisplayName = &v
+}
+
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *ItemVendorDetailsCategory) GetValue() string {
+	if o == nil || IsNil(o.Value) {
+		var ret string
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ItemVendorDetailsCategory) GetValueOk() (*string, bool) {
+	if o == nil || IsNil(o.Value) {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *ItemVendorDetailsCategory) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
+func (o *ItemVendorDetailsCategory) SetValue(v string) {
+	o.Value = &v
+}
+
+func (o ItemVendorDetailsCategory) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DisplayName) {
+		toSerialize["displayName"] = o.DisplayName
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	return toSerialize, nil
+}
+
+type NullableItemVendorDetailsCategory struct {
+	value *ItemVendorDetailsCategory
+	isSet bool
+}
+
+func (v NullableItemVendorDetailsCategory) Get() *ItemVendorDetailsCategory {
+	return v.value
+}
+
+func (v *NullableItemVendorDetailsCategory) Set(val *ItemVendorDetailsCategory) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableItemVendorDetailsCategory) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableItemVendorDetailsCategory) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableItemVendorDetailsCategory(val *ItemVendorDetailsCategory) *NullableItemVendorDetailsCategory {
+	return &NullableItemVendorDetailsCategory{value: val, isSet: true}
+}
+
+func (v NullableItemVendorDetailsCategory) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableItemVendorDetailsCategory) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

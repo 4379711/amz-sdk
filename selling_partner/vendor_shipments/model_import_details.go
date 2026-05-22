@@ -1,0 +1,328 @@
+package vendor_shipments
+
+import (
+	"github.com/bytedance/sonic"
+	"time"
+)
+
+// checks if the ImportDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportDetails{}
+
+// ImportDetails Provide these fields only if this shipment is a direct import.
+type ImportDetails struct {
+	// This is used for import purchase orders only. If the recipient requests, this field will contain the shipment method of payment.
+	MethodOfPayment *string `json:"methodOfPayment,omitempty"`
+	// The container's seal number.
+	SealNumber *string `json:"sealNumber,omitempty"`
+	Route      *Route  `json:"route,omitempty"`
+	// Types and numbers of container(s) for import purchase orders. Can be a comma-separated list if shipment has multiple containers.
+	ImportContainers *string `json:"importContainers,omitempty"`
+	BillableWeight   *Weight `json:"billableWeight,omitempty"`
+	// Date on which the shipment is expected to be shipped. This value should not be in the past and not more than 60 days out in the future.
+	EstimatedShipByDate *time.Time `json:"estimatedShipByDate,omitempty"`
+	// Identification of the instructions on how specified item/carton/pallet should be handled.
+	HandlingInstructions *string `json:"handlingInstructions,omitempty"`
+}
+
+// NewImportDetails instantiates a new ImportDetails object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewImportDetails() *ImportDetails {
+	this := ImportDetails{}
+	return &this
+}
+
+// NewImportDetailsWithDefaults instantiates a new ImportDetails object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewImportDetailsWithDefaults() *ImportDetails {
+	this := ImportDetails{}
+	return &this
+}
+
+// GetMethodOfPayment returns the MethodOfPayment field value if set, zero value otherwise.
+func (o *ImportDetails) GetMethodOfPayment() string {
+	if o == nil || IsNil(o.MethodOfPayment) {
+		var ret string
+		return ret
+	}
+	return *o.MethodOfPayment
+}
+
+// GetMethodOfPaymentOk returns a tuple with the MethodOfPayment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportDetails) GetMethodOfPaymentOk() (*string, bool) {
+	if o == nil || IsNil(o.MethodOfPayment) {
+		return nil, false
+	}
+	return o.MethodOfPayment, true
+}
+
+// HasMethodOfPayment returns a boolean if a field has been set.
+func (o *ImportDetails) HasMethodOfPayment() bool {
+	if o != nil && !IsNil(o.MethodOfPayment) {
+		return true
+	}
+
+	return false
+}
+
+// SetMethodOfPayment gets a reference to the given string and assigns it to the MethodOfPayment field.
+func (o *ImportDetails) SetMethodOfPayment(v string) {
+	o.MethodOfPayment = &v
+}
+
+// GetSealNumber returns the SealNumber field value if set, zero value otherwise.
+func (o *ImportDetails) GetSealNumber() string {
+	if o == nil || IsNil(o.SealNumber) {
+		var ret string
+		return ret
+	}
+	return *o.SealNumber
+}
+
+// GetSealNumberOk returns a tuple with the SealNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportDetails) GetSealNumberOk() (*string, bool) {
+	if o == nil || IsNil(o.SealNumber) {
+		return nil, false
+	}
+	return o.SealNumber, true
+}
+
+// HasSealNumber returns a boolean if a field has been set.
+func (o *ImportDetails) HasSealNumber() bool {
+	if o != nil && !IsNil(o.SealNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetSealNumber gets a reference to the given string and assigns it to the SealNumber field.
+func (o *ImportDetails) SetSealNumber(v string) {
+	o.SealNumber = &v
+}
+
+// GetRoute returns the Route field value if set, zero value otherwise.
+func (o *ImportDetails) GetRoute() Route {
+	if o == nil || IsNil(o.Route) {
+		var ret Route
+		return ret
+	}
+	return *o.Route
+}
+
+// GetRouteOk returns a tuple with the Route field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportDetails) GetRouteOk() (*Route, bool) {
+	if o == nil || IsNil(o.Route) {
+		return nil, false
+	}
+	return o.Route, true
+}
+
+// HasRoute returns a boolean if a field has been set.
+func (o *ImportDetails) HasRoute() bool {
+	if o != nil && !IsNil(o.Route) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoute gets a reference to the given Route and assigns it to the Route field.
+func (o *ImportDetails) SetRoute(v Route) {
+	o.Route = &v
+}
+
+// GetImportContainers returns the ImportContainers field value if set, zero value otherwise.
+func (o *ImportDetails) GetImportContainers() string {
+	if o == nil || IsNil(o.ImportContainers) {
+		var ret string
+		return ret
+	}
+	return *o.ImportContainers
+}
+
+// GetImportContainersOk returns a tuple with the ImportContainers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportDetails) GetImportContainersOk() (*string, bool) {
+	if o == nil || IsNil(o.ImportContainers) {
+		return nil, false
+	}
+	return o.ImportContainers, true
+}
+
+// HasImportContainers returns a boolean if a field has been set.
+func (o *ImportDetails) HasImportContainers() bool {
+	if o != nil && !IsNil(o.ImportContainers) {
+		return true
+	}
+
+	return false
+}
+
+// SetImportContainers gets a reference to the given string and assigns it to the ImportContainers field.
+func (o *ImportDetails) SetImportContainers(v string) {
+	o.ImportContainers = &v
+}
+
+// GetBillableWeight returns the BillableWeight field value if set, zero value otherwise.
+func (o *ImportDetails) GetBillableWeight() Weight {
+	if o == nil || IsNil(o.BillableWeight) {
+		var ret Weight
+		return ret
+	}
+	return *o.BillableWeight
+}
+
+// GetBillableWeightOk returns a tuple with the BillableWeight field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportDetails) GetBillableWeightOk() (*Weight, bool) {
+	if o == nil || IsNil(o.BillableWeight) {
+		return nil, false
+	}
+	return o.BillableWeight, true
+}
+
+// HasBillableWeight returns a boolean if a field has been set.
+func (o *ImportDetails) HasBillableWeight() bool {
+	if o != nil && !IsNil(o.BillableWeight) {
+		return true
+	}
+
+	return false
+}
+
+// SetBillableWeight gets a reference to the given Weight and assigns it to the BillableWeight field.
+func (o *ImportDetails) SetBillableWeight(v Weight) {
+	o.BillableWeight = &v
+}
+
+// GetEstimatedShipByDate returns the EstimatedShipByDate field value if set, zero value otherwise.
+func (o *ImportDetails) GetEstimatedShipByDate() time.Time {
+	if o == nil || IsNil(o.EstimatedShipByDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EstimatedShipByDate
+}
+
+// GetEstimatedShipByDateOk returns a tuple with the EstimatedShipByDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportDetails) GetEstimatedShipByDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EstimatedShipByDate) {
+		return nil, false
+	}
+	return o.EstimatedShipByDate, true
+}
+
+// HasEstimatedShipByDate returns a boolean if a field has been set.
+func (o *ImportDetails) HasEstimatedShipByDate() bool {
+	if o != nil && !IsNil(o.EstimatedShipByDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetEstimatedShipByDate gets a reference to the given time.Time and assigns it to the EstimatedShipByDate field.
+func (o *ImportDetails) SetEstimatedShipByDate(v time.Time) {
+	o.EstimatedShipByDate = &v
+}
+
+// GetHandlingInstructions returns the HandlingInstructions field value if set, zero value otherwise.
+func (o *ImportDetails) GetHandlingInstructions() string {
+	if o == nil || IsNil(o.HandlingInstructions) {
+		var ret string
+		return ret
+	}
+	return *o.HandlingInstructions
+}
+
+// GetHandlingInstructionsOk returns a tuple with the HandlingInstructions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportDetails) GetHandlingInstructionsOk() (*string, bool) {
+	if o == nil || IsNil(o.HandlingInstructions) {
+		return nil, false
+	}
+	return o.HandlingInstructions, true
+}
+
+// HasHandlingInstructions returns a boolean if a field has been set.
+func (o *ImportDetails) HasHandlingInstructions() bool {
+	if o != nil && !IsNil(o.HandlingInstructions) {
+		return true
+	}
+
+	return false
+}
+
+// SetHandlingInstructions gets a reference to the given string and assigns it to the HandlingInstructions field.
+func (o *ImportDetails) SetHandlingInstructions(v string) {
+	o.HandlingInstructions = &v
+}
+
+func (o ImportDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.MethodOfPayment) {
+		toSerialize["methodOfPayment"] = o.MethodOfPayment
+	}
+	if !IsNil(o.SealNumber) {
+		toSerialize["sealNumber"] = o.SealNumber
+	}
+	if !IsNil(o.Route) {
+		toSerialize["route"] = o.Route
+	}
+	if !IsNil(o.ImportContainers) {
+		toSerialize["importContainers"] = o.ImportContainers
+	}
+	if !IsNil(o.BillableWeight) {
+		toSerialize["billableWeight"] = o.BillableWeight
+	}
+	if !IsNil(o.EstimatedShipByDate) {
+		toSerialize["estimatedShipByDate"] = o.EstimatedShipByDate
+	}
+	if !IsNil(o.HandlingInstructions) {
+		toSerialize["handlingInstructions"] = o.HandlingInstructions
+	}
+	return toSerialize, nil
+}
+
+type NullableImportDetails struct {
+	value *ImportDetails
+	isSet bool
+}
+
+func (v NullableImportDetails) Get() *ImportDetails {
+	return v.value
+}
+
+func (v *NullableImportDetails) Set(val *ImportDetails) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableImportDetails) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableImportDetails) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableImportDetails(val *ImportDetails) *NullableImportDetails {
+	return &NullableImportDetails{value: val, isSet: true}
+}
+
+func (v NullableImportDetails) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableImportDetails) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

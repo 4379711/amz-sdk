@@ -1,0 +1,290 @@
+package finances_v0
+
+import (
+	"github.com/bytedance/sonic"
+	"time"
+)
+
+// checks if the ProductAdsPaymentEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProductAdsPaymentEvent{}
+
+// ProductAdsPaymentEvent A Sponsored Products payment event.
+type ProductAdsPaymentEvent struct {
+	// Fields with a schema type of date are in ISO 8601 date time format (for example GroupBeginDate).
+	PostedDate *time.Time `json:"postedDate,omitempty"`
+	// Indicates if the transaction is for a charge or a refund.  Possible values:  * charge - Charge  * refund - Refund
+	TransactionType *string `json:"transactionType,omitempty"`
+	// Identifier for the invoice that the transaction appears in.
+	InvoiceId        *string   `json:"invoiceId,omitempty"`
+	BaseValue        *Currency `json:"baseValue,omitempty"`
+	TaxValue         *Currency `json:"taxValue,omitempty"`
+	TransactionValue *Currency `json:"transactionValue,omitempty"`
+}
+
+// NewProductAdsPaymentEvent instantiates a new ProductAdsPaymentEvent object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewProductAdsPaymentEvent() *ProductAdsPaymentEvent {
+	this := ProductAdsPaymentEvent{}
+	return &this
+}
+
+// NewProductAdsPaymentEventWithDefaults instantiates a new ProductAdsPaymentEvent object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewProductAdsPaymentEventWithDefaults() *ProductAdsPaymentEvent {
+	this := ProductAdsPaymentEvent{}
+	return &this
+}
+
+// GetPostedDate returns the PostedDate field value if set, zero value otherwise.
+func (o *ProductAdsPaymentEvent) GetPostedDate() time.Time {
+	if o == nil || IsNil(o.PostedDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PostedDate
+}
+
+// GetPostedDateOk returns a tuple with the PostedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductAdsPaymentEvent) GetPostedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PostedDate) {
+		return nil, false
+	}
+	return o.PostedDate, true
+}
+
+// HasPostedDate returns a boolean if a field has been set.
+func (o *ProductAdsPaymentEvent) HasPostedDate() bool {
+	if o != nil && !IsNil(o.PostedDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostedDate gets a reference to the given time.Time and assigns it to the PostedDate field.
+func (o *ProductAdsPaymentEvent) SetPostedDate(v time.Time) {
+	o.PostedDate = &v
+}
+
+// GetTransactionType returns the TransactionType field value if set, zero value otherwise.
+func (o *ProductAdsPaymentEvent) GetTransactionType() string {
+	if o == nil || IsNil(o.TransactionType) {
+		var ret string
+		return ret
+	}
+	return *o.TransactionType
+}
+
+// GetTransactionTypeOk returns a tuple with the TransactionType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductAdsPaymentEvent) GetTransactionTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.TransactionType) {
+		return nil, false
+	}
+	return o.TransactionType, true
+}
+
+// HasTransactionType returns a boolean if a field has been set.
+func (o *ProductAdsPaymentEvent) HasTransactionType() bool {
+	if o != nil && !IsNil(o.TransactionType) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionType gets a reference to the given string and assigns it to the TransactionType field.
+func (o *ProductAdsPaymentEvent) SetTransactionType(v string) {
+	o.TransactionType = &v
+}
+
+// GetInvoiceId returns the InvoiceId field value if set, zero value otherwise.
+func (o *ProductAdsPaymentEvent) GetInvoiceId() string {
+	if o == nil || IsNil(o.InvoiceId) {
+		var ret string
+		return ret
+	}
+	return *o.InvoiceId
+}
+
+// GetInvoiceIdOk returns a tuple with the InvoiceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductAdsPaymentEvent) GetInvoiceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.InvoiceId) {
+		return nil, false
+	}
+	return o.InvoiceId, true
+}
+
+// HasInvoiceId returns a boolean if a field has been set.
+func (o *ProductAdsPaymentEvent) HasInvoiceId() bool {
+	if o != nil && !IsNil(o.InvoiceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetInvoiceId gets a reference to the given string and assigns it to the InvoiceId field.
+func (o *ProductAdsPaymentEvent) SetInvoiceId(v string) {
+	o.InvoiceId = &v
+}
+
+// GetBaseValue returns the BaseValue field value if set, zero value otherwise.
+func (o *ProductAdsPaymentEvent) GetBaseValue() Currency {
+	if o == nil || IsNil(o.BaseValue) {
+		var ret Currency
+		return ret
+	}
+	return *o.BaseValue
+}
+
+// GetBaseValueOk returns a tuple with the BaseValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductAdsPaymentEvent) GetBaseValueOk() (*Currency, bool) {
+	if o == nil || IsNil(o.BaseValue) {
+		return nil, false
+	}
+	return o.BaseValue, true
+}
+
+// HasBaseValue returns a boolean if a field has been set.
+func (o *ProductAdsPaymentEvent) HasBaseValue() bool {
+	if o != nil && !IsNil(o.BaseValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetBaseValue gets a reference to the given Currency and assigns it to the BaseValue field.
+func (o *ProductAdsPaymentEvent) SetBaseValue(v Currency) {
+	o.BaseValue = &v
+}
+
+// GetTaxValue returns the TaxValue field value if set, zero value otherwise.
+func (o *ProductAdsPaymentEvent) GetTaxValue() Currency {
+	if o == nil || IsNil(o.TaxValue) {
+		var ret Currency
+		return ret
+	}
+	return *o.TaxValue
+}
+
+// GetTaxValueOk returns a tuple with the TaxValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductAdsPaymentEvent) GetTaxValueOk() (*Currency, bool) {
+	if o == nil || IsNil(o.TaxValue) {
+		return nil, false
+	}
+	return o.TaxValue, true
+}
+
+// HasTaxValue returns a boolean if a field has been set.
+func (o *ProductAdsPaymentEvent) HasTaxValue() bool {
+	if o != nil && !IsNil(o.TaxValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetTaxValue gets a reference to the given Currency and assigns it to the TaxValue field.
+func (o *ProductAdsPaymentEvent) SetTaxValue(v Currency) {
+	o.TaxValue = &v
+}
+
+// GetTransactionValue returns the TransactionValue field value if set, zero value otherwise.
+func (o *ProductAdsPaymentEvent) GetTransactionValue() Currency {
+	if o == nil || IsNil(o.TransactionValue) {
+		var ret Currency
+		return ret
+	}
+	return *o.TransactionValue
+}
+
+// GetTransactionValueOk returns a tuple with the TransactionValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProductAdsPaymentEvent) GetTransactionValueOk() (*Currency, bool) {
+	if o == nil || IsNil(o.TransactionValue) {
+		return nil, false
+	}
+	return o.TransactionValue, true
+}
+
+// HasTransactionValue returns a boolean if a field has been set.
+func (o *ProductAdsPaymentEvent) HasTransactionValue() bool {
+	if o != nil && !IsNil(o.TransactionValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionValue gets a reference to the given Currency and assigns it to the TransactionValue field.
+func (o *ProductAdsPaymentEvent) SetTransactionValue(v Currency) {
+	o.TransactionValue = &v
+}
+
+func (o ProductAdsPaymentEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PostedDate) {
+		toSerialize["postedDate"] = o.PostedDate
+	}
+	if !IsNil(o.TransactionType) {
+		toSerialize["transactionType"] = o.TransactionType
+	}
+	if !IsNil(o.InvoiceId) {
+		toSerialize["invoiceId"] = o.InvoiceId
+	}
+	if !IsNil(o.BaseValue) {
+		toSerialize["baseValue"] = o.BaseValue
+	}
+	if !IsNil(o.TaxValue) {
+		toSerialize["taxValue"] = o.TaxValue
+	}
+	if !IsNil(o.TransactionValue) {
+		toSerialize["transactionValue"] = o.TransactionValue
+	}
+	return toSerialize, nil
+}
+
+type NullableProductAdsPaymentEvent struct {
+	value *ProductAdsPaymentEvent
+	isSet bool
+}
+
+func (v NullableProductAdsPaymentEvent) Get() *ProductAdsPaymentEvent {
+	return v.value
+}
+
+func (v *NullableProductAdsPaymentEvent) Set(val *ProductAdsPaymentEvent) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableProductAdsPaymentEvent) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableProductAdsPaymentEvent) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableProductAdsPaymentEvent(val *ProductAdsPaymentEvent) *NullableProductAdsPaymentEvent {
+	return &NullableProductAdsPaymentEvent{value: val, isSet: true}
+}
+
+func (v NullableProductAdsPaymentEvent) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableProductAdsPaymentEvent) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

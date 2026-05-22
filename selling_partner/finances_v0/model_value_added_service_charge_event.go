@@ -1,0 +1,218 @@
+package finances_v0
+
+import (
+	"github.com/bytedance/sonic"
+	"time"
+)
+
+// checks if the ValueAddedServiceChargeEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ValueAddedServiceChargeEvent{}
+
+// ValueAddedServiceChargeEvent An event related to a value added service charge.
+type ValueAddedServiceChargeEvent struct {
+	// Indicates the type of transaction.  Example: 'Other Support Service fees'
+	TransactionType *string `json:"TransactionType,omitempty"`
+	// Fields with a schema type of date are in ISO 8601 date time format (for example GroupBeginDate).
+	PostedDate *time.Time `json:"PostedDate,omitempty"`
+	// A short description of the service charge event.
+	Description       *string   `json:"Description,omitempty"`
+	TransactionAmount *Currency `json:"TransactionAmount,omitempty"`
+}
+
+// NewValueAddedServiceChargeEvent instantiates a new ValueAddedServiceChargeEvent object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewValueAddedServiceChargeEvent() *ValueAddedServiceChargeEvent {
+	this := ValueAddedServiceChargeEvent{}
+	return &this
+}
+
+// NewValueAddedServiceChargeEventWithDefaults instantiates a new ValueAddedServiceChargeEvent object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewValueAddedServiceChargeEventWithDefaults() *ValueAddedServiceChargeEvent {
+	this := ValueAddedServiceChargeEvent{}
+	return &this
+}
+
+// GetTransactionType returns the TransactionType field value if set, zero value otherwise.
+func (o *ValueAddedServiceChargeEvent) GetTransactionType() string {
+	if o == nil || IsNil(o.TransactionType) {
+		var ret string
+		return ret
+	}
+	return *o.TransactionType
+}
+
+// GetTransactionTypeOk returns a tuple with the TransactionType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValueAddedServiceChargeEvent) GetTransactionTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.TransactionType) {
+		return nil, false
+	}
+	return o.TransactionType, true
+}
+
+// HasTransactionType returns a boolean if a field has been set.
+func (o *ValueAddedServiceChargeEvent) HasTransactionType() bool {
+	if o != nil && !IsNil(o.TransactionType) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionType gets a reference to the given string and assigns it to the TransactionType field.
+func (o *ValueAddedServiceChargeEvent) SetTransactionType(v string) {
+	o.TransactionType = &v
+}
+
+// GetPostedDate returns the PostedDate field value if set, zero value otherwise.
+func (o *ValueAddedServiceChargeEvent) GetPostedDate() time.Time {
+	if o == nil || IsNil(o.PostedDate) {
+		var ret time.Time
+		return ret
+	}
+	return *o.PostedDate
+}
+
+// GetPostedDateOk returns a tuple with the PostedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValueAddedServiceChargeEvent) GetPostedDateOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.PostedDate) {
+		return nil, false
+	}
+	return o.PostedDate, true
+}
+
+// HasPostedDate returns a boolean if a field has been set.
+func (o *ValueAddedServiceChargeEvent) HasPostedDate() bool {
+	if o != nil && !IsNil(o.PostedDate) {
+		return true
+	}
+
+	return false
+}
+
+// SetPostedDate gets a reference to the given time.Time and assigns it to the PostedDate field.
+func (o *ValueAddedServiceChargeEvent) SetPostedDate(v time.Time) {
+	o.PostedDate = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *ValueAddedServiceChargeEvent) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValueAddedServiceChargeEvent) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *ValueAddedServiceChargeEvent) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *ValueAddedServiceChargeEvent) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetTransactionAmount returns the TransactionAmount field value if set, zero value otherwise.
+func (o *ValueAddedServiceChargeEvent) GetTransactionAmount() Currency {
+	if o == nil || IsNil(o.TransactionAmount) {
+		var ret Currency
+		return ret
+	}
+	return *o.TransactionAmount
+}
+
+// GetTransactionAmountOk returns a tuple with the TransactionAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ValueAddedServiceChargeEvent) GetTransactionAmountOk() (*Currency, bool) {
+	if o == nil || IsNil(o.TransactionAmount) {
+		return nil, false
+	}
+	return o.TransactionAmount, true
+}
+
+// HasTransactionAmount returns a boolean if a field has been set.
+func (o *ValueAddedServiceChargeEvent) HasTransactionAmount() bool {
+	if o != nil && !IsNil(o.TransactionAmount) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionAmount gets a reference to the given Currency and assigns it to the TransactionAmount field.
+func (o *ValueAddedServiceChargeEvent) SetTransactionAmount(v Currency) {
+	o.TransactionAmount = &v
+}
+
+func (o ValueAddedServiceChargeEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TransactionType) {
+		toSerialize["TransactionType"] = o.TransactionType
+	}
+	if !IsNil(o.PostedDate) {
+		toSerialize["PostedDate"] = o.PostedDate
+	}
+	if !IsNil(o.Description) {
+		toSerialize["Description"] = o.Description
+	}
+	if !IsNil(o.TransactionAmount) {
+		toSerialize["TransactionAmount"] = o.TransactionAmount
+	}
+	return toSerialize, nil
+}
+
+type NullableValueAddedServiceChargeEvent struct {
+	value *ValueAddedServiceChargeEvent
+	isSet bool
+}
+
+func (v NullableValueAddedServiceChargeEvent) Get() *ValueAddedServiceChargeEvent {
+	return v.value
+}
+
+func (v *NullableValueAddedServiceChargeEvent) Set(val *ValueAddedServiceChargeEvent) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableValueAddedServiceChargeEvent) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableValueAddedServiceChargeEvent) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableValueAddedServiceChargeEvent(val *ValueAddedServiceChargeEvent) *NullableValueAddedServiceChargeEvent {
+	return &NullableValueAddedServiceChargeEvent{value: val, isSet: true}
+}
+
+func (v NullableValueAddedServiceChargeEvent) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableValueAddedServiceChargeEvent) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

@@ -1,0 +1,107 @@
+package replenishment20221107
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the GetSellingPartnerMetricsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetSellingPartnerMetricsResponse{}
+
+// GetSellingPartnerMetricsResponse The response schema for the `getSellingPartnerMetrics` operation.
+type GetSellingPartnerMetricsResponse struct {
+	// A list of metrics data for the selling partner.
+	Metrics []GetSellingPartnerMetricsResponseMetric `json:"metrics,omitempty"`
+}
+
+// NewGetSellingPartnerMetricsResponse instantiates a new GetSellingPartnerMetricsResponse object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewGetSellingPartnerMetricsResponse() *GetSellingPartnerMetricsResponse {
+	this := GetSellingPartnerMetricsResponse{}
+	return &this
+}
+
+// NewGetSellingPartnerMetricsResponseWithDefaults instantiates a new GetSellingPartnerMetricsResponse object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewGetSellingPartnerMetricsResponseWithDefaults() *GetSellingPartnerMetricsResponse {
+	this := GetSellingPartnerMetricsResponse{}
+	return &this
+}
+
+// GetMetrics returns the Metrics field value if set, zero value otherwise.
+func (o *GetSellingPartnerMetricsResponse) GetMetrics() []GetSellingPartnerMetricsResponseMetric {
+	if o == nil || IsNil(o.Metrics) {
+		var ret []GetSellingPartnerMetricsResponseMetric
+		return ret
+	}
+	return o.Metrics
+}
+
+// GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSellingPartnerMetricsResponse) GetMetricsOk() ([]GetSellingPartnerMetricsResponseMetric, bool) {
+	if o == nil || IsNil(o.Metrics) {
+		return nil, false
+	}
+	return o.Metrics, true
+}
+
+// HasMetrics returns a boolean if a field has been set.
+func (o *GetSellingPartnerMetricsResponse) HasMetrics() bool {
+	if o != nil && !IsNil(o.Metrics) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetrics gets a reference to the given []GetSellingPartnerMetricsResponseMetric and assigns it to the Metrics field.
+func (o *GetSellingPartnerMetricsResponse) SetMetrics(v []GetSellingPartnerMetricsResponseMetric) {
+	o.Metrics = v
+}
+
+func (o GetSellingPartnerMetricsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Metrics) {
+		toSerialize["metrics"] = o.Metrics
+	}
+	return toSerialize, nil
+}
+
+type NullableGetSellingPartnerMetricsResponse struct {
+	value *GetSellingPartnerMetricsResponse
+	isSet bool
+}
+
+func (v NullableGetSellingPartnerMetricsResponse) Get() *GetSellingPartnerMetricsResponse {
+	return v.value
+}
+
+func (v *NullableGetSellingPartnerMetricsResponse) Set(val *GetSellingPartnerMetricsResponse) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableGetSellingPartnerMetricsResponse) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableGetSellingPartnerMetricsResponse) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableGetSellingPartnerMetricsResponse(val *GetSellingPartnerMetricsResponse) *NullableGetSellingPartnerMetricsResponse {
+	return &NullableGetSellingPartnerMetricsResponse{value: val, isSet: true}
+}
+
+func (v NullableGetSellingPartnerMetricsResponse) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableGetSellingPartnerMetricsResponse) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

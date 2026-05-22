@@ -1,0 +1,314 @@
+package fulfillment_inbound_20240320
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the Item type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Item{}
+
+// Item Information associated with a single SKU in the seller's catalog.
+type Item struct {
+	// The Amazon Standard Identification Number (ASIN) of the item.
+	Asin string `json:"asin"`
+	// The expiration date of the MSKU. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime format with pattern`YYYY-MM-DD`. The same MSKU with different expiration dates cannot go into the same box.
+	Expiration *string `json:"expiration,omitempty" validate:"regexp=^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"`
+	// A unique identifier assigned by Amazon to products stored in and fulfilled from an Amazon fulfillment center.
+	Fnsku string `json:"fnsku"`
+	// Specifies who will label the items. Options include `AMAZON`, `SELLER`, and `NONE`.
+	LabelOwner string `json:"labelOwner"`
+	// The manufacturing lot code.
+	ManufacturingLotCode *string `json:"manufacturingLotCode,omitempty"`
+	// The merchant SKU, a merchant-supplied identifier of a specific SKU.
+	Msku string `json:"msku"`
+	// Special preparations that are required for an item.
+	PrepInstructions []PrepInstruction `json:"prepInstructions"`
+	// The number of the specified MSKU.
+	Quantity int32 `json:"quantity"`
+}
+
+type _Item Item
+
+// NewItem instantiates a new Item object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewItem(asin string, fnsku string, labelOwner string, msku string, prepInstructions []PrepInstruction, quantity int32) *Item {
+	this := Item{}
+	this.Asin = asin
+	this.Fnsku = fnsku
+	this.LabelOwner = labelOwner
+	this.Msku = msku
+	this.PrepInstructions = prepInstructions
+	this.Quantity = quantity
+	return &this
+}
+
+// NewItemWithDefaults instantiates a new Item object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewItemWithDefaults() *Item {
+	this := Item{}
+	return &this
+}
+
+// GetAsin returns the Asin field value
+func (o *Item) GetAsin() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Asin
+}
+
+// GetAsinOk returns a tuple with the Asin field value
+// and a boolean to check if the value has been set.
+func (o *Item) GetAsinOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Asin, true
+}
+
+// SetAsin sets field value
+func (o *Item) SetAsin(v string) {
+	o.Asin = v
+}
+
+// GetExpiration returns the Expiration field value if set, zero value otherwise.
+func (o *Item) GetExpiration() string {
+	if o == nil || IsNil(o.Expiration) {
+		var ret string
+		return ret
+	}
+	return *o.Expiration
+}
+
+// GetExpirationOk returns a tuple with the Expiration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Item) GetExpirationOk() (*string, bool) {
+	if o == nil || IsNil(o.Expiration) {
+		return nil, false
+	}
+	return o.Expiration, true
+}
+
+// HasExpiration returns a boolean if a field has been set.
+func (o *Item) HasExpiration() bool {
+	if o != nil && !IsNil(o.Expiration) {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiration gets a reference to the given string and assigns it to the Expiration field.
+func (o *Item) SetExpiration(v string) {
+	o.Expiration = &v
+}
+
+// GetFnsku returns the Fnsku field value
+func (o *Item) GetFnsku() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Fnsku
+}
+
+// GetFnskuOk returns a tuple with the Fnsku field value
+// and a boolean to check if the value has been set.
+func (o *Item) GetFnskuOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Fnsku, true
+}
+
+// SetFnsku sets field value
+func (o *Item) SetFnsku(v string) {
+	o.Fnsku = v
+}
+
+// GetLabelOwner returns the LabelOwner field value
+func (o *Item) GetLabelOwner() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.LabelOwner
+}
+
+// GetLabelOwnerOk returns a tuple with the LabelOwner field value
+// and a boolean to check if the value has been set.
+func (o *Item) GetLabelOwnerOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LabelOwner, true
+}
+
+// SetLabelOwner sets field value
+func (o *Item) SetLabelOwner(v string) {
+	o.LabelOwner = v
+}
+
+// GetManufacturingLotCode returns the ManufacturingLotCode field value if set, zero value otherwise.
+func (o *Item) GetManufacturingLotCode() string {
+	if o == nil || IsNil(o.ManufacturingLotCode) {
+		var ret string
+		return ret
+	}
+	return *o.ManufacturingLotCode
+}
+
+// GetManufacturingLotCodeOk returns a tuple with the ManufacturingLotCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Item) GetManufacturingLotCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.ManufacturingLotCode) {
+		return nil, false
+	}
+	return o.ManufacturingLotCode, true
+}
+
+// HasManufacturingLotCode returns a boolean if a field has been set.
+func (o *Item) HasManufacturingLotCode() bool {
+	if o != nil && !IsNil(o.ManufacturingLotCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetManufacturingLotCode gets a reference to the given string and assigns it to the ManufacturingLotCode field.
+func (o *Item) SetManufacturingLotCode(v string) {
+	o.ManufacturingLotCode = &v
+}
+
+// GetMsku returns the Msku field value
+func (o *Item) GetMsku() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Msku
+}
+
+// GetMskuOk returns a tuple with the Msku field value
+// and a boolean to check if the value has been set.
+func (o *Item) GetMskuOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Msku, true
+}
+
+// SetMsku sets field value
+func (o *Item) SetMsku(v string) {
+	o.Msku = v
+}
+
+// GetPrepInstructions returns the PrepInstructions field value
+func (o *Item) GetPrepInstructions() []PrepInstruction {
+	if o == nil {
+		var ret []PrepInstruction
+		return ret
+	}
+
+	return o.PrepInstructions
+}
+
+// GetPrepInstructionsOk returns a tuple with the PrepInstructions field value
+// and a boolean to check if the value has been set.
+func (o *Item) GetPrepInstructionsOk() ([]PrepInstruction, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PrepInstructions, true
+}
+
+// SetPrepInstructions sets field value
+func (o *Item) SetPrepInstructions(v []PrepInstruction) {
+	o.PrepInstructions = v
+}
+
+// GetQuantity returns the Quantity field value
+func (o *Item) GetQuantity() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Quantity
+}
+
+// GetQuantityOk returns a tuple with the Quantity field value
+// and a boolean to check if the value has been set.
+func (o *Item) GetQuantityOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Quantity, true
+}
+
+// SetQuantity sets field value
+func (o *Item) SetQuantity(v int32) {
+	o.Quantity = v
+}
+
+func (o Item) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["asin"] = o.Asin
+	if !IsNil(o.Expiration) {
+		toSerialize["expiration"] = o.Expiration
+	}
+	toSerialize["fnsku"] = o.Fnsku
+	toSerialize["labelOwner"] = o.LabelOwner
+	if !IsNil(o.ManufacturingLotCode) {
+		toSerialize["manufacturingLotCode"] = o.ManufacturingLotCode
+	}
+	toSerialize["msku"] = o.Msku
+	toSerialize["prepInstructions"] = o.PrepInstructions
+	toSerialize["quantity"] = o.Quantity
+	return toSerialize, nil
+}
+
+type NullableItem struct {
+	value *Item
+	isSet bool
+}
+
+func (v NullableItem) Get() *Item {
+	return v.value
+}
+
+func (v *NullableItem) Set(val *Item) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableItem) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableItem) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableItem(val *Item) *NullableItem {
+	return &NullableItem{value: val, isSet: true}
+}
+
+func (v NullableItem) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableItem) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

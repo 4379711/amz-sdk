@@ -1,0 +1,106 @@
+package replenishment20221107
+
+import (
+	"fmt"
+	"github.com/bytedance/sonic"
+)
+
+// ListOffersSortKey The attribute to use to sort the results.
+type ListOffersSortKey string
+
+// List of ListOffersSortKey
+const (
+	LISTOFFERSSORTKEY_ASIN                                              ListOffersSortKey = "ASIN"
+	LISTOFFERSSORTKEY_SELLING_PARTNER_FUNDED_BASE_DISCOUNT_PERCENTAGE   ListOffersSortKey = "SELLING_PARTNER_FUNDED_BASE_DISCOUNT_PERCENTAGE"
+	LISTOFFERSSORTKEY_SELLING_PARTNER_FUNDED_TIERED_DISCOUNT_PERCENTAGE ListOffersSortKey = "SELLING_PARTNER_FUNDED_TIERED_DISCOUNT_PERCENTAGE"
+	LISTOFFERSSORTKEY_AMAZON_FUNDED_BASE_DISCOUNT_PERCENTAGE            ListOffersSortKey = "AMAZON_FUNDED_BASE_DISCOUNT_PERCENTAGE"
+	LISTOFFERSSORTKEY_AMAZON_FUNDED_TIERED_DISCOUNT_PERCENTAGE          ListOffersSortKey = "AMAZON_FUNDED_TIERED_DISCOUNT_PERCENTAGE"
+)
+
+// All allowed values of ListOffersSortKey enum
+var AllowedListOffersSortKeyEnumValues = []ListOffersSortKey{
+	LISTOFFERSSORTKEY_ASIN,
+	LISTOFFERSSORTKEY_SELLING_PARTNER_FUNDED_BASE_DISCOUNT_PERCENTAGE,
+	LISTOFFERSSORTKEY_SELLING_PARTNER_FUNDED_TIERED_DISCOUNT_PERCENTAGE,
+	LISTOFFERSSORTKEY_AMAZON_FUNDED_BASE_DISCOUNT_PERCENTAGE,
+	LISTOFFERSSORTKEY_AMAZON_FUNDED_TIERED_DISCOUNT_PERCENTAGE,
+}
+
+func (v *ListOffersSortKey) UnmarshalJSON(src []byte) error {
+	var value string
+	err := sonic.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := ListOffersSortKey(value)
+	for _, existing := range AllowedListOffersSortKeyEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ListOffersSortKey", value)
+}
+
+// NewListOffersSortKeyFromValue returns a pointer to a valid ListOffersSortKey
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewListOffersSortKeyFromValue(v string) (*ListOffersSortKey, error) {
+	ev := ListOffersSortKey(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for ListOffersSortKey: valid values are %v", v, AllowedListOffersSortKeyEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v ListOffersSortKey) IsValid() bool {
+	for _, existing := range AllowedListOffersSortKeyEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to ListOffersSortKey value
+func (v ListOffersSortKey) Ptr() *ListOffersSortKey {
+	return &v
+}
+
+type NullableListOffersSortKey struct {
+	value *ListOffersSortKey
+	isSet bool
+}
+
+func (v NullableListOffersSortKey) Get() *ListOffersSortKey {
+	return v.value
+}
+
+func (v *NullableListOffersSortKey) Set(val *ListOffersSortKey) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableListOffersSortKey) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableListOffersSortKey) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableListOffersSortKey(val *ListOffersSortKey) *NullableListOffersSortKey {
+	return &NullableListOffersSortKey{value: val, isSet: true}
+}
+
+func (v NullableListOffersSortKey) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableListOffersSortKey) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

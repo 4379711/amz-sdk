@@ -1,0 +1,100 @@
+package fulfillment_inbound_v0
+
+import (
+	"fmt"
+	"github.com/bytedance/sonic"
+)
+
+// ErrorReason The reason that the ASIN is invalid.
+type ErrorReason string
+
+// List of ErrorReason
+const (
+	ERRORREASON_DOES_NOT_EXIST ErrorReason = "DoesNotExist"
+	ERRORREASON_INVALID_ASIN   ErrorReason = "InvalidASIN"
+)
+
+// All allowed values of ErrorReason enum
+var AllowedErrorReasonEnumValues = []ErrorReason{
+	ERRORREASON_DOES_NOT_EXIST,
+	ERRORREASON_INVALID_ASIN,
+}
+
+func (v *ErrorReason) UnmarshalJSON(src []byte) error {
+	var value string
+	err := sonic.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := ErrorReason(value)
+	for _, existing := range AllowedErrorReasonEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid ErrorReason", value)
+}
+
+// NewErrorReasonFromValue returns a pointer to a valid ErrorReason
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewErrorReasonFromValue(v string) (*ErrorReason, error) {
+	ev := ErrorReason(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for ErrorReason: valid values are %v", v, AllowedErrorReasonEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v ErrorReason) IsValid() bool {
+	for _, existing := range AllowedErrorReasonEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to ErrorReason value
+func (v ErrorReason) Ptr() *ErrorReason {
+	return &v
+}
+
+type NullableErrorReason struct {
+	value *ErrorReason
+	isSet bool
+}
+
+func (v NullableErrorReason) Get() *ErrorReason {
+	return v.value
+}
+
+func (v *NullableErrorReason) Set(val *ErrorReason) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableErrorReason) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableErrorReason) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableErrorReason(val *ErrorReason) *NullableErrorReason {
+	return &NullableErrorReason{value: val, isSet: true}
+}
+
+func (v NullableErrorReason) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableErrorReason) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

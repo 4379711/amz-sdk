@@ -1,0 +1,104 @@
+package awd_20240509
+
+import (
+	"fmt"
+	"github.com/bytedance/sonic"
+)
+
+// LabelStatus The status of your label.
+type LabelStatus string
+
+// List of LabelStatus
+const (
+	LABELSTATUS_GENERATING        LabelStatus = "GENERATING"
+	LABELSTATUS_GENERATED         LabelStatus = "GENERATED"
+	LABELSTATUS_GENERATION_FAILED LabelStatus = "GENERATION_FAILED"
+	LABELSTATUS_NOT_READY         LabelStatus = "NOT_READY"
+)
+
+// All allowed values of LabelStatus enum
+var AllowedLabelStatusEnumValues = []LabelStatus{
+	LABELSTATUS_GENERATING,
+	LABELSTATUS_GENERATED,
+	LABELSTATUS_GENERATION_FAILED,
+	LABELSTATUS_NOT_READY,
+}
+
+func (v *LabelStatus) UnmarshalJSON(src []byte) error {
+	var value string
+	err := sonic.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := LabelStatus(value)
+	for _, existing := range AllowedLabelStatusEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid LabelStatus", value)
+}
+
+// NewLabelStatusFromValue returns a pointer to a valid LabelStatus
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewLabelStatusFromValue(v string) (*LabelStatus, error) {
+	ev := LabelStatus(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for LabelStatus: valid values are %v", v, AllowedLabelStatusEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v LabelStatus) IsValid() bool {
+	for _, existing := range AllowedLabelStatusEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to LabelStatus value
+func (v LabelStatus) Ptr() *LabelStatus {
+	return &v
+}
+
+type NullableLabelStatus struct {
+	value *LabelStatus
+	isSet bool
+}
+
+func (v NullableLabelStatus) Get() *LabelStatus {
+	return v.value
+}
+
+func (v *NullableLabelStatus) Set(val *LabelStatus) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableLabelStatus) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableLabelStatus) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableLabelStatus(val *LabelStatus) *NullableLabelStatus {
+	return &NullableLabelStatus{value: val, isSet: true}
+}
+
+func (v NullableLabelStatus) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableLabelStatus) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

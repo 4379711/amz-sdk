@@ -1,0 +1,306 @@
+package fulfillment_inbound_20240320
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the CreateMarketplaceItemLabelsRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateMarketplaceItemLabelsRequest{}
+
+// CreateMarketplaceItemLabelsRequest The `createMarketplaceItemLabels` request.
+type CreateMarketplaceItemLabelsRequest struct {
+	// The height of the item label.
+	Height    *float32       `json:"height,omitempty"`
+	LabelType LabelPrintType `json:"labelType"`
+	// The locale code constructed from ISO 639 language code and ISO 3166-1 alpha-2 standard of country codes separated by an underscore character.
+	LocaleCode *string `json:"localeCode,omitempty" validate:"regexp=^[a-z]{2}_[A-Z]{2}$"`
+	// The Marketplace ID. For a list of possible values, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).
+	MarketplaceId string `json:"marketplaceId"`
+	// Represents the quantity of an MSKU to print item labels for.
+	MskuQuantities []MskuQuantity     `json:"mskuQuantities"`
+	PageType       *ItemLabelPageType `json:"pageType,omitempty"`
+	// The width of the item label.
+	Width *float32 `json:"width,omitempty"`
+}
+
+type _CreateMarketplaceItemLabelsRequest CreateMarketplaceItemLabelsRequest
+
+// NewCreateMarketplaceItemLabelsRequest instantiates a new CreateMarketplaceItemLabelsRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewCreateMarketplaceItemLabelsRequest(labelType LabelPrintType, marketplaceId string, mskuQuantities []MskuQuantity) *CreateMarketplaceItemLabelsRequest {
+	this := CreateMarketplaceItemLabelsRequest{}
+	this.LabelType = labelType
+	var localeCode string = "en_US"
+	this.LocaleCode = &localeCode
+	this.MarketplaceId = marketplaceId
+	this.MskuQuantities = mskuQuantities
+	return &this
+}
+
+// NewCreateMarketplaceItemLabelsRequestWithDefaults instantiates a new CreateMarketplaceItemLabelsRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewCreateMarketplaceItemLabelsRequestWithDefaults() *CreateMarketplaceItemLabelsRequest {
+	this := CreateMarketplaceItemLabelsRequest{}
+	var localeCode string = "en_US"
+	this.LocaleCode = &localeCode
+	return &this
+}
+
+// GetHeight returns the Height field value if set, zero value otherwise.
+func (o *CreateMarketplaceItemLabelsRequest) GetHeight() float32 {
+	if o == nil || IsNil(o.Height) {
+		var ret float32
+		return ret
+	}
+	return *o.Height
+}
+
+// GetHeightOk returns a tuple with the Height field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMarketplaceItemLabelsRequest) GetHeightOk() (*float32, bool) {
+	if o == nil || IsNil(o.Height) {
+		return nil, false
+	}
+	return o.Height, true
+}
+
+// HasHeight returns a boolean if a field has been set.
+func (o *CreateMarketplaceItemLabelsRequest) HasHeight() bool {
+	if o != nil && !IsNil(o.Height) {
+		return true
+	}
+
+	return false
+}
+
+// SetHeight gets a reference to the given float32 and assigns it to the Height field.
+func (o *CreateMarketplaceItemLabelsRequest) SetHeight(v float32) {
+	o.Height = &v
+}
+
+// GetLabelType returns the LabelType field value
+func (o *CreateMarketplaceItemLabelsRequest) GetLabelType() LabelPrintType {
+	if o == nil {
+		var ret LabelPrintType
+		return ret
+	}
+
+	return o.LabelType
+}
+
+// GetLabelTypeOk returns a tuple with the LabelType field value
+// and a boolean to check if the value has been set.
+func (o *CreateMarketplaceItemLabelsRequest) GetLabelTypeOk() (*LabelPrintType, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LabelType, true
+}
+
+// SetLabelType sets field value
+func (o *CreateMarketplaceItemLabelsRequest) SetLabelType(v LabelPrintType) {
+	o.LabelType = v
+}
+
+// GetLocaleCode returns the LocaleCode field value if set, zero value otherwise.
+func (o *CreateMarketplaceItemLabelsRequest) GetLocaleCode() string {
+	if o == nil || IsNil(o.LocaleCode) {
+		var ret string
+		return ret
+	}
+	return *o.LocaleCode
+}
+
+// GetLocaleCodeOk returns a tuple with the LocaleCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMarketplaceItemLabelsRequest) GetLocaleCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.LocaleCode) {
+		return nil, false
+	}
+	return o.LocaleCode, true
+}
+
+// HasLocaleCode returns a boolean if a field has been set.
+func (o *CreateMarketplaceItemLabelsRequest) HasLocaleCode() bool {
+	if o != nil && !IsNil(o.LocaleCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetLocaleCode gets a reference to the given string and assigns it to the LocaleCode field.
+func (o *CreateMarketplaceItemLabelsRequest) SetLocaleCode(v string) {
+	o.LocaleCode = &v
+}
+
+// GetMarketplaceId returns the MarketplaceId field value
+func (o *CreateMarketplaceItemLabelsRequest) GetMarketplaceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MarketplaceId
+}
+
+// GetMarketplaceIdOk returns a tuple with the MarketplaceId field value
+// and a boolean to check if the value has been set.
+func (o *CreateMarketplaceItemLabelsRequest) GetMarketplaceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MarketplaceId, true
+}
+
+// SetMarketplaceId sets field value
+func (o *CreateMarketplaceItemLabelsRequest) SetMarketplaceId(v string) {
+	o.MarketplaceId = v
+}
+
+// GetMskuQuantities returns the MskuQuantities field value
+func (o *CreateMarketplaceItemLabelsRequest) GetMskuQuantities() []MskuQuantity {
+	if o == nil {
+		var ret []MskuQuantity
+		return ret
+	}
+
+	return o.MskuQuantities
+}
+
+// GetMskuQuantitiesOk returns a tuple with the MskuQuantities field value
+// and a boolean to check if the value has been set.
+func (o *CreateMarketplaceItemLabelsRequest) GetMskuQuantitiesOk() ([]MskuQuantity, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MskuQuantities, true
+}
+
+// SetMskuQuantities sets field value
+func (o *CreateMarketplaceItemLabelsRequest) SetMskuQuantities(v []MskuQuantity) {
+	o.MskuQuantities = v
+}
+
+// GetPageType returns the PageType field value if set, zero value otherwise.
+func (o *CreateMarketplaceItemLabelsRequest) GetPageType() ItemLabelPageType {
+	if o == nil || IsNil(o.PageType) {
+		var ret ItemLabelPageType
+		return ret
+	}
+	return *o.PageType
+}
+
+// GetPageTypeOk returns a tuple with the PageType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMarketplaceItemLabelsRequest) GetPageTypeOk() (*ItemLabelPageType, bool) {
+	if o == nil || IsNil(o.PageType) {
+		return nil, false
+	}
+	return o.PageType, true
+}
+
+// HasPageType returns a boolean if a field has been set.
+func (o *CreateMarketplaceItemLabelsRequest) HasPageType() bool {
+	if o != nil && !IsNil(o.PageType) {
+		return true
+	}
+
+	return false
+}
+
+// SetPageType gets a reference to the given ItemLabelPageType and assigns it to the PageType field.
+func (o *CreateMarketplaceItemLabelsRequest) SetPageType(v ItemLabelPageType) {
+	o.PageType = &v
+}
+
+// GetWidth returns the Width field value if set, zero value otherwise.
+func (o *CreateMarketplaceItemLabelsRequest) GetWidth() float32 {
+	if o == nil || IsNil(o.Width) {
+		var ret float32
+		return ret
+	}
+	return *o.Width
+}
+
+// GetWidthOk returns a tuple with the Width field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMarketplaceItemLabelsRequest) GetWidthOk() (*float32, bool) {
+	if o == nil || IsNil(o.Width) {
+		return nil, false
+	}
+	return o.Width, true
+}
+
+// HasWidth returns a boolean if a field has been set.
+func (o *CreateMarketplaceItemLabelsRequest) HasWidth() bool {
+	if o != nil && !IsNil(o.Width) {
+		return true
+	}
+
+	return false
+}
+
+// SetWidth gets a reference to the given float32 and assigns it to the Width field.
+func (o *CreateMarketplaceItemLabelsRequest) SetWidth(v float32) {
+	o.Width = &v
+}
+
+func (o CreateMarketplaceItemLabelsRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Height) {
+		toSerialize["height"] = o.Height
+	}
+	toSerialize["labelType"] = o.LabelType
+	if !IsNil(o.LocaleCode) {
+		toSerialize["localeCode"] = o.LocaleCode
+	}
+	toSerialize["marketplaceId"] = o.MarketplaceId
+	toSerialize["mskuQuantities"] = o.MskuQuantities
+	if !IsNil(o.PageType) {
+		toSerialize["pageType"] = o.PageType
+	}
+	if !IsNil(o.Width) {
+		toSerialize["width"] = o.Width
+	}
+	return toSerialize, nil
+}
+
+type NullableCreateMarketplaceItemLabelsRequest struct {
+	value *CreateMarketplaceItemLabelsRequest
+	isSet bool
+}
+
+func (v NullableCreateMarketplaceItemLabelsRequest) Get() *CreateMarketplaceItemLabelsRequest {
+	return v.value
+}
+
+func (v *NullableCreateMarketplaceItemLabelsRequest) Set(val *CreateMarketplaceItemLabelsRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCreateMarketplaceItemLabelsRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCreateMarketplaceItemLabelsRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCreateMarketplaceItemLabelsRequest(val *CreateMarketplaceItemLabelsRequest) *NullableCreateMarketplaceItemLabelsRequest {
+	return &NullableCreateMarketplaceItemLabelsRequest{value: val, isSet: true}
+}
+
+func (v NullableCreateMarketplaceItemLabelsRequest) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableCreateMarketplaceItemLabelsRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

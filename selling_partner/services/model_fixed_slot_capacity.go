@@ -1,0 +1,218 @@
+package services
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the FixedSlotCapacity type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FixedSlotCapacity{}
+
+// FixedSlotCapacity Response schema for the `getFixedSlotCapacity` operation.
+type FixedSlotCapacity struct {
+	// Resource Identifier.
+	ResourceId *string `json:"resourceId,omitempty"`
+	// The duration of each slot which is returned. This value will be a multiple of 5 and fall in the following range: 5 <= `slotDuration` <= 360.
+	SlotDuration *float32 `json:"slotDuration,omitempty"`
+	// Array of capacity slots in fixed slot format.
+	Capacities []FixedSlot `json:"capacities,omitempty"`
+	// Next page token, if there are more pages.
+	NextPageToken *string `json:"nextPageToken,omitempty"`
+}
+
+// NewFixedSlotCapacity instantiates a new FixedSlotCapacity object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewFixedSlotCapacity() *FixedSlotCapacity {
+	this := FixedSlotCapacity{}
+	return &this
+}
+
+// NewFixedSlotCapacityWithDefaults instantiates a new FixedSlotCapacity object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewFixedSlotCapacityWithDefaults() *FixedSlotCapacity {
+	this := FixedSlotCapacity{}
+	return &this
+}
+
+// GetResourceId returns the ResourceId field value if set, zero value otherwise.
+func (o *FixedSlotCapacity) GetResourceId() string {
+	if o == nil || IsNil(o.ResourceId) {
+		var ret string
+		return ret
+	}
+	return *o.ResourceId
+}
+
+// GetResourceIdOk returns a tuple with the ResourceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FixedSlotCapacity) GetResourceIdOk() (*string, bool) {
+	if o == nil || IsNil(o.ResourceId) {
+		return nil, false
+	}
+	return o.ResourceId, true
+}
+
+// HasResourceId returns a boolean if a field has been set.
+func (o *FixedSlotCapacity) HasResourceId() bool {
+	if o != nil && !IsNil(o.ResourceId) {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceId gets a reference to the given string and assigns it to the ResourceId field.
+func (o *FixedSlotCapacity) SetResourceId(v string) {
+	o.ResourceId = &v
+}
+
+// GetSlotDuration returns the SlotDuration field value if set, zero value otherwise.
+func (o *FixedSlotCapacity) GetSlotDuration() float32 {
+	if o == nil || IsNil(o.SlotDuration) {
+		var ret float32
+		return ret
+	}
+	return *o.SlotDuration
+}
+
+// GetSlotDurationOk returns a tuple with the SlotDuration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FixedSlotCapacity) GetSlotDurationOk() (*float32, bool) {
+	if o == nil || IsNil(o.SlotDuration) {
+		return nil, false
+	}
+	return o.SlotDuration, true
+}
+
+// HasSlotDuration returns a boolean if a field has been set.
+func (o *FixedSlotCapacity) HasSlotDuration() bool {
+	if o != nil && !IsNil(o.SlotDuration) {
+		return true
+	}
+
+	return false
+}
+
+// SetSlotDuration gets a reference to the given float32 and assigns it to the SlotDuration field.
+func (o *FixedSlotCapacity) SetSlotDuration(v float32) {
+	o.SlotDuration = &v
+}
+
+// GetCapacities returns the Capacities field value if set, zero value otherwise.
+func (o *FixedSlotCapacity) GetCapacities() []FixedSlot {
+	if o == nil || IsNil(o.Capacities) {
+		var ret []FixedSlot
+		return ret
+	}
+	return o.Capacities
+}
+
+// GetCapacitiesOk returns a tuple with the Capacities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FixedSlotCapacity) GetCapacitiesOk() ([]FixedSlot, bool) {
+	if o == nil || IsNil(o.Capacities) {
+		return nil, false
+	}
+	return o.Capacities, true
+}
+
+// HasCapacities returns a boolean if a field has been set.
+func (o *FixedSlotCapacity) HasCapacities() bool {
+	if o != nil && !IsNil(o.Capacities) {
+		return true
+	}
+
+	return false
+}
+
+// SetCapacities gets a reference to the given []FixedSlot and assigns it to the Capacities field.
+func (o *FixedSlotCapacity) SetCapacities(v []FixedSlot) {
+	o.Capacities = v
+}
+
+// GetNextPageToken returns the NextPageToken field value if set, zero value otherwise.
+func (o *FixedSlotCapacity) GetNextPageToken() string {
+	if o == nil || IsNil(o.NextPageToken) {
+		var ret string
+		return ret
+	}
+	return *o.NextPageToken
+}
+
+// GetNextPageTokenOk returns a tuple with the NextPageToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FixedSlotCapacity) GetNextPageTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.NextPageToken) {
+		return nil, false
+	}
+	return o.NextPageToken, true
+}
+
+// HasNextPageToken returns a boolean if a field has been set.
+func (o *FixedSlotCapacity) HasNextPageToken() bool {
+	if o != nil && !IsNil(o.NextPageToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetNextPageToken gets a reference to the given string and assigns it to the NextPageToken field.
+func (o *FixedSlotCapacity) SetNextPageToken(v string) {
+	o.NextPageToken = &v
+}
+
+func (o FixedSlotCapacity) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ResourceId) {
+		toSerialize["resourceId"] = o.ResourceId
+	}
+	if !IsNil(o.SlotDuration) {
+		toSerialize["slotDuration"] = o.SlotDuration
+	}
+	if !IsNil(o.Capacities) {
+		toSerialize["capacities"] = o.Capacities
+	}
+	if !IsNil(o.NextPageToken) {
+		toSerialize["nextPageToken"] = o.NextPageToken
+	}
+	return toSerialize, nil
+}
+
+type NullableFixedSlotCapacity struct {
+	value *FixedSlotCapacity
+	isSet bool
+}
+
+func (v NullableFixedSlotCapacity) Get() *FixedSlotCapacity {
+	return v.value
+}
+
+func (v *NullableFixedSlotCapacity) Set(val *FixedSlotCapacity) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableFixedSlotCapacity) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableFixedSlotCapacity) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableFixedSlotCapacity(val *FixedSlotCapacity) *NullableFixedSlotCapacity {
+	return &NullableFixedSlotCapacity{value: val, isSet: true}
+}
+
+func (v NullableFixedSlotCapacity) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableFixedSlotCapacity) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

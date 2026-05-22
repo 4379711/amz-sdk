@@ -1,0 +1,106 @@
+package shipping_v2
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the GetAccessPointsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetAccessPointsResponse{}
+
+// GetAccessPointsResponse The response schema for the GetAccessPoints operation.
+type GetAccessPointsResponse struct {
+	Payload *GetAccessPointsResult `json:"payload,omitempty"`
+}
+
+// NewGetAccessPointsResponse instantiates a new GetAccessPointsResponse object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewGetAccessPointsResponse() *GetAccessPointsResponse {
+	this := GetAccessPointsResponse{}
+	return &this
+}
+
+// NewGetAccessPointsResponseWithDefaults instantiates a new GetAccessPointsResponse object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewGetAccessPointsResponseWithDefaults() *GetAccessPointsResponse {
+	this := GetAccessPointsResponse{}
+	return &this
+}
+
+// GetPayload returns the Payload field value if set, zero value otherwise.
+func (o *GetAccessPointsResponse) GetPayload() GetAccessPointsResult {
+	if o == nil || IsNil(o.Payload) {
+		var ret GetAccessPointsResult
+		return ret
+	}
+	return *o.Payload
+}
+
+// GetPayloadOk returns a tuple with the Payload field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetAccessPointsResponse) GetPayloadOk() (*GetAccessPointsResult, bool) {
+	if o == nil || IsNil(o.Payload) {
+		return nil, false
+	}
+	return o.Payload, true
+}
+
+// HasPayload returns a boolean if a field has been set.
+func (o *GetAccessPointsResponse) HasPayload() bool {
+	if o != nil && !IsNil(o.Payload) {
+		return true
+	}
+
+	return false
+}
+
+// SetPayload gets a reference to the given GetAccessPointsResult and assigns it to the Payload field.
+func (o *GetAccessPointsResponse) SetPayload(v GetAccessPointsResult) {
+	o.Payload = &v
+}
+
+func (o GetAccessPointsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Payload) {
+		toSerialize["payload"] = o.Payload
+	}
+	return toSerialize, nil
+}
+
+type NullableGetAccessPointsResponse struct {
+	value *GetAccessPointsResponse
+	isSet bool
+}
+
+func (v NullableGetAccessPointsResponse) Get() *GetAccessPointsResponse {
+	return v.value
+}
+
+func (v *NullableGetAccessPointsResponse) Set(val *GetAccessPointsResponse) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableGetAccessPointsResponse) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableGetAccessPointsResponse) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableGetAccessPointsResponse(val *GetAccessPointsResponse) *NullableGetAccessPointsResponse {
+	return &NullableGetAccessPointsResponse{value: val, isSet: true}
+}
+
+func (v NullableGetAccessPointsResponse) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableGetAccessPointsResponse) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

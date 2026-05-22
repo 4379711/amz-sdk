@@ -1,0 +1,107 @@
+package vendor_direct_fulfillment_payments_v1
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the SubmitInvoiceRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SubmitInvoiceRequest{}
+
+// SubmitInvoiceRequest The request schema for the submitInvoice operation.
+type SubmitInvoiceRequest struct {
+	// An array of invoice details to be submitted.
+	Invoices []InvoiceDetail `json:"invoices,omitempty"`
+}
+
+// NewSubmitInvoiceRequest instantiates a new SubmitInvoiceRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewSubmitInvoiceRequest() *SubmitInvoiceRequest {
+	this := SubmitInvoiceRequest{}
+	return &this
+}
+
+// NewSubmitInvoiceRequestWithDefaults instantiates a new SubmitInvoiceRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewSubmitInvoiceRequestWithDefaults() *SubmitInvoiceRequest {
+	this := SubmitInvoiceRequest{}
+	return &this
+}
+
+// GetInvoices returns the Invoices field value if set, zero value otherwise.
+func (o *SubmitInvoiceRequest) GetInvoices() []InvoiceDetail {
+	if o == nil || IsNil(o.Invoices) {
+		var ret []InvoiceDetail
+		return ret
+	}
+	return o.Invoices
+}
+
+// GetInvoicesOk returns a tuple with the Invoices field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmitInvoiceRequest) GetInvoicesOk() ([]InvoiceDetail, bool) {
+	if o == nil || IsNil(o.Invoices) {
+		return nil, false
+	}
+	return o.Invoices, true
+}
+
+// HasInvoices returns a boolean if a field has been set.
+func (o *SubmitInvoiceRequest) HasInvoices() bool {
+	if o != nil && !IsNil(o.Invoices) {
+		return true
+	}
+
+	return false
+}
+
+// SetInvoices gets a reference to the given []InvoiceDetail and assigns it to the Invoices field.
+func (o *SubmitInvoiceRequest) SetInvoices(v []InvoiceDetail) {
+	o.Invoices = v
+}
+
+func (o SubmitInvoiceRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Invoices) {
+		toSerialize["invoices"] = o.Invoices
+	}
+	return toSerialize, nil
+}
+
+type NullableSubmitInvoiceRequest struct {
+	value *SubmitInvoiceRequest
+	isSet bool
+}
+
+func (v NullableSubmitInvoiceRequest) Get() *SubmitInvoiceRequest {
+	return v.value
+}
+
+func (v *NullableSubmitInvoiceRequest) Set(val *SubmitInvoiceRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableSubmitInvoiceRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableSubmitInvoiceRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableSubmitInvoiceRequest(val *SubmitInvoiceRequest) *NullableSubmitInvoiceRequest {
+	return &NullableSubmitInvoiceRequest{value: val, isSet: true}
+}
+
+func (v NullableSubmitInvoiceRequest) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableSubmitInvoiceRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

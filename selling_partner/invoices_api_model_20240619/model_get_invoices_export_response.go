@@ -1,0 +1,106 @@
+package invoices_api_model_20240619
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the GetInvoicesExportResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetInvoicesExportResponse{}
+
+// GetInvoicesExportResponse Success.
+type GetInvoicesExportResponse struct {
+	Export *Export `json:"export,omitempty"`
+}
+
+// NewGetInvoicesExportResponse instantiates a new GetInvoicesExportResponse object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewGetInvoicesExportResponse() *GetInvoicesExportResponse {
+	this := GetInvoicesExportResponse{}
+	return &this
+}
+
+// NewGetInvoicesExportResponseWithDefaults instantiates a new GetInvoicesExportResponse object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewGetInvoicesExportResponseWithDefaults() *GetInvoicesExportResponse {
+	this := GetInvoicesExportResponse{}
+	return &this
+}
+
+// GetExport returns the Export field value if set, zero value otherwise.
+func (o *GetInvoicesExportResponse) GetExport() Export {
+	if o == nil || IsNil(o.Export) {
+		var ret Export
+		return ret
+	}
+	return *o.Export
+}
+
+// GetExportOk returns a tuple with the Export field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetInvoicesExportResponse) GetExportOk() (*Export, bool) {
+	if o == nil || IsNil(o.Export) {
+		return nil, false
+	}
+	return o.Export, true
+}
+
+// HasExport returns a boolean if a field has been set.
+func (o *GetInvoicesExportResponse) HasExport() bool {
+	if o != nil && !IsNil(o.Export) {
+		return true
+	}
+
+	return false
+}
+
+// SetExport gets a reference to the given Export and assigns it to the Export field.
+func (o *GetInvoicesExportResponse) SetExport(v Export) {
+	o.Export = &v
+}
+
+func (o GetInvoicesExportResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Export) {
+		toSerialize["export"] = o.Export
+	}
+	return toSerialize, nil
+}
+
+type NullableGetInvoicesExportResponse struct {
+	value *GetInvoicesExportResponse
+	isSet bool
+}
+
+func (v NullableGetInvoicesExportResponse) Get() *GetInvoicesExportResponse {
+	return v.value
+}
+
+func (v *NullableGetInvoicesExportResponse) Set(val *GetInvoicesExportResponse) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableGetInvoicesExportResponse) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableGetInvoicesExportResponse) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableGetInvoicesExportResponse(val *GetInvoicesExportResponse) *NullableGetInvoicesExportResponse {
+	return &NullableGetInvoicesExportResponse{value: val, isSet: true}
+}
+
+func (v NullableGetInvoicesExportResponse) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableGetInvoicesExportResponse) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

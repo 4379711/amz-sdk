@@ -1,0 +1,106 @@
+package vendor_direct_fulfillment_transactions_v1
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the TransactionStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TransactionStatus{}
+
+// TransactionStatus The payload for the getTransactionStatus operation.
+type TransactionStatus struct {
+	TransactionStatus *Transaction `json:"transactionStatus,omitempty"`
+}
+
+// NewTransactionStatus instantiates a new TransactionStatus object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewTransactionStatus() *TransactionStatus {
+	this := TransactionStatus{}
+	return &this
+}
+
+// NewTransactionStatusWithDefaults instantiates a new TransactionStatus object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewTransactionStatusWithDefaults() *TransactionStatus {
+	this := TransactionStatus{}
+	return &this
+}
+
+// GetTransactionStatus returns the TransactionStatus field value if set, zero value otherwise.
+func (o *TransactionStatus) GetTransactionStatus() Transaction {
+	if o == nil || IsNil(o.TransactionStatus) {
+		var ret Transaction
+		return ret
+	}
+	return *o.TransactionStatus
+}
+
+// GetTransactionStatusOk returns a tuple with the TransactionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransactionStatus) GetTransactionStatusOk() (*Transaction, bool) {
+	if o == nil || IsNil(o.TransactionStatus) {
+		return nil, false
+	}
+	return o.TransactionStatus, true
+}
+
+// HasTransactionStatus returns a boolean if a field has been set.
+func (o *TransactionStatus) HasTransactionStatus() bool {
+	if o != nil && !IsNil(o.TransactionStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionStatus gets a reference to the given Transaction and assigns it to the TransactionStatus field.
+func (o *TransactionStatus) SetTransactionStatus(v Transaction) {
+	o.TransactionStatus = &v
+}
+
+func (o TransactionStatus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TransactionStatus) {
+		toSerialize["transactionStatus"] = o.TransactionStatus
+	}
+	return toSerialize, nil
+}
+
+type NullableTransactionStatus struct {
+	value *TransactionStatus
+	isSet bool
+}
+
+func (v NullableTransactionStatus) Get() *TransactionStatus {
+	return v.value
+}
+
+func (v *NullableTransactionStatus) Set(val *TransactionStatus) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableTransactionStatus) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableTransactionStatus) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableTransactionStatus(val *TransactionStatus) *NullableTransactionStatus {
+	return &NullableTransactionStatus{value: val, isSet: true}
+}
+
+func (v NullableTransactionStatus) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableTransactionStatus) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

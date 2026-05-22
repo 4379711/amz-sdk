@@ -1,0 +1,110 @@
+package services
+
+import (
+	"fmt"
+	"github.com/bytedance/sonic"
+)
+
+// DayOfWeek The day of the week.
+type DayOfWeek string
+
+// List of DayOfWeek
+const (
+	DAYOFWEEK_MONDAY    DayOfWeek = "MONDAY"
+	DAYOFWEEK_TUESDAY   DayOfWeek = "TUESDAY"
+	DAYOFWEEK_WEDNESDAY DayOfWeek = "WEDNESDAY"
+	DAYOFWEEK_THURSDAY  DayOfWeek = "THURSDAY"
+	DAYOFWEEK_FRIDAY    DayOfWeek = "FRIDAY"
+	DAYOFWEEK_SATURDAY  DayOfWeek = "SATURDAY"
+	DAYOFWEEK_SUNDAY    DayOfWeek = "SUNDAY"
+)
+
+// All allowed values of DayOfWeek enum
+var AllowedDayOfWeekEnumValues = []DayOfWeek{
+	DAYOFWEEK_MONDAY,
+	DAYOFWEEK_TUESDAY,
+	DAYOFWEEK_WEDNESDAY,
+	DAYOFWEEK_THURSDAY,
+	DAYOFWEEK_FRIDAY,
+	DAYOFWEEK_SATURDAY,
+	DAYOFWEEK_SUNDAY,
+}
+
+func (v *DayOfWeek) UnmarshalJSON(src []byte) error {
+	var value string
+	err := sonic.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := DayOfWeek(value)
+	for _, existing := range AllowedDayOfWeekEnumValues {
+		if existing == enumTypeValue {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid DayOfWeek", value)
+}
+
+// NewDayOfWeekFromValue returns a pointer to a valid DayOfWeek
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func NewDayOfWeekFromValue(v string) (*DayOfWeek, error) {
+	ev := DayOfWeek(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for DayOfWeek: valid values are %v", v, AllowedDayOfWeekEnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v DayOfWeek) IsValid() bool {
+	for _, existing := range AllowedDayOfWeekEnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to DayOfWeek value
+func (v DayOfWeek) Ptr() *DayOfWeek {
+	return &v
+}
+
+type NullableDayOfWeek struct {
+	value *DayOfWeek
+	isSet bool
+}
+
+func (v NullableDayOfWeek) Get() *DayOfWeek {
+	return v.value
+}
+
+func (v *NullableDayOfWeek) Set(val *DayOfWeek) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableDayOfWeek) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableDayOfWeek) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableDayOfWeek(val *DayOfWeek) *NullableDayOfWeek {
+	return &NullableDayOfWeek{value: val, isSet: true}
+}
+
+func (v NullableDayOfWeek) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableDayOfWeek) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

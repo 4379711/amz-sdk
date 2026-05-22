@@ -1,0 +1,107 @@
+package vendor_shipments
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the ContainerSequenceNumbers type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ContainerSequenceNumbers{}
+
+// ContainerSequenceNumbers Container sequence numbers that are involved in this shipment.
+type ContainerSequenceNumbers struct {
+	// A list of containers shipped
+	ContainerSequenceNumber *string `json:"containerSequenceNumber,omitempty"`
+}
+
+// NewContainerSequenceNumbers instantiates a new ContainerSequenceNumbers object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewContainerSequenceNumbers() *ContainerSequenceNumbers {
+	this := ContainerSequenceNumbers{}
+	return &this
+}
+
+// NewContainerSequenceNumbersWithDefaults instantiates a new ContainerSequenceNumbers object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewContainerSequenceNumbersWithDefaults() *ContainerSequenceNumbers {
+	this := ContainerSequenceNumbers{}
+	return &this
+}
+
+// GetContainerSequenceNumber returns the ContainerSequenceNumber field value if set, zero value otherwise.
+func (o *ContainerSequenceNumbers) GetContainerSequenceNumber() string {
+	if o == nil || IsNil(o.ContainerSequenceNumber) {
+		var ret string
+		return ret
+	}
+	return *o.ContainerSequenceNumber
+}
+
+// GetContainerSequenceNumberOk returns a tuple with the ContainerSequenceNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContainerSequenceNumbers) GetContainerSequenceNumberOk() (*string, bool) {
+	if o == nil || IsNil(o.ContainerSequenceNumber) {
+		return nil, false
+	}
+	return o.ContainerSequenceNumber, true
+}
+
+// HasContainerSequenceNumber returns a boolean if a field has been set.
+func (o *ContainerSequenceNumbers) HasContainerSequenceNumber() bool {
+	if o != nil && !IsNil(o.ContainerSequenceNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetContainerSequenceNumber gets a reference to the given string and assigns it to the ContainerSequenceNumber field.
+func (o *ContainerSequenceNumbers) SetContainerSequenceNumber(v string) {
+	o.ContainerSequenceNumber = &v
+}
+
+func (o ContainerSequenceNumbers) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ContainerSequenceNumber) {
+		toSerialize["containerSequenceNumber"] = o.ContainerSequenceNumber
+	}
+	return toSerialize, nil
+}
+
+type NullableContainerSequenceNumbers struct {
+	value *ContainerSequenceNumbers
+	isSet bool
+}
+
+func (v NullableContainerSequenceNumbers) Get() *ContainerSequenceNumbers {
+	return v.value
+}
+
+func (v *NullableContainerSequenceNumbers) Set(val *ContainerSequenceNumbers) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableContainerSequenceNumbers) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableContainerSequenceNumbers) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableContainerSequenceNumbers(val *ContainerSequenceNumbers) *NullableContainerSequenceNumbers {
+	return &NullableContainerSequenceNumbers{value: val, isSet: true}
+}
+
+func (v NullableContainerSequenceNumbers) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableContainerSequenceNumbers) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

@@ -1,0 +1,107 @@
+package shipping_v2
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the RequestedLabelCustomization type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RequestedLabelCustomization{}
+
+// RequestedLabelCustomization Object contains customised data requested by a shipper to be printed on a shipping label.
+type RequestedLabelCustomization struct {
+	// Specify the type of attributes to be added on a label.
+	RequestAttributes []LabelAttribute `json:"requestAttributes,omitempty"`
+}
+
+// NewRequestedLabelCustomization instantiates a new RequestedLabelCustomization object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewRequestedLabelCustomization() *RequestedLabelCustomization {
+	this := RequestedLabelCustomization{}
+	return &this
+}
+
+// NewRequestedLabelCustomizationWithDefaults instantiates a new RequestedLabelCustomization object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewRequestedLabelCustomizationWithDefaults() *RequestedLabelCustomization {
+	this := RequestedLabelCustomization{}
+	return &this
+}
+
+// GetRequestAttributes returns the RequestAttributes field value if set, zero value otherwise.
+func (o *RequestedLabelCustomization) GetRequestAttributes() []LabelAttribute {
+	if o == nil || IsNil(o.RequestAttributes) {
+		var ret []LabelAttribute
+		return ret
+	}
+	return o.RequestAttributes
+}
+
+// GetRequestAttributesOk returns a tuple with the RequestAttributes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RequestedLabelCustomization) GetRequestAttributesOk() ([]LabelAttribute, bool) {
+	if o == nil || IsNil(o.RequestAttributes) {
+		return nil, false
+	}
+	return o.RequestAttributes, true
+}
+
+// HasRequestAttributes returns a boolean if a field has been set.
+func (o *RequestedLabelCustomization) HasRequestAttributes() bool {
+	if o != nil && !IsNil(o.RequestAttributes) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestAttributes gets a reference to the given []LabelAttribute and assigns it to the RequestAttributes field.
+func (o *RequestedLabelCustomization) SetRequestAttributes(v []LabelAttribute) {
+	o.RequestAttributes = v
+}
+
+func (o RequestedLabelCustomization) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RequestAttributes) {
+		toSerialize["requestAttributes"] = o.RequestAttributes
+	}
+	return toSerialize, nil
+}
+
+type NullableRequestedLabelCustomization struct {
+	value *RequestedLabelCustomization
+	isSet bool
+}
+
+func (v NullableRequestedLabelCustomization) Get() *RequestedLabelCustomization {
+	return v.value
+}
+
+func (v *NullableRequestedLabelCustomization) Set(val *RequestedLabelCustomization) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableRequestedLabelCustomization) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableRequestedLabelCustomization) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableRequestedLabelCustomization(val *RequestedLabelCustomization) *NullableRequestedLabelCustomization {
+	return &NullableRequestedLabelCustomization{value: val, isSet: true}
+}
+
+func (v NullableRequestedLabelCustomization) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableRequestedLabelCustomization) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

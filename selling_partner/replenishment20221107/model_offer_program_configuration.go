@@ -1,0 +1,178 @@
+package replenishment20221107
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the OfferProgramConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OfferProgramConfiguration{}
+
+// OfferProgramConfiguration The offer program configuration contains a set of program properties for an offer.
+type OfferProgramConfiguration struct {
+	Preferences      *OfferProgramConfigurationPreferences `json:"preferences,omitempty"`
+	Promotions       *OfferProgramConfigurationPromotions  `json:"promotions,omitempty"`
+	EnrollmentMethod *EnrollmentMethod                     `json:"enrollmentMethod,omitempty"`
+}
+
+// NewOfferProgramConfiguration instantiates a new OfferProgramConfiguration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewOfferProgramConfiguration() *OfferProgramConfiguration {
+	this := OfferProgramConfiguration{}
+	return &this
+}
+
+// NewOfferProgramConfigurationWithDefaults instantiates a new OfferProgramConfiguration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewOfferProgramConfigurationWithDefaults() *OfferProgramConfiguration {
+	this := OfferProgramConfiguration{}
+	return &this
+}
+
+// GetPreferences returns the Preferences field value if set, zero value otherwise.
+func (o *OfferProgramConfiguration) GetPreferences() OfferProgramConfigurationPreferences {
+	if o == nil || IsNil(o.Preferences) {
+		var ret OfferProgramConfigurationPreferences
+		return ret
+	}
+	return *o.Preferences
+}
+
+// GetPreferencesOk returns a tuple with the Preferences field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OfferProgramConfiguration) GetPreferencesOk() (*OfferProgramConfigurationPreferences, bool) {
+	if o == nil || IsNil(o.Preferences) {
+		return nil, false
+	}
+	return o.Preferences, true
+}
+
+// HasPreferences returns a boolean if a field has been set.
+func (o *OfferProgramConfiguration) HasPreferences() bool {
+	if o != nil && !IsNil(o.Preferences) {
+		return true
+	}
+
+	return false
+}
+
+// SetPreferences gets a reference to the given OfferProgramConfigurationPreferences and assigns it to the Preferences field.
+func (o *OfferProgramConfiguration) SetPreferences(v OfferProgramConfigurationPreferences) {
+	o.Preferences = &v
+}
+
+// GetPromotions returns the Promotions field value if set, zero value otherwise.
+func (o *OfferProgramConfiguration) GetPromotions() OfferProgramConfigurationPromotions {
+	if o == nil || IsNil(o.Promotions) {
+		var ret OfferProgramConfigurationPromotions
+		return ret
+	}
+	return *o.Promotions
+}
+
+// GetPromotionsOk returns a tuple with the Promotions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OfferProgramConfiguration) GetPromotionsOk() (*OfferProgramConfigurationPromotions, bool) {
+	if o == nil || IsNil(o.Promotions) {
+		return nil, false
+	}
+	return o.Promotions, true
+}
+
+// HasPromotions returns a boolean if a field has been set.
+func (o *OfferProgramConfiguration) HasPromotions() bool {
+	if o != nil && !IsNil(o.Promotions) {
+		return true
+	}
+
+	return false
+}
+
+// SetPromotions gets a reference to the given OfferProgramConfigurationPromotions and assigns it to the Promotions field.
+func (o *OfferProgramConfiguration) SetPromotions(v OfferProgramConfigurationPromotions) {
+	o.Promotions = &v
+}
+
+// GetEnrollmentMethod returns the EnrollmentMethod field value if set, zero value otherwise.
+func (o *OfferProgramConfiguration) GetEnrollmentMethod() EnrollmentMethod {
+	if o == nil || IsNil(o.EnrollmentMethod) {
+		var ret EnrollmentMethod
+		return ret
+	}
+	return *o.EnrollmentMethod
+}
+
+// GetEnrollmentMethodOk returns a tuple with the EnrollmentMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OfferProgramConfiguration) GetEnrollmentMethodOk() (*EnrollmentMethod, bool) {
+	if o == nil || IsNil(o.EnrollmentMethod) {
+		return nil, false
+	}
+	return o.EnrollmentMethod, true
+}
+
+// HasEnrollmentMethod returns a boolean if a field has been set.
+func (o *OfferProgramConfiguration) HasEnrollmentMethod() bool {
+	if o != nil && !IsNil(o.EnrollmentMethod) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnrollmentMethod gets a reference to the given EnrollmentMethod and assigns it to the EnrollmentMethod field.
+func (o *OfferProgramConfiguration) SetEnrollmentMethod(v EnrollmentMethod) {
+	o.EnrollmentMethod = &v
+}
+
+func (o OfferProgramConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Preferences) {
+		toSerialize["preferences"] = o.Preferences
+	}
+	if !IsNil(o.Promotions) {
+		toSerialize["promotions"] = o.Promotions
+	}
+	if !IsNil(o.EnrollmentMethod) {
+		toSerialize["enrollmentMethod"] = o.EnrollmentMethod
+	}
+	return toSerialize, nil
+}
+
+type NullableOfferProgramConfiguration struct {
+	value *OfferProgramConfiguration
+	isSet bool
+}
+
+func (v NullableOfferProgramConfiguration) Get() *OfferProgramConfiguration {
+	return v.value
+}
+
+func (v *NullableOfferProgramConfiguration) Set(val *OfferProgramConfiguration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableOfferProgramConfiguration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableOfferProgramConfiguration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableOfferProgramConfiguration(val *OfferProgramConfiguration) *NullableOfferProgramConfiguration {
+	return &NullableOfferProgramConfiguration{value: val, isSet: true}
+}
+
+func (v NullableOfferProgramConfiguration) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableOfferProgramConfiguration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}

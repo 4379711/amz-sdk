@@ -1,0 +1,106 @@
+package supply_sources_20200701
+
+import (
+	"github.com/bytedance/sonic"
+)
+
+// checks if the UpdateSupplySourceStatusRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateSupplySourceStatusRequest{}
+
+// UpdateSupplySourceStatusRequest A request to update the status of a supply source.
+type UpdateSupplySourceStatusRequest struct {
+	Status *SupplySourceStatus `json:"status,omitempty"`
+}
+
+// NewUpdateSupplySourceStatusRequest instantiates a new UpdateSupplySourceStatusRequest object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewUpdateSupplySourceStatusRequest() *UpdateSupplySourceStatusRequest {
+	this := UpdateSupplySourceStatusRequest{}
+	return &this
+}
+
+// NewUpdateSupplySourceStatusRequestWithDefaults instantiates a new UpdateSupplySourceStatusRequest object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewUpdateSupplySourceStatusRequestWithDefaults() *UpdateSupplySourceStatusRequest {
+	this := UpdateSupplySourceStatusRequest{}
+	return &this
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *UpdateSupplySourceStatusRequest) GetStatus() SupplySourceStatus {
+	if o == nil || IsNil(o.Status) {
+		var ret SupplySourceStatus
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateSupplySourceStatusRequest) GetStatusOk() (*SupplySourceStatus, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *UpdateSupplySourceStatusRequest) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given SupplySourceStatus and assigns it to the Status field.
+func (o *UpdateSupplySourceStatusRequest) SetStatus(v SupplySourceStatus) {
+	o.Status = &v
+}
+
+func (o UpdateSupplySourceStatusRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	return toSerialize, nil
+}
+
+type NullableUpdateSupplySourceStatusRequest struct {
+	value *UpdateSupplySourceStatusRequest
+	isSet bool
+}
+
+func (v NullableUpdateSupplySourceStatusRequest) Get() *UpdateSupplySourceStatusRequest {
+	return v.value
+}
+
+func (v *NullableUpdateSupplySourceStatusRequest) Set(val *UpdateSupplySourceStatusRequest) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableUpdateSupplySourceStatusRequest) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableUpdateSupplySourceStatusRequest) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableUpdateSupplySourceStatusRequest(val *UpdateSupplySourceStatusRequest) *NullableUpdateSupplySourceStatusRequest {
+	return &NullableUpdateSupplySourceStatusRequest{value: val, isSet: true}
+}
+
+func (v NullableUpdateSupplySourceStatusRequest) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableUpdateSupplySourceStatusRequest) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}
