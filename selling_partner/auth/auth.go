@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"amzsdk/pkg"
 	"bytes"
 	"errors"
 	"fmt"
@@ -10,6 +9,8 @@ import (
 	"net/url"
 	"strings"
 	"time"
+
+	"github.com/4379711/amz-sdk/pkg"
 
 	"github.com/bytedance/sonic"
 	"github.com/oklog/ulid/v2"

@@ -1,8 +1,9 @@
 package vendor_direct_fulfillment_payments_v1
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the InvoiceDetail type satisfies the MappedNullable interface at compile time

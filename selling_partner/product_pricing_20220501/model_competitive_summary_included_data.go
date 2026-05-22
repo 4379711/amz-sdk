@@ -2,6 +2,7 @@ package product_pricing_20220501
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

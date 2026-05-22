@@ -1,4 +1,4 @@
-module amzsdk
+module github.com/4379711/amz-sdk
 
 go 1.26.0
 

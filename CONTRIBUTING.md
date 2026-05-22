@@ -27,7 +27,7 @@ Live integration testing against your own LwA credentials is expected to happen 
 Before opening an issue, please:
 
 1. Search [existing issues](../../issues?q=is%3Aissue) to avoid duplicates.
-2. Reproduce on the latest `master` (or specify the commit/tag you tested against).
+2. Reproduce on the latest `main` (or specify the commit/tag you tested against).
 3. Provide:
    - Which sub-package you hit it in (e.g. `advertising/sp_v3`).
    - The smallest possible call sequence that reproduces it — a self-contained Go function you can paste into the issue body is ideal (placeholder credentials are fine).
@@ -40,7 +40,7 @@ For security issues, **do not** open a public issue — see [SECURITY.md](./SECU
 
 ### Branching & commits
 
-- Branch off `master`. Use a short, kebab-case name: `fix/sb-bid-recommendation-pagination`, `feat/fba-inbound-2024-step2`, `docs/readme-zh-cn`.
+- Branch off `main`. Use a short, kebab-case name: `fix/sb-bid-recommendation-pagination`, `feat/fba-inbound-2024-step2`, `docs/readme-zh-cn`.
 - Keep commits focused. Conventional Commits are appreciated but not enforced (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`).
 - Commit messages in English or 中文 are both accepted.
 
@@ -128,7 +128,7 @@ amzsdk/
 提 issue 前请:
 
 1. 先搜一下是否已有重复 issue。
-2. 在最新 `master` 上复现(若用历史 commit 请明确说明)。
+2. 在最新 `main` 上复现(若用历史 commit 请明确说明)。
 3. 提供:
    - 你撞到问题的子包(例如 `advertising/sp_v3`)。
    - 最小可复现的调用序列 —— 一个能直接贴进 issue 的独立 Go 函数最佳(凭据用占位即可)。
@@ -141,7 +141,7 @@ amzsdk/
 
 ### 分支与提交
 
-- 从 `master` 切分支。命名 kebab-case 短描述,例如 `fix/sb-bid-recommendation-pagination`、`feat/fba-inbound-2024-step2`、`docs/readme-zh-cn`。
+- 从 `main` 切分支。命名 kebab-case 短描述,例如 `fix/sb-bid-recommendation-pagination`、`feat/fba-inbound-2024-step2`、`docs/readme-zh-cn`。
 - 单 commit 聚焦单一职责。Conventional Commits 风格推荐但不强制。
 - 中英文提交信息均可。
 

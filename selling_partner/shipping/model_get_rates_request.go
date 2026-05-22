@@ -1,8 +1,9 @@
 package shipping
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the GetRatesRequest type satisfies the MappedNullable interface at compile time

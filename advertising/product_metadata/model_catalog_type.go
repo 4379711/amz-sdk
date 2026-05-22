@@ -2,6 +2,7 @@ package product_metadata
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

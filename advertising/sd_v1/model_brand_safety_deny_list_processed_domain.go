@@ -1,8 +1,9 @@
 package sd_v1
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the BrandSafetyDenyListProcessedDomain type satisfies the MappedNullable interface at compile time

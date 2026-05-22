@@ -1,8 +1,9 @@
 package replenishment20221107
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the TimeInterval type satisfies the MappedNullable interface at compile time

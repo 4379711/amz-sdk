@@ -1,8 +1,9 @@
 package awd_20240509
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the InboundOrder type satisfies the MappedNullable interface at compile time

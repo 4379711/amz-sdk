@@ -3,9 +3,10 @@ package portfolios_v3
 import (
 	"bytes"
 	"fmt"
-	"github.com/bytedance/sonic"
 	"reflect"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // PtrBool is a helper routine that returns a pointer to given boolean value.

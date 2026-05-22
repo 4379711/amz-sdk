@@ -1,8 +1,9 @@
 package easy_ship_20220323
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the InvoiceData type satisfies the MappedNullable interface at compile time

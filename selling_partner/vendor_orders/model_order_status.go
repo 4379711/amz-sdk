@@ -1,8 +1,9 @@
 package vendor_orders
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the OrderStatus type satisfies the MappedNullable interface at compile time

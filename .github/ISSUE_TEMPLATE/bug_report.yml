@@ -10,16 +10,16 @@ body:
 
         **Before submitting**, please:
         - Search [existing issues](../../issues?q=is%3Aissue) to avoid duplicates.
-        - Reproduce on the latest `master` (or specify the commit / tag you tested against).
+        - Reproduce on the latest `main` (or specify the commit / tag you tested against).
         - **Scrub credentials**: never paste `ClientID`, `ClientSecret`, `refresh_token`, `access_token`, full `Authorization` headers or seller PII. The last 8 characters of a token are enough for triage.
-        - If this is a **security** issue, do **not** post it here — follow [SECURITY.md](../../blob/master/SECURITY.md) instead.
+        - If this is a **security** issue, do **not** post it here — follow [SECURITY.md](../../blob/main/SECURITY.md) instead.
 
   - type: input
     id: version
     attributes:
       label: amzsdk commit / tag
       description: Which commit or tag did you reproduce on? (`git rev-parse --short HEAD`)
-      placeholder: e.g. master @ abc1234
+      placeholder: e.g. main @ abc1234
     validations:
       required: true
 
@@ -60,7 +60,7 @@ body:
       placeholder: |
         - OS: macOS 14.5
         - Go: 1.26.0
-        - amzsdk dependents: <e.g. amz-ad-pilot v0.X.Y>
+        - amzsdk version: main @ abc1234 (or vX.Y.Z)
     validations:
       required: true
 

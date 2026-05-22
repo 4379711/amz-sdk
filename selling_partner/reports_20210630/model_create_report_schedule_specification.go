@@ -1,8 +1,9 @@
 package reports_20210630
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the CreateReportScheduleSpecification type satisfies the MappedNullable interface at compile time

@@ -1,8 +1,9 @@
 package sp_v3
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the SponsoredProductsDraftProductAdExtendedData type satisfies the MappedNullable interface at compile time

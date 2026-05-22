@@ -1,8 +1,9 @@
 package merchant_fulfillment_v0
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the Shipment type satisfies the MappedNullable interface at compile time

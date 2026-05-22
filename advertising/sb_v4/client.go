@@ -1,13 +1,11 @@
 package sb_v4
 
 import (
-	"amzsdk/pkg"
 	"bytes"
 	"context"
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"github.com/bytedance/sonic"
 	"io"
 	"log"
 	"mime/multipart"
@@ -22,6 +20,9 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"github.com/4379711/amz-sdk/pkg"
+	"github.com/bytedance/sonic"
 )
 
 var (

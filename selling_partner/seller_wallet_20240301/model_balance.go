@@ -1,8 +1,9 @@
 package seller_wallet_20240301
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the Balance type satisfies the MappedNullable interface at compile time

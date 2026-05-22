@@ -2,6 +2,7 @@ package shipment_invoicing_v0
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

@@ -51,8 +51,5 @@ logs/
 !.env.example
 !.env.*.example
 
-# ====== 本地集成测试目录 ======
-# test/ 下是开发者本地用的集成测试与凭据,含真实 LwA ClientID / ClientSecret /
-# refresh_token,以及测试运行产生的大体积产物(如 tree_us.xml ~50 MB)。
-# 整个目录不入库,使用方式见主 README 的 Quick start。
+# ====== Test files ======
 test/

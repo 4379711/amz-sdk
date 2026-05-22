@@ -2,6 +2,7 @@ package profiles_v2
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

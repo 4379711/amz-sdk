@@ -1,8 +1,9 @@
 package data_kiosk_20231115
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the Query type satisfies the MappedNullable interface at compile time

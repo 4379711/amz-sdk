@@ -2,6 +2,7 @@ package fulfillment_inbound_20240320
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

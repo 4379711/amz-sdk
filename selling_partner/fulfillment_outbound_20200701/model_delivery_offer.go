@@ -1,8 +1,9 @@
 package fulfillment_outbound_20200701
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the DeliveryOffer type satisfies the MappedNullable interface at compile time

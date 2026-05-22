@@ -1,8 +1,9 @@
 package finances_20240619
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the TimeRangeContext type satisfies the MappedNullable interface at compile time

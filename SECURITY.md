@@ -4,7 +4,7 @@
 
 ## Supported Versions
 
-`amzsdk` is currently distributed only via the `master` branch and the tagged releases that originate from it. Security fixes are landed on `master` and back-ported only to the **latest** tagged minor line. If you are running a fork or an older snapshot, please rebase onto the latest `master` before reporting.
+`amzsdk` is currently distributed only via the `main` branch and the tagged releases that originate from it. Security fixes are landed on `main` and back-ported only to the **latest** tagged minor line. If you are running a fork or an older snapshot, please rebase onto the latest `main` before reporting.
 
 ## Reporting a Vulnerability
 
@@ -47,7 +47,7 @@ The following are **out of scope**:
 
 - Vulnerabilities that require the attacker to already control your application process — they can read your refresh tokens directly anyway.
 - Issues in the **generated** request/response models that boil down to "Amazon's spec is wrong" — we'll happily review the report but the upstream fix lives with Amazon.
-- Reports against downstream consumers (e.g. `amz-ad-pilot`) — please file those on the consumer's own repository.
+- Reports against downstream applications that embed `amzsdk` — please file those on the consumer's own repository, not here.
 - Brute-force or rate-limit attacks that do not exceed Amazon's own documented protections.
 
 ## Consumer Responsibilities
@@ -65,7 +65,7 @@ The following are **out of scope**:
 
 ## 支持的版本
 
-`amzsdk` 通过 `master` 分支以及在它之上打的 tag 发布。安全修复合入 `master`,并 back-port 到**最新**的小版本线。如果你跑的是 fork 或更老的快照,请先 rebase 到最新 `master` 再报告。
+`amzsdk` 通过 `main` 分支以及在它之上打的 tag 发布。安全修复合入 `main`,并 back-port 到**最新**的小版本线。如果你跑的是 fork 或更老的快照,请先 rebase 到最新 `main` 再报告。
 
 ## 漏洞报告渠道
 
@@ -108,7 +108,7 @@ The following are **out of scope**:
 
 - 需要攻击者已经控制你的进程才能利用的问题 —— 那种情况下他直接读你的 refresh token 就行了。
 - 生成模型与 Amazon 现网契约不符 —— 我们会受理,但根因得 Amazon 自己修。
-- 针对下游消费者(如 `amz-ad-pilot`)的报告 —— 请到那个仓库的安全政策提交。
+- 针对引用 `amzsdk` 的下游应用本身的报告 —— 请到那个仓库的安全政策提交,不要发到这里。
 - 未超过 Amazon 自身文档化保护阈值的暴力 / 限流攻击。
 
 ## 使用者责任

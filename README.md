@@ -21,11 +21,11 @@
 - [Coverage](#coverage)
 - [Repository layout](#repository-layout)
 - [Install](#install)
+- [Authorization (LwA OAuth)](#authorization-lwa-oauth)
 - [Quick start](#quick-start)
 - [Observability hooks](#observability-hooks)
 - [Why a single module for both APIs](#why-a-single-module-for-both-apis)
 - [Stability & versioning](#stability--versioning)
-- [Used by](#used-by)
 - [Contributing](#contributing)
 - [License](#license)
 - [Disclaimer](#disclaimer)
@@ -46,7 +46,7 @@ Internally both stacks share the same:
 - **Region-aware endpoint resolution** — `pkg.MarketplaceMap` and per-country LwA URLs cover NA / EU / FE / India / MENA / AU / JP / SG marketplaces.
 - **Observability hooks** — `pkg.OnTokenRefresh` / `pkg.OnAuthRetry` let your application receive structured events for every actual LwA refresh and every auto-retried 401, without the SDK itself touching your logging system.
 
-The SDK is the data plane behind [amz-ad-pilot](#used-by) and is designed to be embedded in any Go service that needs to talk to seller accounts at scale.
+The SDK is designed to be embedded in any Go service that needs to talk to seller accounts at scale — multi-tenant ad-ops platforms, custom report pipelines, inventory / order ingestion workers, or one-off internal tools.
 
 ---
 
@@ -79,7 +79,7 @@ pkg.OnAuthRetry = func(ev pkg.AuthRetryEvent) {
 }
 ```
 
-`amz-ad-pilot` uses these to drop refresh / retry telemetry into a dedicated `logs/AmzSDK/` directory — see `internal/datas/sdk_observer.go` in that repo for a reference integration.
+Typical use: forward both events into your own logger (logrus / slog / zap), keyed by `RefreshTokenSuffix`, so you can correlate every seller's token-refresh flow per session without ever logging the raw token.
 
 ---
 
@@ -158,19 +158,44 @@ amzsdk/
 
 ## Install
 
-> Once a public release is cut, `amzsdk` will be `go get`-able from its module path. Until then it is consumed via the local sibling layout used by [`amz-ad-pilot`](#used-by):
+The module is published as `github.com/4379711/amz-sdk`. In your own Go project:
 
-```text
-<workspace>/
-├── amz-biz/
-│   └── amz-ad-pilot-go/
-│       └── go.mod        # require amzsdk v1.0.0
-│                         # replace amzsdk => ../../amazon-sdk
-└── amazon-sdk/           # this repo
-    └── go.mod            # module amzsdk
+```bash
+go get github.com/4379711/amz-sdk@latest
 ```
 
-After the public release, dependents can drop the `replace` directive and pin a tagged version (`amzsdk vX.Y.Z`) — the module path inside this repo's `go.mod` will be updated at the same time.
+Then `import` whichever sub-package you need:
+
+```go
+import (
+    "github.com/4379711/amz-sdk/pkg"
+    adAuth "github.com/4379711/amz-sdk/advertising/auth"
+    "github.com/4379711/amz-sdk/advertising/sp_v3"
+
+    spAuth "github.com/4379711/amz-sdk/selling_partner/auth"
+    "github.com/4379711/amz-sdk/selling_partner/orders_v0"
+)
+```
+
+> **Production tip:** pin a specific tag (`go get github.com/4379711/amz-sdk@v1.0.0`). Tracking `@main` is fine for development but not recommended for production deploys.
+
+### Hacking on the SDK from a host application
+
+If you need to patch the SDK while developing your host app, clone the repo next to your project and point `go.mod` at the local copy:
+
+```bash
+git clone https://github.com/4379711/amz-sdk.git ../amz-sdk
+```
+
+In your host app's `go.mod`:
+
+```go
+require github.com/4379711/amz-sdk v1.0.0
+
+replace github.com/4379711/amz-sdk => ../amz-sdk
+```
+
+Drop the `replace` line before shipping; the public module path resolves through Go's proxy without any extra configuration.
 
 Toolchain prerequisites:
 
@@ -179,9 +204,108 @@ Toolchain prerequisites:
 
 ---
 
+## Authorization (LwA OAuth)
+
+This is the **one-time per-seller** onboarding flow. Run it when you connect a new seller account; the `refresh_token` you get out of step 2 is long-lived (Ads: indefinite while your app stays registered; SP-API: ≈ 1 year per Amazon's docs) and is what every subsequent API call needs.
+
+Both API families use the same three-step OAuth flow, exposed through identical method names on `AdAuth` / `SpAuth`. Only the consent URL and the app identifier differ.
+
+### Ads API (`AdAuth`)
+
+**Step 1 — build the LwA consent URL and redirect the seller to it:**
+
+```go
+import (
+    adAuth "amzsdk/advertising/auth"
+)
+
+auth := &adAuth.AdAuth{
+    App: &adAuth.App{
+        ClientID:     "amzn1.application-oa2-client.xxxxx",
+        ClientSecret: "yyyyy",
+        RedirectURL:  "https://your-app.example.com/lwa/callback",
+    },
+    Seller: &adAuth.Seller{
+        CountryCode: "US",
+    },
+}
+
+fmt.Println(auth.GetLwaURL())
+// → https://www.amazon.com/ap/oa?client_id=...&scope=advertising::campaign_management
+//   &response_type=code&redirect_uri=...&state=<ulid>
+```
+
+Amazon redirects the seller back to your `redirect_uri` with `?code=ANxxxxxxx&state=<ulid>`. Verify the `state` against the value you stored before sending the user out, then take the `code`.
+
+**Step 2 — exchange the one-time `code` for a long-lived `refresh_token`:**
+
+```go
+if err := auth.GetRefreshToken("ANxxxxxxx"); err != nil {
+    return fmt.Errorf("exchange auth code: %w", err)
+}
+// Persist this somewhere safe (DB row keyed by seller, encrypted at rest).
+fmt.Println(auth.Token.RefreshToken) // Atzr|...
+```
+
+**Step 3 (optional) — manually mint an `access_token`:**
+
+```go
+auth.Token = &adAuth.Token{RefreshToken: "Atzr|..."} // hydrate from your DB
+if err := auth.GetAccessTokenFromEndpoint(); err != nil {
+    return fmt.Errorf("mint access token: %w", err)
+}
+fmt.Println(auth.Token.AccessToken)  // Bearer token, expires after ~60 min
+```
+
+You normally **don't** need to call `GetAccessTokenFromEndpoint` yourself — every `NewAPIClient(...)` built from `pkg.NewConfiguration(auth)` automatically refreshes (and caches) the `access_token` for you using `singleflight`. Step 3 is exposed for one-off CLI tooling and integration debugging.
+
+### SP-API (`SpAuth`)
+
+The flow is structurally identical — only the consent URL is different (Seller Central, not LwA directly) and the `App` carries an additional `AppID`:
+
+```go
+import (
+    spAuth "amzsdk/selling_partner/auth"
+)
+
+auth := &spAuth.SpAuth{
+    App: &spAuth.App{
+        AppID:        "amzn1.sp.solution.<your-solution-id>",
+        ClientID:     "amzn1.application-oa2-client.xxxxx",
+        ClientSecret: "yyyyy",
+        RedirectURL:  "https://your-app.example.com/spapi/callback",
+        Beta:         true, // set to false once your app is in Production mode in Seller Central
+    },
+    Seller: &spAuth.Seller{
+        CountryCode: "US",
+        SellerType:  "SC", // "SC" = Seller Central, "VC" = Vendor Central
+    },
+}
+
+// Step 1 — consent URL on Seller Central.
+fmt.Println(auth.GetLwaURL())
+
+// Step 2 — exchange the spapi_oauth_code from your callback URL.
+if err := auth.GetRefreshToken("ANxxxxxxx"); err != nil { /* … */ }
+fmt.Println(auth.Token.RefreshToken)
+
+// Step 3 — optional, the API clients refresh access_token automatically.
+auth.GetAccessTokenFromEndpoint()
+```
+
+When the seller authorizes on Seller Central, Amazon redirects to `redirect_uri` with three query parameters:
+
+| Param                  | What you do with it                                                   |
+| ---------------------- | --------------------------------------------------------------------- |
+| `selling_partner_id`   | Save with the seller record (it's the `A1...` Merchant ID).            |
+| `mws_auth_token`       | Legacy MWS migration only — ignore for SP-API-only apps.              |
+| **`spapi_oauth_code`** | Pass this string to `auth.GetRefreshToken(code)`.                     |
+
+---
+
 ## Quick start
 
-> The snippets below assume you already have **LwA credentials** issued by Amazon: a `client_id` + `client_secret` for a registered app, and a per-seller `refresh_token` produced by the OAuth grant flow.
+> The snippets below assume you have already completed the [Authorization flow](#authorization-lwa-oauth) above and have a per-seller `refresh_token` stored somewhere.
 
 ### Sponsored Products v3 — list campaigns
 
@@ -319,9 +443,13 @@ func init() {
 }
 ```
 
-A reference implementation that routes these events into logrus rotation files is in `amz-ad-pilot-go/internal/datas/sdk_observer.go` ([amz-ad-pilot](#used-by)). Copy / adapt freely.
+A robust integration usually:
 
-To enable per-request HTTP tracing (verbose; only for debugging), wire up the helpers in `pkg/http_trace.go` from your application — see `amz-ad-pilot`'s `log.sdk-http-trace` flag for the recommended toggle.
+- routes `OnTokenRefresh` (`Phase=end`) into an info-level log with `Duration` + `ExpiresAt`, and `OnAuthRetry` into a warn-level log with `FirstStatus` + `RetryStatus`;
+- exports a counter for `Reason="401-retry"` events to alert on token-flow regressions;
+- writes the LwA-related logs into a dedicated file or sink so they can be tailed during onboarding without drowning your business logs.
+
+To enable per-request HTTP tracing (verbose; only for debugging), wire up the helpers in `pkg/http_trace.go` from your application and gate it behind a config flag so it stays off in production.
 
 ---
 
@@ -339,18 +467,10 @@ Splitting these into two repos forces every consumer to re-implement the shared 
 
 ## Stability & versioning
 
-- The current pinned version is `v1.0.0` (referenced by [amz-ad-pilot](#used-by)).
+- The current pinned version is `v1.0.0`.
 - The `pkg.IAuth` contract and the `OnTokenRefresh` / `OnAuthRetry` event shapes are considered **stable**. Breaking changes here will get a major-version bump and a migration note in the release.
 - The generated `advertising/*` and `selling_partner/*` packages track Amazon's OpenAPI specs. When Amazon releases a new dated version (e.g. `fulfillment_inbound_20240320` superseding `fulfillment_inbound_v0`), `amzsdk` adds the new package as a sibling rather than replacing the old one — your code keeps compiling.
-- Always pin a specific tag in your downstream `go.mod`. Tracking `master` is fine for development but not recommended for production deploys.
-
----
-
-## Used by
-
-- **amz-ad-pilot** — AI-driven Amazon Sponsored Products operating platform. Drives campaign / ad-group / keyword CRUD, SP / SC report ingestion, and the LLM-powered autopilot agent through `amzsdk`. The integration is the reference for how to wire `pkg.IAuth`, the observability hooks and the multi-seller token cache in a real service. *(Replace this paragraph with a link to the public `amz-ad-pilot` repository after it ships.)*
-
-PRs to add your project to this list are welcome.
+- Always pin a specific tag in your downstream `go.mod`. Tracking `main` is fine for development but not recommended for production deploys.
 
 ---
 

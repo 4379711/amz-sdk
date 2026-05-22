@@ -1,13 +1,14 @@
 package auth
 
 import (
-	"amzsdk/pkg"
 	"io"
 	"net/http"
 	"strings"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/4379711/amz-sdk/pkg"
 )
 
 // mockRoundTripper 按调用顺序返回预设响应,并记录每次被调用时的 Authorization header,
@@ -20,10 +21,10 @@ type mockRoundTripper struct {
 }
 
 type recordedCall struct {
-	Path        string
+	Path          string
 	Authorization string
-	AccessToken string // x-amz-access-token,SP 路径用
-	IsLwA       bool
+	AccessToken   string // x-amz-access-token,SP 路径用
+	IsLwA         bool
 }
 
 func (m *mockRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {

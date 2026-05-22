@@ -1,8 +1,9 @@
 package aplus_content_20201101
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the ContentMetadata type satisfies the MappedNullable interface at compile time

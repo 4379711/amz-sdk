@@ -1,8 +1,9 @@
 package services
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the AvailabilityRecord type satisfies the MappedNullable interface at compile time

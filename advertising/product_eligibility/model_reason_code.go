@@ -2,6 +2,7 @@ package product_eligibility
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

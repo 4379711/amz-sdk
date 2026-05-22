@@ -1,8 +1,9 @@
 package invoices_api_model_20240619
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the Export type satisfies the MappedNullable interface at compile time

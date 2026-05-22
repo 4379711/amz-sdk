@@ -1,8 +1,9 @@
 package sb_v4
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the SBForecastingRequestCampaignObject type satisfies the MappedNullable interface at compile time

@@ -2,6 +2,7 @@ package merchant_fulfillment_v0
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

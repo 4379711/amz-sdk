@@ -2,9 +2,10 @@ package listings_items_20210801
 
 import (
 	"fmt"
-	"github.com/bytedance/sonic"
 	"reflect"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // PtrBool is a helper routine that returns a pointer to given boolean value.

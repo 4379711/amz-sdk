@@ -1,8 +1,9 @@
 package vendor_direct_fulfillment_orders_20211228
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the OrderAcknowledgementItem type satisfies the MappedNullable interface at compile time

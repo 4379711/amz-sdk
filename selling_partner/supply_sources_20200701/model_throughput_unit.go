@@ -2,6 +2,7 @@ package supply_sources_20200701
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

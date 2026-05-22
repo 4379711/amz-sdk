@@ -1,8 +1,9 @@
 package vendor_direct_fulfillment_shipping_20211228
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the ShipmentSchedule type satisfies the MappedNullable interface at compile time

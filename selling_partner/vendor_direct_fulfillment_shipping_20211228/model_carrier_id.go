@@ -2,6 +2,7 @@ package vendor_direct_fulfillment_shipping_20211228
 
 import (
 	"fmt"
+
 	"github.com/bytedance/sonic"
 )
 

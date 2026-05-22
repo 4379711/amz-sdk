@@ -1,8 +1,9 @@
 package vendor_shipments
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the CollectFreightPickupDetails type satisfies the MappedNullable interface at compile time

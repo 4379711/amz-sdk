@@ -1,8 +1,9 @@
 package vendor_direct_fulfillment_orders_v1
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the OrderDetails type satisfies the MappedNullable interface at compile time

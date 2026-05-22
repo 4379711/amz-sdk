@@ -1,8 +1,9 @@
 package vendor_orders
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the OrderItemAcknowledgement type satisfies the MappedNullable interface at compile time

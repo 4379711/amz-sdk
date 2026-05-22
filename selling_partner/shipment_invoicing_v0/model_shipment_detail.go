@@ -1,8 +1,9 @@
 package shipment_invoicing_v0
 
 import (
-	"github.com/bytedance/sonic"
 	"time"
+
+	"github.com/bytedance/sonic"
 )
 
 // checks if the ShipmentDetail type satisfies the MappedNullable interface at compile time
