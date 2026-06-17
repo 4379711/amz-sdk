@@ -419,9 +419,6 @@ func (a *DSPStreamSubscriptionAPIService) UpdateDspStreamSubscriptionExecute(r A
 	if r.amazonAdsAccountID == nil {
 		return nil, reportError("amazonAdsAccountID is required and must be specified")
 	}
-	if r.amazonAdvertisingAPIClientId == nil {
-		return nil, reportError("amazonAdvertisingAPIClientId is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/vnd.amazonmarketingstreamsubscriptions.v1+json"}

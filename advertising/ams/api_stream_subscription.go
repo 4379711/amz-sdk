@@ -441,9 +441,6 @@ func (a *StreamSubscriptionAPIService) UpdateStreamSubscriptionExecute(r ApiUpda
 	if strlen(r.subscriptionId) > 255 {
 		return nil, reportError("subscriptionId must have less than 255 elements")
 	}
-	if r.amazonAdvertisingAPIClientId == nil {
-		return nil, reportError("amazonAdvertisingAPIClientId is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/vnd.amazonmarketingstreamsubscriptions.v1+json"}
