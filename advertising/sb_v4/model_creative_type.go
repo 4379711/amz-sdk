@@ -31,15 +31,10 @@ func (v *CreativeType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := CreativeType(value)
-	for _, existing := range AllowedCreativeTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid CreativeType", value)
+	// 未知枚举值保留原值而非报错:SB 不时新增 creativeType,list 接口仍需能整页解析,
+	// 不因单个未知 creativeType 导致整批广告反序列化失败。需要校验时用 IsValid()。
+	*v = CreativeType(value)
+	return nil
 }
 
 // NewCreativeTypeFromValue returns a pointer to a valid CreativeType
