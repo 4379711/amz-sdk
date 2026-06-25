@@ -99,11 +99,11 @@ func (a *SpAuth) GetLwaTokenEndpoint() string {
 	case "IN":
 		return "https://api.amazon.co.uk/auth/o2/token"
 	case "SG":
-		return " https://api.amazon.co.jp/auth/o2/token"
+		return "https://api.amazon.co.jp/auth/o2/token"
 	case "AU":
-		return " https://api.amazon.co.jp/auth/o2/token"
+		return "https://api.amazon.co.jp/auth/o2/token"
 	case "JP":
-		return " https://api.amazon.co.jp/auth/o2/token"
+		return "https://api.amazon.co.jp/auth/o2/token"
 	default:
 		panic("invalid region")
 	}
