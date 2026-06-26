@@ -187,6 +187,16 @@ func (o *SDTargetingBidRecommendationsRequestV34) SetTargetingClauses(v []SDTarg
 	o.TargetingClauses = v
 }
 
+// MarshalJSON 必须走 ToMap:CreativeType 是 NullableSDCreativeType,json 标签的 omitempty 对该 struct 不生效,
+// 若依赖反射序列化会把未设置的 creativeType 输出成显式 null,被 SD 建议竞价以 400 拒绝。
+func (o SDTargetingBidRecommendationsRequestV34) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return sonic.Marshal(toSerialize)
+}
+
 func (o SDTargetingBidRecommendationsRequestV34) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Products) {

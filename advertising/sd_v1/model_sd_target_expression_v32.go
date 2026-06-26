@@ -12,6 +12,9 @@ type SDTargetExpressionV32 struct {
 	SDContentTargetingPredicateV31 *SDContentTargetingPredicateV31
 	SDTargetingPredicateNestedV31  *SDTargetingPredicateNestedV31
 	SDTargetingPredicateV31        *SDTargetingPredicateV31
+	// raw 保留反序列化时的原始 JSON。SD targeting 表达式的多个 oneOf schema 字段重叠会同时匹配,
+	// 序列化时以 raw 为准,保证 round-trip 不丢字段。
+	raw []byte
 }
 
 // SDContentTargetingPredicateV31AsSDTargetExpressionV32 is a convenience function that returns SDContentTargetingPredicateV31 wrapped in SDTargetExpressionV32
@@ -37,6 +40,7 @@ func SDTargetingPredicateV31AsSDTargetExpressionV32(v *SDTargetingPredicateV31) 
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *SDTargetExpressionV32) UnmarshalJSON(data []byte) error {
+	dst.raw = append([]byte(nil), data...)
 	var err error
 	match := 0
 	// try to unmarshal data into SDContentTargetingPredicateV31
@@ -90,13 +94,17 @@ func (dst *SDTargetExpressionV32) UnmarshalJSON(data []byte) error {
 		dst.SDTargetingPredicateV31 = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.SDContentTargetingPredicateV31 = nil
-		dst.SDTargetingPredicateNestedV31 = nil
-		dst.SDTargetingPredicateV31 = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(SDTargetExpressionV32)")
+	if match > 1 {
+		// SD targeting 表达式的多个 oneOf schema 字段重叠会同时匹配。保留首个命中(按尝试顺序)供
+		// GetActualInstance 使用,序列化以 raw 为准保真;不再因 oneOf 严格性导致解析失败。
+		switch {
+		case dst.SDContentTargetingPredicateV31 != nil:
+			dst.SDTargetingPredicateNestedV31 = nil
+			dst.SDTargetingPredicateV31 = nil
+		case dst.SDTargetingPredicateNestedV31 != nil:
+			dst.SDTargetingPredicateV31 = nil
+		}
+		return nil
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
@@ -106,6 +114,9 @@ func (dst *SDTargetExpressionV32) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src SDTargetExpressionV32) MarshalJSON() ([]byte, error) {
+	if len(src.raw) > 0 {
+		return src.raw, nil
+	}
 	if src.SDContentTargetingPredicateV31 != nil {
 		return sonic.Marshal(&src.SDContentTargetingPredicateV31)
 	}

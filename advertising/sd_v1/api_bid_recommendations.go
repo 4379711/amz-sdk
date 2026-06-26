@@ -78,8 +78,8 @@ func (a *BidRecommendationsAPIService) GetTargetBidRecommendationsExecute(r ApiG
 		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
 	}
 
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/vnd.sdtargetingrecommendations.v3.3+json", "application/vnd.sdtargetingrecommendations.v3.2+json", "application/vnd.sdtargetingrecommendations.v3.1+json", "application/json"}
+	// SD 建议竞价要求 Accept 与请求体版本(v3.4)一致;原生成列表缺 v3.4 且混入 application/json,会被服务端 406 拒绝。
+	localVarHTTPHeaderAccepts := []string{"application/vnd.sdtargetingrecommendations.v3.4+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

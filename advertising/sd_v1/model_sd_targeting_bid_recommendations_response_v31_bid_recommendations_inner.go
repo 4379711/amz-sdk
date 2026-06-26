@@ -65,12 +65,16 @@ func (dst *SDTargetingBidRecommendationsResponseV31BidRecommendationsInner) Unma
 		dst.SDTargetingBidRecommendationsResponseItemSuccessV31 = nil
 	}
 
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.SDTargetingBidRecommendationsResponseItemFailureV31 = nil
-		dst.SDTargetingBidRecommendationsResponseItemSuccessV31 = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(SDTargetingBidRecommendationsResponseV31BidRecommendationsInner)")
+	if match > 1 {
+		// success 与 failure 无互斥必填字段会同时匹配:按是否含非空 details 区分——
+		// 有 details 视为失败项,否则视为成功项,避免成功推荐被误判为失败。
+		if dst.SDTargetingBidRecommendationsResponseItemFailureV31 != nil &&
+			dst.SDTargetingBidRecommendationsResponseItemFailureV31.Details != "" {
+			dst.SDTargetingBidRecommendationsResponseItemSuccessV31 = nil
+		} else {
+			dst.SDTargetingBidRecommendationsResponseItemFailureV31 = nil
+		}
+		return nil
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
