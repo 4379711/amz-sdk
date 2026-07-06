@@ -37,7 +37,7 @@
 `amzsdk` is a Go SDK that ships **two large families of Amazon HTTP APIs** behind one consistent client surface:
 
 - **Amazon Ads** — Sponsored Products v3, Sponsored Brands v4, Sponsored Display v1, Profiles v2, Reports v3, Portfolios, Product Metadata / Eligibility, AMS.
-- **Selling Partner (SP-API)** — Orders, Inventory, Reports, Catalog, Listings, Feeds, FBA Inbound (incl. 2024 redesign), Finances v0 + 2024, Pricing, Shipping, Easy Ship, A+ Content, Messaging, Notifications, Vendor APIs, and more — 40+ generated client packages.
+- **Selling Partner (SP-API)** — Orders (v0 + 2026), Inventory, Reports, Catalog, Listings, Feeds, FBA Inbound (incl. 2024 redesign), Finances v0 + 2024, Pricing, Shipping, Easy Ship, A+ Content, Messaging, Notifications, Vendor APIs, and more — 40+ generated client packages.
 
 Internally both stacks share the same:
 
@@ -105,7 +105,7 @@ Typical use: forward both events into your own logger (logrus / slog / zap), key
 40+ generated packages spanning the public SP-API. Highlights:
 
 - **Catalog & Listings** — `catalog_items_20220401`, `listings_items_20210801`, `listings_restrictions_20210801`, `definitions_product_types_20200901`.
-- **Orders & Fulfillment** — `orders_v0`, `fulfillment_inbound_v0`, `fulfillment_inbound_20240320` (new design), `fulfillment_outbound_20200701`, `merchant_fulfillment_v0`, `shipping`, `shipping_v2`, `easy_ship_20220323`.
+- **Orders & Fulfillment** — `orders_v0`, `orders_20260101` (2026 redesign), `fulfillment_inbound_v0`, `fulfillment_inbound_20240320` (new design), `fulfillment_outbound_20200701`, `merchant_fulfillment_v0`, `shipping`, `shipping_v2`, `easy_ship_20220323`.
 - **Inventory & FBA** — `fba_inventory`, `fba_inbound`, `awd_20240509`, `replenishment20221107`, `supply_sources_20200701`.
 - **Reports & Feeds** — `reports_20210630`, `feeds_20210630`, `data_kiosk_20231115`.
 - **Pricing & Fees** — `product_pricing_v0`, `product_pricing_20220501`, `product_fees_v0`.
@@ -135,6 +135,7 @@ amzsdk/
 ├── selling_partner/
 │   ├── auth/                 # LwA + Bearer client for SP-API (Beta / AppID-aware)
 │   ├── orders_v0/
+│   ├── orders_20260101/
 │   ├── fba_inventory/
 │   ├── fulfillment_inbound_20240320/
 │   ├── reports_20210630/
@@ -177,7 +178,7 @@ import (
 )
 ```
 
-> **Production tip:** pin a specific tag (`go get github.com/4379711/amz-sdk@v1.0.0`). Tracking `@main` is fine for development but not recommended for production deploys.
+> **Production tip:** pin a specific tag — grab the latest one from the [releases](https://github.com/4379711/amz-sdk/releases) page (`go get github.com/4379711/amz-sdk@vX.Y.Z`). Tracking `@main` is fine for development but not recommended for production deploys.
 
 ### Hacking on the SDK from a host application
 
@@ -190,7 +191,7 @@ git clone https://github.com/4379711/amz-sdk.git ../amz-sdk
 In your host app's `go.mod`:
 
 ```go
-require github.com/4379711/amz-sdk v1.0.0
+require github.com/4379711/amz-sdk vX.Y.Z // pin the latest release tag
 
 replace github.com/4379711/amz-sdk => ../amz-sdk
 ```
@@ -467,7 +468,7 @@ Splitting these into two repos forces every consumer to re-implement the shared 
 
 ## Stability & versioning
 
-- The current pinned version is `v1.0.0`.
+- For the current version, refer to the [releases](https://github.com/4379711/amz-sdk/releases) / [tags](https://github.com/4379711/amz-sdk/tags) page and pin the latest published tag — this README intentionally does not hardcode a version number.
 - The `pkg.IAuth` contract and the `OnTokenRefresh` / `OnAuthRetry` event shapes are considered **stable**. Breaking changes here will get a major-version bump and a migration note in the release.
 - The generated `advertising/*` and `selling_partner/*` packages track Amazon's OpenAPI specs. When Amazon releases a new dated version (e.g. `fulfillment_inbound_20240320` superseding `fulfillment_inbound_v0`), `amzsdk` adds the new package as a sibling rather than replacing the old one — your code keeps compiling.
 - Always pin a specific tag in your downstream `go.mod`. Tracking `main` is fine for development but not recommended for production deploys.

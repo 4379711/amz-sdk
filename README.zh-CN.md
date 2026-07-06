@@ -37,7 +37,7 @@
 `amzsdk` 是一个 Go SDK，把**两大类亚马逊 HTTP API** 统一收敛在一致的 client 接口下：
 
 - **Amazon Ads** —— Sponsored Products v3、Sponsored Brands v4、Sponsored Display v1、Profiles v2、Reports v3、Portfolios、Product Metadata / Eligibility、AMS。
-- **Selling Partner（SP-API）** —— Orders、Inventory、Reports、Catalog、Listings、Feeds、FBA Inbound（含 2024 新版）、Finances v0 + 2024、Pricing、Shipping、Easy Ship、A+ Content、Messaging、Notifications、Vendor 系列，共 40+ 个生成自官方 OpenAPI 的 client 包。
+- **Selling Partner（SP-API）** —— Orders(v0 + 2026)、Inventory、Reports、Catalog、Listings、Feeds、FBA Inbound（含 2024 新版）、Finances v0 + 2024、Pricing、Shipping、Easy Ship、A+ Content、Messaging、Notifications、Vendor 系列，共 40+ 个生成自官方 OpenAPI 的 client 包。
 
 两套 API 在 SDK 内部共享：
 
@@ -105,7 +105,7 @@ pkg.OnAuthRetry = func(ev pkg.AuthRetryEvent) {
 40+ 生成包，覆盖公开 SP-API。重点：
 
 - **Catalog & Listings**：`catalog_items_20220401`、`listings_items_20210801`、`listings_restrictions_20210801`、`definitions_product_types_20200901`。
-- **Orders & Fulfillment**：`orders_v0`、`fulfillment_inbound_v0`、`fulfillment_inbound_20240320`（新版）、`fulfillment_outbound_20200701`、`merchant_fulfillment_v0`、`shipping`、`shipping_v2`、`easy_ship_20220323`。
+- **Orders & Fulfillment**：`orders_v0`、`orders_20260101`（2026 新版）、`fulfillment_inbound_v0`、`fulfillment_inbound_20240320`（新版）、`fulfillment_outbound_20200701`、`merchant_fulfillment_v0`、`shipping`、`shipping_v2`、`easy_ship_20220323`。
 - **Inventory & FBA**：`fba_inventory`、`fba_inbound`、`awd_20240509`、`replenishment20221107`、`supply_sources_20200701`。
 - **Reports & Feeds**：`reports_20210630`、`feeds_20210630`、`data_kiosk_20231115`。
 - **Pricing & Fees**：`product_pricing_v0`、`product_pricing_20220501`、`product_fees_v0`。
@@ -135,6 +135,7 @@ amzsdk/
 ├── selling_partner/
 │   ├── auth/                 # SP-API 的 LwA + Bearer client（支持 Beta / AppID）
 │   ├── orders_v0/
+│   ├── orders_20260101/
 │   ├── fba_inventory/
 │   ├── fulfillment_inbound_20240320/
 │   ├── reports_20210630/
@@ -177,7 +178,7 @@ import (
 )
 ```
 
-> **生产部署:** 请固定到具体 tag(`go get github.com/4379711/amz-sdk@v1.0.0`)。开发期跟 `@main` 没问题,生产不推荐。
+> **生产部署:** 请固定到具体 tag —— 到 [releases](https://github.com/4379711/amz-sdk/releases) 页取最新的那个(`go get github.com/4379711/amz-sdk@vX.Y.Z`)。开发期跟 `@main` 没问题,生产不推荐。
 
 ### 想边改 SDK 边联调宿主应用
 
@@ -190,7 +191,7 @@ git clone https://github.com/4379711/amz-sdk.git ../amz-sdk
 宿主应用的 `go.mod`:
 
 ```go
-require github.com/4379711/amz-sdk v1.0.0
+require github.com/4379711/amz-sdk vX.Y.Z // 固定到最新发布 tag
 
 replace github.com/4379711/amz-sdk => ../amz-sdk
 ```
@@ -467,7 +468,7 @@ Amazon 的广告 API 和 SP-API 团队各自维护独立的 OpenAPI spec，但�
 
 ## 稳定性与版本管理
 
-- 当前固定版本为 `v1.0.0`。
+- 当前版本请以 [releases](https://github.com/4379711/amz-sdk/releases) / [tags](https://github.com/4379711/amz-sdk/tags) 页为准，并固定到最新发布的 tag —— 本 README 特意不写死版本号。
 - `pkg.IAuth` 契约与 `OnTokenRefresh` / `OnAuthRetry` 事件结构视为**稳定 API**。这两处的破坏性变更需要大版本号 + 迁移说明。
 - `advertising/*` 与 `selling_partner/*` 跟随 Amazon OpenAPI spec。Amazon 发新版日期版本（例如 `fulfillment_inbound_20240320` 取代 `fulfillment_inbound_v0`）时，`amzsdk` 是**新增同级包**而非原地替换，老代码不会破。
 - 下游 `go.mod` 请固定 tag。开发期 track `main` 没问题，生产部署不推荐。
