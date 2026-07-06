@@ -1,0 +1,394 @@
+package orders_20260101
+
+import (
+	"time"
+
+	"github.com/bytedance/sonic"
+)
+
+// checks if the OrderPackage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OrderPackage{}
+
+// OrderPackage Information about a physical shipping package, including tracking details. **Note:** Only available for merchant-fulfilled (FBM) orders.
+type OrderPackage struct {
+	// A unique identifier for this package within the context of the order.
+	PackageReferenceId string `json:"packageReferenceId"`
+	// The exact time when this shipping package was created and prepared for shipment. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) format.
+	CreatedTime   *time.Time     `json:"createdTime,omitempty"`
+	PackageStatus *PackageStatus `json:"packageStatus,omitempty"`
+	// The carrier responsible for transporting this package to the customer.
+	Carrier *string `json:"carrier,omitempty"`
+	// The exact time when this package was handed over to the carrier and began its journey to the customer. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) format.
+	ShipTime *time.Time `json:"shipTime,omitempty"`
+	// The specific shipping method or service used for delivering this package.
+	ShippingService *string `json:"shippingService,omitempty"`
+	// The carrier-provided tracking number that customers can use to monitor the package's delivery progress.
+	TrackingNumber  *string          `json:"trackingNumber,omitempty"`
+	ShipFromAddress *MerchantAddress `json:"shipFromAddress,omitempty"`
+	// A list of all order items included in this specific package.
+	PackageItems []PackageItem `json:"packageItems,omitempty"`
+}
+
+// NewOrderPackage instantiates a new OrderPackage object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewOrderPackage(packageReferenceId string) *OrderPackage {
+	this := OrderPackage{}
+	this.PackageReferenceId = packageReferenceId
+	return &this
+}
+
+// NewOrderPackageWithDefaults instantiates a new OrderPackage object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewOrderPackageWithDefaults() *OrderPackage {
+	this := OrderPackage{}
+	return &this
+}
+
+// GetPackageReferenceId returns the PackageReferenceId field value
+func (o *OrderPackage) GetPackageReferenceId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PackageReferenceId
+}
+
+// GetPackageReferenceIdOk returns a tuple with the PackageReferenceId field value
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetPackageReferenceIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PackageReferenceId, true
+}
+
+// SetPackageReferenceId sets field value
+func (o *OrderPackage) SetPackageReferenceId(v string) {
+	o.PackageReferenceId = v
+}
+
+// GetCreatedTime returns the CreatedTime field value if set, zero value otherwise.
+func (o *OrderPackage) GetCreatedTime() time.Time {
+	if o == nil || IsNil(o.CreatedTime) {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedTime
+}
+
+// GetCreatedTimeOk returns a tuple with the CreatedTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetCreatedTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.CreatedTime) {
+		return nil, false
+	}
+	return o.CreatedTime, true
+}
+
+// HasCreatedTime returns a boolean if a field has been set.
+func (o *OrderPackage) HasCreatedTime() bool {
+	if o != nil && !IsNil(o.CreatedTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedTime gets a reference to the given time.Time and assigns it to the CreatedTime field.
+func (o *OrderPackage) SetCreatedTime(v time.Time) {
+	o.CreatedTime = &v
+}
+
+// GetPackageStatus returns the PackageStatus field value if set, zero value otherwise.
+func (o *OrderPackage) GetPackageStatus() PackageStatus {
+	if o == nil || IsNil(o.PackageStatus) {
+		var ret PackageStatus
+		return ret
+	}
+	return *o.PackageStatus
+}
+
+// GetPackageStatusOk returns a tuple with the PackageStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetPackageStatusOk() (*PackageStatus, bool) {
+	if o == nil || IsNil(o.PackageStatus) {
+		return nil, false
+	}
+	return o.PackageStatus, true
+}
+
+// HasPackageStatus returns a boolean if a field has been set.
+func (o *OrderPackage) HasPackageStatus() bool {
+	if o != nil && !IsNil(o.PackageStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackageStatus gets a reference to the given PackageStatus and assigns it to the PackageStatus field.
+func (o *OrderPackage) SetPackageStatus(v PackageStatus) {
+	o.PackageStatus = &v
+}
+
+// GetCarrier returns the Carrier field value if set, zero value otherwise.
+func (o *OrderPackage) GetCarrier() string {
+	if o == nil || IsNil(o.Carrier) {
+		var ret string
+		return ret
+	}
+	return *o.Carrier
+}
+
+// GetCarrierOk returns a tuple with the Carrier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetCarrierOk() (*string, bool) {
+	if o == nil || IsNil(o.Carrier) {
+		return nil, false
+	}
+	return o.Carrier, true
+}
+
+// HasCarrier returns a boolean if a field has been set.
+func (o *OrderPackage) HasCarrier() bool {
+	if o != nil && !IsNil(o.Carrier) {
+		return true
+	}
+
+	return false
+}
+
+// SetCarrier gets a reference to the given string and assigns it to the Carrier field.
+func (o *OrderPackage) SetCarrier(v string) {
+	o.Carrier = &v
+}
+
+// GetShipTime returns the ShipTime field value if set, zero value otherwise.
+func (o *OrderPackage) GetShipTime() time.Time {
+	if o == nil || IsNil(o.ShipTime) {
+		var ret time.Time
+		return ret
+	}
+	return *o.ShipTime
+}
+
+// GetShipTimeOk returns a tuple with the ShipTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetShipTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.ShipTime) {
+		return nil, false
+	}
+	return o.ShipTime, true
+}
+
+// HasShipTime returns a boolean if a field has been set.
+func (o *OrderPackage) HasShipTime() bool {
+	if o != nil && !IsNil(o.ShipTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetShipTime gets a reference to the given time.Time and assigns it to the ShipTime field.
+func (o *OrderPackage) SetShipTime(v time.Time) {
+	o.ShipTime = &v
+}
+
+// GetShippingService returns the ShippingService field value if set, zero value otherwise.
+func (o *OrderPackage) GetShippingService() string {
+	if o == nil || IsNil(o.ShippingService) {
+		var ret string
+		return ret
+	}
+	return *o.ShippingService
+}
+
+// GetShippingServiceOk returns a tuple with the ShippingService field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetShippingServiceOk() (*string, bool) {
+	if o == nil || IsNil(o.ShippingService) {
+		return nil, false
+	}
+	return o.ShippingService, true
+}
+
+// HasShippingService returns a boolean if a field has been set.
+func (o *OrderPackage) HasShippingService() bool {
+	if o != nil && !IsNil(o.ShippingService) {
+		return true
+	}
+
+	return false
+}
+
+// SetShippingService gets a reference to the given string and assigns it to the ShippingService field.
+func (o *OrderPackage) SetShippingService(v string) {
+	o.ShippingService = &v
+}
+
+// GetTrackingNumber returns the TrackingNumber field value if set, zero value otherwise.
+func (o *OrderPackage) GetTrackingNumber() string {
+	if o == nil || IsNil(o.TrackingNumber) {
+		var ret string
+		return ret
+	}
+	return *o.TrackingNumber
+}
+
+// GetTrackingNumberOk returns a tuple with the TrackingNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetTrackingNumberOk() (*string, bool) {
+	if o == nil || IsNil(o.TrackingNumber) {
+		return nil, false
+	}
+	return o.TrackingNumber, true
+}
+
+// HasTrackingNumber returns a boolean if a field has been set.
+func (o *OrderPackage) HasTrackingNumber() bool {
+	if o != nil && !IsNil(o.TrackingNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrackingNumber gets a reference to the given string and assigns it to the TrackingNumber field.
+func (o *OrderPackage) SetTrackingNumber(v string) {
+	o.TrackingNumber = &v
+}
+
+// GetShipFromAddress returns the ShipFromAddress field value if set, zero value otherwise.
+func (o *OrderPackage) GetShipFromAddress() MerchantAddress {
+	if o == nil || IsNil(o.ShipFromAddress) {
+		var ret MerchantAddress
+		return ret
+	}
+	return *o.ShipFromAddress
+}
+
+// GetShipFromAddressOk returns a tuple with the ShipFromAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetShipFromAddressOk() (*MerchantAddress, bool) {
+	if o == nil || IsNil(o.ShipFromAddress) {
+		return nil, false
+	}
+	return o.ShipFromAddress, true
+}
+
+// HasShipFromAddress returns a boolean if a field has been set.
+func (o *OrderPackage) HasShipFromAddress() bool {
+	if o != nil && !IsNil(o.ShipFromAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetShipFromAddress gets a reference to the given MerchantAddress and assigns it to the ShipFromAddress field.
+func (o *OrderPackage) SetShipFromAddress(v MerchantAddress) {
+	o.ShipFromAddress = &v
+}
+
+// GetPackageItems returns the PackageItems field value if set, zero value otherwise.
+func (o *OrderPackage) GetPackageItems() []PackageItem {
+	if o == nil || IsNil(o.PackageItems) {
+		var ret []PackageItem
+		return ret
+	}
+	return o.PackageItems
+}
+
+// GetPackageItemsOk returns a tuple with the PackageItems field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OrderPackage) GetPackageItemsOk() ([]PackageItem, bool) {
+	if o == nil || IsNil(o.PackageItems) {
+		return nil, false
+	}
+	return o.PackageItems, true
+}
+
+// HasPackageItems returns a boolean if a field has been set.
+func (o *OrderPackage) HasPackageItems() bool {
+	if o != nil && !IsNil(o.PackageItems) {
+		return true
+	}
+
+	return false
+}
+
+// SetPackageItems gets a reference to the given []PackageItem and assigns it to the PackageItems field.
+func (o *OrderPackage) SetPackageItems(v []PackageItem) {
+	o.PackageItems = v
+}
+
+func (o OrderPackage) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["packageReferenceId"] = o.PackageReferenceId
+	if !IsNil(o.CreatedTime) {
+		toSerialize["createdTime"] = o.CreatedTime
+	}
+	if !IsNil(o.PackageStatus) {
+		toSerialize["packageStatus"] = o.PackageStatus
+	}
+	if !IsNil(o.Carrier) {
+		toSerialize["carrier"] = o.Carrier
+	}
+	if !IsNil(o.ShipTime) {
+		toSerialize["shipTime"] = o.ShipTime
+	}
+	if !IsNil(o.ShippingService) {
+		toSerialize["shippingService"] = o.ShippingService
+	}
+	if !IsNil(o.TrackingNumber) {
+		toSerialize["trackingNumber"] = o.TrackingNumber
+	}
+	if !IsNil(o.ShipFromAddress) {
+		toSerialize["shipFromAddress"] = o.ShipFromAddress
+	}
+	if !IsNil(o.PackageItems) {
+		toSerialize["packageItems"] = o.PackageItems
+	}
+	return toSerialize, nil
+}
+
+type NullableOrderPackage struct {
+	value *OrderPackage
+	isSet bool
+}
+
+func (v NullableOrderPackage) Get() *OrderPackage {
+	return v.value
+}
+
+func (v *NullableOrderPackage) Set(val *OrderPackage) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableOrderPackage) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableOrderPackage) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableOrderPackage(val *OrderPackage) *NullableOrderPackage {
+	return &NullableOrderPackage{value: val, isSet: true}
+}
+
+func (v NullableOrderPackage) MarshalJSON() ([]byte, error) {
+	return sonic.Marshal(v.value)
+}
+
+func (v *NullableOrderPackage) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return sonic.Unmarshal(src, &v.value)
+}
