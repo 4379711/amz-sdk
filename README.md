@@ -37,7 +37,7 @@
 `amzsdk` is a Go SDK that ships **two large families of Amazon HTTP APIs** behind one consistent client surface:
 
 - **Amazon Ads** — Sponsored Products v3, Sponsored Brands v4, Sponsored Display v1, Profiles v2, Reports v3, Portfolios, Product Metadata / Eligibility, AMS.
-- **Selling Partner (SP-API)** — Orders (v0 + 2026), Inventory, Reports, Catalog, Listings, Feeds, FBA Inbound (incl. 2024 redesign), Finances v0 + 2024, Pricing, Shipping, Easy Ship, A+ Content, Messaging, Notifications, Vendor APIs, and more — 40+ generated client packages.
+- **Selling Partner (SP-API)** — Orders (v0 + 2026), Inventory, Reports, Catalog, Listings, Feeds, FBA Inbound (incl. 2024 redesign), Finances v0 + 2024, Pricing, Promotions, Shipping, Easy Ship, A+ Content, Messaging, Notifications, Vendor APIs, and more — 40+ generated client packages.
 
 Internally both stacks share the same:
 
@@ -109,6 +109,7 @@ Typical use: forward both events into your own logger (logrus / slog / zap), key
 - **Inventory & FBA** — `fba_inventory`, `fba_inbound`, `awd_20240509`, `replenishment20221107`, `supply_sources_20200701`.
 - **Reports & Feeds** — `reports_20210630`, `feeds_20210630`, `data_kiosk_20231115`.
 - **Pricing & Fees** — `product_pricing_v0`, `product_pricing_20220501`, `product_fees_v0`.
+- **Promotions** — `promotions_20251201` (coupons, deals, price discounts, basket-building promotions).
 - **Finances** — `finances_v0`, `finances_20240619`, `invoices_api_model_20240619`, `transfers_20240601`, `seller_wallet_20240301`.
 - **Vendor APIs** — `vendor_direct_fulfillment_*`, `vendor_invoices`, `vendor_orders`, `vendor_shipments`, `vendor_transaction_status`.
 - **Notifications, Messaging, Tokens, Sellers, Sales, Application** — the small but essential helpers.
@@ -140,6 +141,7 @@ amzsdk/
 │   ├── fulfillment_inbound_20240320/
 │   ├── reports_20210630/
 │   ├── listings_items_20210801/
+│   ├── promotions_20251201/
 │   └── ...                   # 40+ packages, one per official API
 ├── pkg/                      # Shared building blocks
 │   ├── iauth.go              # IAuth interface (the contract both auths satisfy)

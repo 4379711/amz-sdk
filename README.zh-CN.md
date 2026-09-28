@@ -37,7 +37,7 @@
 `amzsdk` 是一个 Go SDK，把**两大类亚马逊 HTTP API** 统一收敛在一致的 client 接口下：
 
 - **Amazon Ads** —— Sponsored Products v3、Sponsored Brands v4、Sponsored Display v1、Profiles v2、Reports v3、Portfolios、Product Metadata / Eligibility、AMS。
-- **Selling Partner（SP-API）** —— Orders(v0 + 2026)、Inventory、Reports、Catalog、Listings、Feeds、FBA Inbound（含 2024 新版）、Finances v0 + 2024、Pricing、Shipping、Easy Ship、A+ Content、Messaging、Notifications、Vendor 系列，共 40+ 个生成自官方 OpenAPI 的 client 包。
+- **Selling Partner（SP-API）** —— Orders(v0 + 2026)、Inventory、Reports、Catalog、Listings、Feeds、FBA Inbound（含 2024 新版）、Finances v0 + 2024、Pricing、Promotions、Shipping、Easy Ship、A+ Content、Messaging、Notifications、Vendor 系列，共 40+ 个生成自官方 OpenAPI 的 client 包。
 
 两套 API 在 SDK 内部共享：
 
@@ -109,6 +109,7 @@ pkg.OnAuthRetry = func(ev pkg.AuthRetryEvent) {
 - **Inventory & FBA**：`fba_inventory`、`fba_inbound`、`awd_20240509`、`replenishment20221107`、`supply_sources_20200701`。
 - **Reports & Feeds**：`reports_20210630`、`feeds_20210630`、`data_kiosk_20231115`。
 - **Pricing & Fees**：`product_pricing_v0`、`product_pricing_20220501`、`product_fees_v0`。
+- **Promotions**：`promotions_20251201`（优惠券、Deal、价格折扣、满减/买赠促销）。
 - **Finances**：`finances_v0`、`finances_20240619`、`invoices_api_model_20240619`、`transfers_20240601`、`seller_wallet_20240301`。
 - **Vendor**：`vendor_direct_fulfillment_*`、`vendor_invoices`、`vendor_orders`、`vendor_shipments`、`vendor_transaction_status`。
 - **Notifications / Messaging / Tokens / Sellers / Sales / Application** 等。
@@ -140,6 +141,7 @@ amzsdk/
 │   ├── fulfillment_inbound_20240320/
 │   ├── reports_20210630/
 │   ├── listings_items_20210801/
+│   ├── promotions_20251201/
 │   └── ...                   # 40+ 个 OpenAPI 生成包
 ├── pkg/                      # 公共构件
 │   ├── iauth.go              # IAuth 接口（两套 auth 共同实现）
