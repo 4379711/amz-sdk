@@ -10,9 +10,9 @@ var _ MappedNullable = &SponsoredProductsUpdateCampaign{}
 // SponsoredProductsUpdateCampaign struct for SponsoredProductsUpdateCampaign
 type SponsoredProductsUpdateCampaign struct {
 	// The identifier of an existing portfolio to which the campaign is associated.
-	PortfolioId NullableString `json:"portfolioId,omitempty"`
+	PortfolioId NullableString `json:"portfolioId,omitzero"`
 	// The format of the date is YYYY-MM-DD.
-	EndDate NullableString `json:"endDate,omitempty"`
+	EndDate NullableString `json:"endDate,omitzero"`
 	// The identifier of the campaign.
 	CampaignId string `json:"campaignId"`
 	// The name of the campaign.

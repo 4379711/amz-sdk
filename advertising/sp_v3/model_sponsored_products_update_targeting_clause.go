@@ -16,7 +16,7 @@ type SponsoredProductsUpdateTargetingClause struct {
 	ExpressionType *SponsoredProductsExpressionTypeWithoutOther `json:"expressionType,omitempty"`
 	State          *SponsoredProductsCreateOrUpdateEntityState  `json:"state,omitempty"`
 	// The bid for ads sourced using the target. Targets that do not have bid values in listTargetingClauses will inherit the defaultBid from the adGroup level. For more information about bid constraints by marketplace, see [bid limits](https://advertising.amazon.com/API/docs/en-us/concepts/limits#bid-constraints-by-marketplace).
-	Bid NullableFloat64 `json:"bid,omitempty"`
+	Bid NullableFloat64 `json:"bid,omitzero"`
 }
 
 type _SponsoredProductsUpdateTargetingClause SponsoredProductsUpdateTargetingClause

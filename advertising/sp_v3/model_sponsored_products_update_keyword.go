@@ -13,7 +13,7 @@ type SponsoredProductsUpdateKeyword struct {
 	KeywordId string                                      `json:"keywordId"`
 	State     *SponsoredProductsCreateOrUpdateEntityState `json:"state,omitempty"`
 	// Bid associated with this keyword. Applicable to biddable match types only. For more information about bid constraints by marketplace, see [bid limits](https://advertising.amazon.com/API/docs/en-us/concepts/limits#bid-constraints-by-marketplace).
-	Bid NullableFloat64 `json:"bid,omitempty"`
+	Bid NullableFloat64 `json:"bid,omitzero"`
 }
 
 type _SponsoredProductsUpdateKeyword SponsoredProductsUpdateKeyword
