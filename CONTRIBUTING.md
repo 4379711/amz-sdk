@@ -51,14 +51,14 @@ For security issues, **do not** open a public issue — see [SECURITY.md](./SECU
 go mod tidy
 go vet ./...
 go build ./...
-go test ./pkg/...            # pkg/ has unit tests that don't need LwA
+go test -race ./...          # Root-module tests do not need LwA credentials
 ```
 
 If you want to exercise live API calls, write the integration code under a local `test/` directory — it is `.gitignore`-d, so real `ClientID` / `ClientSecret` / `refresh_token` values stay on your machine. **Never** commit credentials — see [SECURITY.md](./SECURITY.md).
 
 ### Pull request checklist
 
-- [ ] CI is green (`go build ./...` + `go vet ./...` + `go test ./pkg/...`).
+- [ ] CI is green (`go build ./...` + `go vet ./...` + `go test -race ./...`).
 - [ ] No real credentials (`ClientID`, `ClientSecret`, `refresh_token`, `Authorization` headers) committed anywhere — including test fixtures and log snippets.
 - [ ] `pkg/` changes preserve the existing exported API. If they don't, the PR description must justify the break and propose a migration.
 - [ ] Generated package changes are reproducible (see below).
@@ -70,6 +70,9 @@ Most files under `advertising/*` and `selling_partner/*` were generated from Ama
 
 - **Do not** hand-tweak `model_*.go` / `api_*.go` files unless absolutely necessary — your patch will be wiped out the next time we regenerate.
 - If a model is wrong, prefer **fixing the input** (the spec or the post-processing script). Document the post-processing step in your PR so future regenerations stay correct.
+- Keep enum decoding lenient in every regenerated package: in each enum `UnmarshalJSON`, replace the generator's allowed-values check (`"%+v is not a valid T"`) with `*v = T(value); return nil`, and leave `IsValid()` / `NewTFromValue()` strict. Amazon adds enum values without bumping the API version, and a strict decoder fails the whole response page. Values Amazon documents but the model JSON lacks (currently `INVOICE_UNCONFIRMED` in `orders_20260101` `FulfillmentStatus`) must be re-added after regenerating.
+- Run `python3 scripts/fix_numeric_ids.py` after regenerating Ads clients. It applies the explicit numeric entity-ID mapping to SP/SB budget-rule parameters and SD models, including constructors and accessors, while preserving string IDs and monetary fields. See [MIGRATION.md](./MIGRATION.md) for the public Go type changes.
+- Keep `advertising/sp_v3/rule_criteria_json.go` and `advertising/sd_v1/targeting_expression_json.go`, then run `python3 scripts/fix_json_models.py`. This removes conflicting generated codec methods and restores the internal JSON state fields. The maintained codecs select criteria by required field presence and preserve SD extension fields across edits. Run their package tests after post-processing.
 - If you need to add a brand-new generated package (e.g. tracking a new dated SP-API version), include in the PR:
   - The exact OpenAPI source URL and version you regenerated from.
   - Any post-processing steps applied (`sed` / `gofmt` / manual rename rules).
@@ -152,14 +155,14 @@ amzsdk/
 go mod tidy
 go vet ./...
 go build ./...
-go test ./pkg/...            # pkg/ 的单测不依赖 LwA
+go test -race ./...          # 根模块测试不需要 LwA 凭据
 ```
 
 需要跑真实 API 的集成测试时,请把代码写在**本地的** `test/` 目录 —— 它被 `.gitignore` 屏蔽,真实 `ClientID` / `ClientSecret` / `refresh_token` 不会入库。**严禁**提交真实凭据,详见 [SECURITY.md](./SECURITY.md)。
 
 ### PR 自查清单
 
-- [ ] CI 绿(`go build ./...` + `go vet ./...` + `go test ./pkg/...`)。
+- [ ] CI 绿(`go build ./...` + `go vet ./...` + `go test -race ./...`)。
 - [ ] **没有**真实凭据落进 diff(包括测试 fixture 与日志片段)。
 - [ ] `pkg/` 改动保持现有导出 API。如确需破坏,PR 描述里要说明破坏原因并给迁移方案。
 - [ ] 生成式包的改动可重复执行(见下)。
@@ -171,6 +174,9 @@ go test ./pkg/...            # pkg/ 的单测不依赖 LwA
 
 - **不要**手改 `model_*.go` / `api_*.go`,除非别无选择 —— 下一次重新生成会覆盖你的补丁。
 - 模型错了优先**修上游输入**(spec 本身或 post-processing 脚本)。PR 里写清楚 post-processing 步骤,保证后续生成仍然正确。
+- 重新生成的包必须保持枚举宽松解码:把每个枚举 `UnmarshalJSON` 里生成器输出的允许值校验(`"%+v is not a valid T"`)改为 `*v = T(value); return nil`,`IsValid()` / `NewTFromValue()` 保持严格。Amazon 会在不升级 API 版本的情况下新增枚举值,严格解码会让整页响应失败。官方文档有、但模型 JSON 未收录的值(目前是 `orders_20260101` `FulfillmentStatus` 的 `INVOICE_UNCONFIRMED`)重新生成后需要补回。
+- Ads 客户端重新生成后运行 `python3 scripts/fix_numeric_ids.py`。脚本按显式映射修正 SP/SB 预算规则参数、SD 实体 ID 及构造器和访问方法,保留字符串 ID 和金额字段。公开 Go 类型变更见 [MIGRATION.md](./MIGRATION.md)。
+- 保留 `advertising/sp_v3/rule_criteria_json.go` 和 `advertising/sd_v1/targeting_expression_json.go`,再运行 `python3 scripts/fix_json_models.py`。脚本删除冲突的生成编码方法并补齐内部 JSON 状态字段;独立维护的编码器按必需字段识别 criteria,在编辑 SD 表达式时保留扩展字段。后处理后运行对应包测试。
 - 新增生成包(例如跟进 SP-API 新日期版本)请在 PR 里附:
   - 你重新生成所用的 OpenAPI 源 URL 与版本号。
   - 应用的 post-processing 步骤(`sed` / `gofmt` / 重命名规则)。

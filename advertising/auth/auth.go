@@ -2,6 +2,7 @@ package auth
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -210,10 +211,15 @@ func (a *AdAuth) GetLwaCodeEndpoint() string {
 	}
 }
 
-func (a *AdAuth) GetLwaURL() (url string) {
-	baseURL := a.GetLwaCodeEndpoint()
-	url = fmt.Sprintf("%s?client_id=%s&scope=advertising::campaign_management&response_type=code&redirect_uri=%s&state=%s", baseURL, a.ClientID, a.RedirectURL, ulid.Make().String())
-	return url
+func (a *AdAuth) GetLwaURL() string {
+	query := url.Values{
+		"client_id":     {a.ClientID},
+		"scope":         {"advertising::campaign_management"},
+		"response_type": {"code"},
+		"redirect_uri":  {a.RedirectURL},
+		"state":         {ulid.Make().String()},
+	}
+	return a.GetLwaCodeEndpoint() + "?" + query.Encode()
 }
 
 // fetchAccessToken 向 LwA 端点换一枚新的 access_token 并**原样返回**,
@@ -223,7 +229,7 @@ func (a *AdAuth) GetLwaURL() (url string) {
 // 被多个 goroutine 共享时,若在回调里直接写 a.Token,只有首个 goroutine 的 a.Token
 // 会被更新,其它 goroutine 持有的 *AdAuth 对象字段永远陈旧,容易埋坑。
 // 因此并发路径统一用这个纯函数拿结果,写共享状态的责任交给 cache.Put。
-func (a *AdAuth) fetchAccessToken() (*Token, error) {
+func (a *AdAuth) fetchAccessToken(ctx context.Context) (*Token, error) {
 	endpoint := a.GetLwaTokenEndpoint()
 	reqBody, _ := sonic.Marshal(map[string]string{
 		"grant_type":    "refresh_token",
@@ -231,10 +237,12 @@ func (a *AdAuth) fetchAccessToken() (*Token, error) {
 		"client_id":     a.ClientID,
 		"client_secret": a.ClientSecret,
 	})
-	resp, err := pkg.DefaultClient.Post(
-		endpoint,
-		"application/json",
-		bytes.NewBuffer(reqBody))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, endpoint, bytes.NewReader(reqBody))
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := pkg.DefaultClient.Do(req)
 	if resp != nil {
 		defer resp.Body.Close()
 	}
@@ -251,7 +259,7 @@ func (a *AdAuth) fetchAccessToken() (*Token, error) {
 // singleflight + cache 统一管理刷新节奏,**不要**在多 goroutine 共享的 *AdAuth
 // 上直接调本方法,否则会出现"只有部分 goroutine 的 a.Token 被刷新"的假象。
 func (a *AdAuth) GetAccessTokenFromEndpoint() error {
-	t, err := a.fetchAccessToken()
+	t, err := a.fetchAccessToken(context.Background())
 	if err != nil {
 		return err
 	}
@@ -327,6 +335,8 @@ func (a *AdAuth) GetRefreshToken(code string) error {
 	return nil
 }
 
+const tokenRefreshTimeout = 180 * time.Second
+
 var (
 	cache         = new(pkg.AccessTokenCache)
 	refreshFlight singleflight.Group
@@ -348,15 +358,21 @@ type headerInjector struct {
 //
 // reason 描述触发本次调用的上游原因("cache-miss" / "401-retry"),仅用于
 // TokenRefreshEvent,不影响实际行为。
-func (h *headerInjector) acquireAccessToken(reason string) (string, error) {
+func (h *headerInjector) acquireAccessToken(ctx context.Context, reason string) (string, error) {
+	if err := ctx.Err(); err != nil {
+		return "", err
+	}
 	if tk := cache.Get(h.auth.RefreshToken); tk != "" {
 		return tk, nil
 	}
-	v, err, _ := refreshFlight.Do(h.auth.RefreshToken, func() (any, error) {
+	result := refreshFlight.DoChan(h.auth.RefreshToken, func() (any, error) {
 		// double-check:等锁期间可能已被其它 goroutine 刷好
 		if cached := cache.Get(h.auth.RefreshToken); cached != "" {
 			return cached, nil
 		}
+		// 刷新由所有等待者共享,单个请求取消不应中止其它请求需要的刷新。
+		refreshCtx, cancel := context.WithTimeout(context.Background(), tokenRefreshTimeout)
+		defer cancel()
 		rtSuffix := pkg.TokenSuffix(h.auth.RefreshToken)
 		pkg.OnTokenRefresh(pkg.TokenRefreshEvent{
 			Service:            "advertising",
@@ -365,7 +381,7 @@ func (h *headerInjector) acquireAccessToken(reason string) (string, error) {
 			Phase:              pkg.EventPhaseStart,
 		})
 		begin := time.Now()
-		t, err := h.auth.fetchAccessToken()
+		t, err := h.auth.fetchAccessToken(refreshCtx)
 		end := pkg.TokenRefreshEvent{
 			Service:            "advertising",
 			RefreshTokenSuffix: rtSuffix,
@@ -388,15 +404,27 @@ func (h *headerInjector) acquireAccessToken(reason string) (string, error) {
 			AccessTokenExpiredTime: t.ExpiresAt,
 		}), nil
 	})
-	if err != nil {
-		return "", err
+	select {
+	case <-ctx.Done():
+		return "", ctx.Err()
+	case r := <-result:
+		if err := ctx.Err(); err != nil {
+			return "", err
+		}
+		if r.Err != nil {
+			return "", r.Err
+		}
+		return r.Val.(string), nil
 	}
-	return v.(string), nil
 }
 
 func (h *headerInjector) RoundTrip(req *http.Request) (*http.Response, error) {
-	tk, err := h.acquireAccessToken("cache-miss")
+	ctx := req.Context()
+	tk, err := h.acquireAccessToken(ctx, "cache-miss")
 	if err != nil {
+		if req.Body != nil {
+			_ = req.Body.Close()
+		}
 		return nil, err
 	}
 	h.setAuthHeaders(req, tk)
@@ -445,8 +473,11 @@ func (h *headerInjector) RoundTrip(req *http.Request) (*http.Response, error) {
 	// 只在 cache 里仍是"刚刚失败的那个 token"时才失效,避免并发重试场景
 	// 把别的 goroutine 刚刷出来的新 token 误删,触发冗余 LwA 刷新。
 	cache.InvalidateIfMatch(h.auth.RefreshToken, tk)
-	newTk, err := h.acquireAccessToken("401-retry")
+	newTk, err := h.acquireAccessToken(ctx, "401-retry")
 	if err != nil {
+		if retryReq.Body != nil {
+			_ = retryReq.Body.Close()
+		}
 		event.RetryErr = err
 		return nil, err
 	}

@@ -1,10 +1,7 @@
 package sd_v1
 
 import (
-	"fmt"
-
 	"github.com/bytedance/sonic"
-	"gopkg.in/validator.v2"
 )
 
 // SDTargetExpressionV32 - struct for SDTargetExpressionV32
@@ -12,9 +9,7 @@ type SDTargetExpressionV32 struct {
 	SDContentTargetingPredicateV31 *SDContentTargetingPredicateV31
 	SDTargetingPredicateNestedV31  *SDTargetingPredicateNestedV31
 	SDTargetingPredicateV31        *SDTargetingPredicateV31
-	// raw 保留反序列化时的原始 JSON。SD targeting 表达式的多个 oneOf schema 字段重叠会同时匹配,
-	// 序列化时以 raw 为准,保证 round-trip 不丢字段。
-	raw []byte
+	jsonState                      *targetingJSONState
 }
 
 // SDContentTargetingPredicateV31AsSDTargetExpressionV32 is a convenience function that returns SDContentTargetingPredicateV31 wrapped in SDTargetExpressionV32
@@ -36,100 +31,6 @@ func SDTargetingPredicateV31AsSDTargetExpressionV32(v *SDTargetingPredicateV31) 
 	return SDTargetExpressionV32{
 		SDTargetingPredicateV31: v,
 	}
-}
-
-// Unmarshal JSON data into one of the pointers in the struct
-func (dst *SDTargetExpressionV32) UnmarshalJSON(data []byte) error {
-	dst.raw = append([]byte(nil), data...)
-	var err error
-	match := 0
-	// try to unmarshal data into SDContentTargetingPredicateV31
-	err = newDecoder(data).Decode(&dst.SDContentTargetingPredicateV31)
-	if err == nil {
-		jsonSDContentTargetingPredicateV31, _ := sonic.Marshal(dst.SDContentTargetingPredicateV31)
-		if string(jsonSDContentTargetingPredicateV31) == "{}" { // empty struct
-			dst.SDContentTargetingPredicateV31 = nil
-		} else {
-			if err = validator.Validate(dst.SDContentTargetingPredicateV31); err != nil {
-				dst.SDContentTargetingPredicateV31 = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.SDContentTargetingPredicateV31 = nil
-	}
-
-	// try to unmarshal data into SDTargetingPredicateNestedV31
-	err = newDecoder(data).Decode(&dst.SDTargetingPredicateNestedV31)
-	if err == nil {
-		jsonSDTargetingPredicateNestedV31, _ := sonic.Marshal(dst.SDTargetingPredicateNestedV31)
-		if string(jsonSDTargetingPredicateNestedV31) == "{}" { // empty struct
-			dst.SDTargetingPredicateNestedV31 = nil
-		} else {
-			if err = validator.Validate(dst.SDTargetingPredicateNestedV31); err != nil {
-				dst.SDTargetingPredicateNestedV31 = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.SDTargetingPredicateNestedV31 = nil
-	}
-
-	// try to unmarshal data into SDTargetingPredicateV31
-	err = newDecoder(data).Decode(&dst.SDTargetingPredicateV31)
-	if err == nil {
-		jsonSDTargetingPredicateV31, _ := sonic.Marshal(dst.SDTargetingPredicateV31)
-		if string(jsonSDTargetingPredicateV31) == "{}" { // empty struct
-			dst.SDTargetingPredicateV31 = nil
-		} else {
-			if err = validator.Validate(dst.SDTargetingPredicateV31); err != nil {
-				dst.SDTargetingPredicateV31 = nil
-			} else {
-				match++
-			}
-		}
-	} else {
-		dst.SDTargetingPredicateV31 = nil
-	}
-
-	if match > 1 {
-		// SD targeting 表达式的多个 oneOf schema 字段重叠会同时匹配。保留首个命中(按尝试顺序)供
-		// GetActualInstance 使用,序列化以 raw 为准保真;不再因 oneOf 严格性导致解析失败。
-		switch {
-		case dst.SDContentTargetingPredicateV31 != nil:
-			dst.SDTargetingPredicateNestedV31 = nil
-			dst.SDTargetingPredicateV31 = nil
-		case dst.SDTargetingPredicateNestedV31 != nil:
-			dst.SDTargetingPredicateV31 = nil
-		}
-		return nil
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(SDTargetExpressionV32)")
-	}
-}
-
-// Marshal data from the first non-nil pointers in the struct to JSON
-func (src SDTargetExpressionV32) MarshalJSON() ([]byte, error) {
-	if len(src.raw) > 0 {
-		return src.raw, nil
-	}
-	if src.SDContentTargetingPredicateV31 != nil {
-		return sonic.Marshal(&src.SDContentTargetingPredicateV31)
-	}
-
-	if src.SDTargetingPredicateNestedV31 != nil {
-		return sonic.Marshal(&src.SDTargetingPredicateNestedV31)
-	}
-
-	if src.SDTargetingPredicateV31 != nil {
-		return sonic.Marshal(&src.SDTargetingPredicateV31)
-	}
-
-	return nil, nil // no data in oneOf schemas
 }
 
 // Get the actual instance

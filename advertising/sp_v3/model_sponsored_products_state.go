@@ -14,6 +14,7 @@ const (
 	SPONSOREDPRODUCTSSTATE_ENABLED  SponsoredProductsState = "ENABLED"
 	SPONSOREDPRODUCTSSTATE_PAUSED   SponsoredProductsState = "PAUSED"
 	SPONSOREDPRODUCTSSTATE_ARCHIVED SponsoredProductsState = "ARCHIVED"
+	SPONSOREDPRODUCTSSTATE_PROPOSED SponsoredProductsState = "PROPOSED"
 )
 
 // All allowed values of SponsoredProductsState enum
@@ -21,6 +22,7 @@ var AllowedSponsoredProductsStateEnumValues = []SponsoredProductsState{
 	"ENABLED",
 	"PAUSED",
 	"ARCHIVED",
+	"PROPOSED",
 }
 
 func (v *SponsoredProductsState) UnmarshalJSON(src []byte) error {
@@ -29,15 +31,10 @@ func (v *SponsoredProductsState) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsState(value)
-	for _, existing := range AllowedSponsoredProductsStateEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsState", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsState(value)
+	return nil
 }
 
 // NewSponsoredProductsStateFromValue returns a pointer to a valid SponsoredProductsState

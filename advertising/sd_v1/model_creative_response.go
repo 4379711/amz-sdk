@@ -14,7 +14,7 @@ type CreativeResponse struct {
 	// A human-readable description of the response.
 	Description *string `json:"description,omitempty"`
 	// The identifier of the creative.
-	CreativeId *float32 `json:"creativeId,omitempty"`
+	CreativeId *int64 `json:"creativeId,omitempty"`
 }
 
 // NewCreativeResponse instantiates a new CreativeResponse object
@@ -99,9 +99,9 @@ func (o *CreativeResponse) SetDescription(v string) {
 }
 
 // GetCreativeId returns the CreativeId field value if set, zero value otherwise.
-func (o *CreativeResponse) GetCreativeId() float32 {
+func (o *CreativeResponse) GetCreativeId() int64 {
 	if o == nil || IsNil(o.CreativeId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.CreativeId
@@ -109,7 +109,7 @@ func (o *CreativeResponse) GetCreativeId() float32 {
 
 // GetCreativeIdOk returns a tuple with the CreativeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreativeResponse) GetCreativeIdOk() (*float32, bool) {
+func (o *CreativeResponse) GetCreativeIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreativeId) {
 		return nil, false
 	}
@@ -125,8 +125,8 @@ func (o *CreativeResponse) HasCreativeId() bool {
 	return false
 }
 
-// SetCreativeId gets a reference to the given float32 and assigns it to the CreativeId field.
-func (o *CreativeResponse) SetCreativeId(v float32) {
+// SetCreativeId gets a reference to the given int64 and assigns it to the CreativeId field.
+func (o *CreativeResponse) SetCreativeId(v int64) {
 	o.CreativeId = &v
 }
 

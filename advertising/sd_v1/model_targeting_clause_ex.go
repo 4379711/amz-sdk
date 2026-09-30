@@ -9,11 +9,11 @@ var _ MappedNullable = &TargetingClauseEx{}
 
 // TargetingClauseEx struct for TargetingClauseEx
 type TargetingClauseEx struct {
-	TargetId       *float32 `json:"targetId,omitempty"`
-	AdGroupId      *float32 `json:"adGroupId,omitempty"`
-	CampaignId     *float32 `json:"campaignId,omitempty"`
-	State          *string  `json:"state,omitempty"`
-	ExpressionType *string  `json:"expressionType,omitempty"`
+	TargetId       *int64  `json:"targetId,omitempty"`
+	AdGroupId      *int64  `json:"adGroupId,omitempty"`
+	CampaignId     *int64  `json:"campaignId,omitempty"`
+	State          *string `json:"state,omitempty"`
+	ExpressionType *string `json:"expressionType,omitempty"`
 	// If a value for `bid` is specified, it overrides the current adGroup bid. When using vcpm costType. $1 is the minimum bid for vCPM. Note that this field is ignored for negative targeting clauses.
 	Bid *float32 `json:"bid,omitempty"`
 	// The targeting expression to match against.  ------- Applicable to contextual or content targeting (T00020) ------- * A 'TargetingExpression' in a contextual targeting campaign can contain 'TargetingPredicate' or 'ContentTargetingPredicate' components. * Contextual expressions must specify either a category predicate or an ASIN predicate, but never both. * Only one category may be specified per targeting expression. * Only one brand may be specified per targeting expression. * Only one asin may be specified per targeting expression. * To exclude a brand from a targeting expression you must create a negative targeting expression in the same ad group as the positive targeting expression.  ------- Applicable to audiences or contextual targeting (T00030) ------- * A 'TargetingExpression' in a audiences or contextual campaign can contain any target, including 'TargetingPredicate', 'ContentTargetingPredicate', or 'TargetingPredicateNested'.
@@ -46,9 +46,9 @@ func NewTargetingClauseExWithDefaults() *TargetingClauseEx {
 }
 
 // GetTargetId returns the TargetId field value if set, zero value otherwise.
-func (o *TargetingClauseEx) GetTargetId() float32 {
+func (o *TargetingClauseEx) GetTargetId() int64 {
 	if o == nil || IsNil(o.TargetId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.TargetId
@@ -56,7 +56,7 @@ func (o *TargetingClauseEx) GetTargetId() float32 {
 
 // GetTargetIdOk returns a tuple with the TargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TargetingClauseEx) GetTargetIdOk() (*float32, bool) {
+func (o *TargetingClauseEx) GetTargetIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.TargetId) {
 		return nil, false
 	}
@@ -72,15 +72,15 @@ func (o *TargetingClauseEx) HasTargetId() bool {
 	return false
 }
 
-// SetTargetId gets a reference to the given float32 and assigns it to the TargetId field.
-func (o *TargetingClauseEx) SetTargetId(v float32) {
+// SetTargetId gets a reference to the given int64 and assigns it to the TargetId field.
+func (o *TargetingClauseEx) SetTargetId(v int64) {
 	o.TargetId = &v
 }
 
 // GetAdGroupId returns the AdGroupId field value if set, zero value otherwise.
-func (o *TargetingClauseEx) GetAdGroupId() float32 {
+func (o *TargetingClauseEx) GetAdGroupId() int64 {
 	if o == nil || IsNil(o.AdGroupId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.AdGroupId
@@ -88,7 +88,7 @@ func (o *TargetingClauseEx) GetAdGroupId() float32 {
 
 // GetAdGroupIdOk returns a tuple with the AdGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TargetingClauseEx) GetAdGroupIdOk() (*float32, bool) {
+func (o *TargetingClauseEx) GetAdGroupIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.AdGroupId) {
 		return nil, false
 	}
@@ -104,15 +104,15 @@ func (o *TargetingClauseEx) HasAdGroupId() bool {
 	return false
 }
 
-// SetAdGroupId gets a reference to the given float32 and assigns it to the AdGroupId field.
-func (o *TargetingClauseEx) SetAdGroupId(v float32) {
+// SetAdGroupId gets a reference to the given int64 and assigns it to the AdGroupId field.
+func (o *TargetingClauseEx) SetAdGroupId(v int64) {
 	o.AdGroupId = &v
 }
 
 // GetCampaignId returns the CampaignId field value if set, zero value otherwise.
-func (o *TargetingClauseEx) GetCampaignId() float32 {
+func (o *TargetingClauseEx) GetCampaignId() int64 {
 	if o == nil || IsNil(o.CampaignId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.CampaignId
@@ -120,7 +120,7 @@ func (o *TargetingClauseEx) GetCampaignId() float32 {
 
 // GetCampaignIdOk returns a tuple with the CampaignId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TargetingClauseEx) GetCampaignIdOk() (*float32, bool) {
+func (o *TargetingClauseEx) GetCampaignIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.CampaignId) {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *TargetingClauseEx) HasCampaignId() bool {
 	return false
 }
 
-// SetCampaignId gets a reference to the given float32 and assigns it to the CampaignId field.
-func (o *TargetingClauseEx) SetCampaignId(v float32) {
+// SetCampaignId gets a reference to the given int64 and assigns it to the CampaignId field.
+func (o *TargetingClauseEx) SetCampaignId(v int64) {
 	o.CampaignId = &v
 }
 

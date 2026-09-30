@@ -11,12 +11,12 @@ type SponsoredProductsSchemaValidationExceptionCode string
 
 // List of SponsoredProductsSchemaValidationExceptionCode
 const (
-	SPONSOREDPRODUCTSSCHEMAVALIDATIONEXCEPTIONCODE_INVALID_SCHEMA SponsoredProductsSchemaValidationExceptionCode = "invalidSchema"
+	SPONSOREDPRODUCTSSCHEMAVALIDATIONEXCEPTIONCODE_INVALID_SCHEMA SponsoredProductsSchemaValidationExceptionCode = "INVALID_SCHEMA"
 )
 
 // All allowed values of SponsoredProductsSchemaValidationExceptionCode enum
 var AllowedSponsoredProductsSchemaValidationExceptionCodeEnumValues = []SponsoredProductsSchemaValidationExceptionCode{
-	"invalidSchema",
+	"INVALID_SCHEMA",
 }
 
 func (v *SponsoredProductsSchemaValidationExceptionCode) UnmarshalJSON(src []byte) error {
@@ -25,15 +25,10 @@ func (v *SponsoredProductsSchemaValidationExceptionCode) UnmarshalJSON(src []byt
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsSchemaValidationExceptionCode(value)
-	for _, existing := range AllowedSponsoredProductsSchemaValidationExceptionCodeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsSchemaValidationExceptionCode", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsSchemaValidationExceptionCode(value)
+	return nil
 }
 
 // NewSponsoredProductsSchemaValidationExceptionCodeFromValue returns a pointer to a valid SponsoredProductsSchemaValidationExceptionCode

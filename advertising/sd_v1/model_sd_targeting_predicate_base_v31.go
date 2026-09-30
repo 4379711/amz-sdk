@@ -11,7 +11,8 @@ var _ MappedNullable = &SDTargetingPredicateBaseV31{}
 type SDTargetingPredicateBaseV31 struct {
 	Type string `json:"type"`
 	// The value to be targeted.
-	Value *string `json:"value,omitempty"`
+	Value     *string `json:"value,omitempty"`
+	jsonState *targetingJSONState
 }
 
 type _SDTargetingPredicateBaseV31 SDTargetingPredicateBaseV31

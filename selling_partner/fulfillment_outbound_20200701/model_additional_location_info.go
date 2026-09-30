@@ -75,15 +75,10 @@ func (v *AdditionalLocationInfo) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := AdditionalLocationInfo(value)
-	for _, existing := range AllowedAdditionalLocationInfoEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid AdditionalLocationInfo", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = AdditionalLocationInfo(value)
+	return nil
 }
 
 // NewAdditionalLocationInfoFromValue returns a pointer to a valid AdditionalLocationInfo

@@ -10,11 +10,11 @@ var _ MappedNullable = &AdGroupResponseEx{}
 // AdGroupResponseEx Object containing an extended set of data fields for an Ad Group.
 type AdGroupResponseEx struct {
 	// The identifier of the ad group.
-	AdGroupId *float32 `json:"adGroupId,omitempty"`
+	AdGroupId *int64 `json:"adGroupId,omitempty"`
 	// The name of the ad group.
 	Name *string `json:"name,omitempty"`
 	// The identifier of the campaign that this ad group is associated with.
-	CampaignId *float32 `json:"campaignId,omitempty"`
+	CampaignId *int64 `json:"campaignId,omitempty"`
 	// The amount of the default bid associated with the ad group. Used if no bid is specified.
 	DefaultBid *float64 `json:"defaultBid,omitempty"`
 	// The delivery state of the ad group.
@@ -49,9 +49,9 @@ func NewAdGroupResponseExWithDefaults() *AdGroupResponseEx {
 }
 
 // GetAdGroupId returns the AdGroupId field value if set, zero value otherwise.
-func (o *AdGroupResponseEx) GetAdGroupId() float32 {
+func (o *AdGroupResponseEx) GetAdGroupId() int64 {
 	if o == nil || IsNil(o.AdGroupId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.AdGroupId
@@ -59,7 +59,7 @@ func (o *AdGroupResponseEx) GetAdGroupId() float32 {
 
 // GetAdGroupIdOk returns a tuple with the AdGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdGroupResponseEx) GetAdGroupIdOk() (*float32, bool) {
+func (o *AdGroupResponseEx) GetAdGroupIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.AdGroupId) {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *AdGroupResponseEx) HasAdGroupId() bool {
 	return false
 }
 
-// SetAdGroupId gets a reference to the given float32 and assigns it to the AdGroupId field.
-func (o *AdGroupResponseEx) SetAdGroupId(v float32) {
+// SetAdGroupId gets a reference to the given int64 and assigns it to the AdGroupId field.
+func (o *AdGroupResponseEx) SetAdGroupId(v int64) {
 	o.AdGroupId = &v
 }
 
@@ -113,9 +113,9 @@ func (o *AdGroupResponseEx) SetName(v string) {
 }
 
 // GetCampaignId returns the CampaignId field value if set, zero value otherwise.
-func (o *AdGroupResponseEx) GetCampaignId() float32 {
+func (o *AdGroupResponseEx) GetCampaignId() int64 {
 	if o == nil || IsNil(o.CampaignId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.CampaignId
@@ -123,7 +123,7 @@ func (o *AdGroupResponseEx) GetCampaignId() float32 {
 
 // GetCampaignIdOk returns a tuple with the CampaignId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AdGroupResponseEx) GetCampaignIdOk() (*float32, bool) {
+func (o *AdGroupResponseEx) GetCampaignIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.CampaignId) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *AdGroupResponseEx) HasCampaignId() bool {
 	return false
 }
 
-// SetCampaignId gets a reference to the given float32 and assigns it to the CampaignId field.
-func (o *AdGroupResponseEx) SetCampaignId(v float32) {
+// SetCampaignId gets a reference to the given int64 and assigns it to the CampaignId field.
+func (o *AdGroupResponseEx) SetCampaignId(v int64) {
 	o.CampaignId = &v
 }
 

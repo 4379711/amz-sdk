@@ -44,10 +44,8 @@ var SharedTransport = &http.Transport{
 	// 启用自动解压（gzip/deflate）
 	DisableCompression: false,
 
-	TLSClientConfig: &tls.Config{
-		// 关闭证书校验
-		InsecureSkipVerify: true,
-	},
+	// 保留非 nil 的 tls.Config:调用方可在启动时设置 RootCAs(如公司代理的根证书),无需替换整个 Transport。
+	TLSClientConfig: &tls.Config{},
 
 	// 尝试启用 HTTP/2
 	ForceAttemptHTTP2: true,
@@ -63,7 +61,7 @@ var DefaultClient = &http.Client{
 
 var LongTimeHttpClient = &http.Client{
 	Transport: &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		TLSClientConfig: &tls.Config{},
 	},
 	Timeout: 10 * time.Minute,
 	Jar:     nil,

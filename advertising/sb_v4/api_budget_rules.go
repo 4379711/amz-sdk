@@ -17,7 +17,7 @@ type ApiCreateAssociatedBudgetRulesForSBCampaignsRequest struct {
 	ApiService                         *BudgetRulesAPIService
 	amazonAdvertisingAPIClientId       *string
 	amazonAdvertisingAPIScope          *string
-	campaignId                         float32
+	campaignId                         int64
 	createAssociatedBudgetRulesRequest *CreateAssociatedBudgetRulesRequest
 }
 
@@ -42,7 +42,7 @@ func (r ApiCreateAssociatedBudgetRulesForSBCampaignsRequest) Execute() (*CreateA
 	return r.ApiService.CreateAssociatedBudgetRulesForSBCampaignsExecute(r)
 }
 
-func (a *BudgetRulesAPIService) CreateAssociatedBudgetRulesForSBCampaigns(ctx context.Context, campaignId float32) ApiCreateAssociatedBudgetRulesForSBCampaignsRequest {
+func (a *BudgetRulesAPIService) CreateAssociatedBudgetRulesForSBCampaigns(ctx context.Context, campaignId int64) ApiCreateAssociatedBudgetRulesForSBCampaignsRequest {
 	return ApiCreateAssociatedBudgetRulesForSBCampaignsRequest{
 		ApiService: a,
 		ctx:        ctx,
@@ -240,7 +240,7 @@ type ApiDisassociateAssociatedBudgetRuleForSBCampaignsRequest struct {
 	ApiService                   *BudgetRulesAPIService
 	amazonAdvertisingAPIClientId *string
 	amazonAdvertisingAPIScope    *string
-	campaignId                   float32
+	campaignId                   int64
 	budgetRuleId                 string
 }
 
@@ -260,7 +260,7 @@ func (r ApiDisassociateAssociatedBudgetRuleForSBCampaignsRequest) Execute() (map
 	return r.ApiService.DisassociateAssociatedBudgetRuleForSBCampaignsExecute(r)
 }
 
-func (a *BudgetRulesAPIService) DisassociateAssociatedBudgetRuleForSBCampaigns(ctx context.Context, campaignId float32, budgetRuleId string) ApiDisassociateAssociatedBudgetRuleForSBCampaignsRequest {
+func (a *BudgetRulesAPIService) DisassociateAssociatedBudgetRuleForSBCampaigns(ctx context.Context, campaignId int64, budgetRuleId string) ApiDisassociateAssociatedBudgetRuleForSBCampaignsRequest {
 	return ApiDisassociateAssociatedBudgetRuleForSBCampaignsRequest{
 		ApiService:   a,
 		ctx:          ctx,
@@ -688,7 +688,7 @@ type ApiListAssociatedBudgetRulesForSBCampaignsRequest struct {
 	ApiService                   *BudgetRulesAPIService
 	amazonAdvertisingAPIClientId *string
 	amazonAdvertisingAPIScope    *string
-	campaignId                   float32
+	campaignId                   int64
 }
 
 // The identifier of a client associated with a \&quot;Login with Amazon\&quot; account. This is a required header for advertisers and integrators using the Advertising API.
@@ -707,7 +707,7 @@ func (r ApiListAssociatedBudgetRulesForSBCampaignsRequest) Execute() (*SBListAss
 	return r.ApiService.ListAssociatedBudgetRulesForSBCampaignsExecute(r)
 }
 
-func (a *BudgetRulesAPIService) ListAssociatedBudgetRulesForSBCampaigns(ctx context.Context, campaignId float32) ApiListAssociatedBudgetRulesForSBCampaignsRequest {
+func (a *BudgetRulesAPIService) ListAssociatedBudgetRulesForSBCampaigns(ctx context.Context, campaignId int64) ApiListAssociatedBudgetRulesForSBCampaignsRequest {
 	return ApiListAssociatedBudgetRulesForSBCampaignsRequest{
 		ApiService: a,
 		ctx:        ctx,

@@ -40,6 +40,7 @@ const (
 	SPONSOREDPRODUCTSADGROUPSERVINGSTATUSREASON_ADVERTISER_OUT_OF_BUDGET_DETAIL            SponsoredProductsAdGroupServingStatusReason = "ADVERTISER_OUT_OF_BUDGET_DETAIL"
 	SPONSOREDPRODUCTSADGROUPSERVINGSTATUSREASON_ADVERTISER_PAYMENT_FAILURE_DETAIL          SponsoredProductsAdGroupServingStatusReason = "ADVERTISER_PAYMENT_FAILURE_DETAIL"
 	SPONSOREDPRODUCTSADGROUPSERVINGSTATUSREASON_OTHER                                      SponsoredProductsAdGroupServingStatusReason = "OTHER"
+	SPONSOREDPRODUCTSADGROUPSERVINGSTATUSREASON_ADVERTISER_EXCEED_SPENDS_LIMIT_DETAIL      SponsoredProductsAdGroupServingStatusReason = "ADVERTISER_EXCEED_SPENDS_LIMIT_DETAIL"
 )
 
 // All allowed values of SponsoredProductsAdGroupServingStatusReason enum
@@ -73,6 +74,7 @@ var AllowedSponsoredProductsAdGroupServingStatusReasonEnumValues = []SponsoredPr
 	"ADVERTISER_OUT_OF_BUDGET_DETAIL",
 	"ADVERTISER_PAYMENT_FAILURE_DETAIL",
 	"OTHER",
+	"ADVERTISER_EXCEED_SPENDS_LIMIT_DETAIL",
 }
 
 func (v *SponsoredProductsAdGroupServingStatusReason) UnmarshalJSON(src []byte) error {
@@ -81,15 +83,10 @@ func (v *SponsoredProductsAdGroupServingStatusReason) UnmarshalJSON(src []byte) 
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsAdGroupServingStatusReason(value)
-	for _, existing := range AllowedSponsoredProductsAdGroupServingStatusReasonEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsAdGroupServingStatusReason", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsAdGroupServingStatusReason(value)
+	return nil
 }
 
 // NewSponsoredProductsAdGroupServingStatusReasonFromValue returns a pointer to a valid SponsoredProductsAdGroupServingStatusReason

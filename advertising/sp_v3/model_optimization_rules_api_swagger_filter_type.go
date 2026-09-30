@@ -12,11 +12,13 @@ type OptimizationRulesAPIFilterType string
 // List of OptimizationRulesAPIFilterType
 const (
 	OPTIMIZATIONRULESAPIFILTERTYPE_EXACT_MATCH OptimizationRulesAPIFilterType = "EXACT_MATCH"
+	OPTIMIZATIONRULESAPIFILTERTYPE_BROAD_MATCH OptimizationRulesAPIFilterType = "BROAD_MATCH"
 )
 
 // All allowed values of OptimizationRulesAPIFilterType enum
 var AllowedOptimizationRulesAPIFilterTypeEnumValues = []OptimizationRulesAPIFilterType{
 	"EXACT_MATCH",
+	"BROAD_MATCH",
 }
 
 func (v *OptimizationRulesAPIFilterType) UnmarshalJSON(src []byte) error {
@@ -25,15 +27,10 @@ func (v *OptimizationRulesAPIFilterType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := OptimizationRulesAPIFilterType(value)
-	for _, existing := range AllowedOptimizationRulesAPIFilterTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid OptimizationRulesAPIFilterType", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = OptimizationRulesAPIFilterType(value)
+	return nil
 }
 
 // NewOptimizationRulesAPIFilterTypeFromValue returns a pointer to a valid OptimizationRulesAPIFilterType

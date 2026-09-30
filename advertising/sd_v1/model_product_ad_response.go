@@ -14,7 +14,7 @@ type ProductAdResponse struct {
 	// A human-readable description of the response.
 	Description *string `json:"description,omitempty"`
 	// The identifier of the ad.
-	AdId *float32 `json:"adId,omitempty"`
+	AdId *int64 `json:"adId,omitempty"`
 }
 
 // NewProductAdResponse instantiates a new ProductAdResponse object
@@ -99,9 +99,9 @@ func (o *ProductAdResponse) SetDescription(v string) {
 }
 
 // GetAdId returns the AdId field value if set, zero value otherwise.
-func (o *ProductAdResponse) GetAdId() float32 {
+func (o *ProductAdResponse) GetAdId() int64 {
 	if o == nil || IsNil(o.AdId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.AdId
@@ -109,7 +109,7 @@ func (o *ProductAdResponse) GetAdId() float32 {
 
 // GetAdIdOk returns a tuple with the AdId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductAdResponse) GetAdIdOk() (*float32, bool) {
+func (o *ProductAdResponse) GetAdIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.AdId) {
 		return nil, false
 	}
@@ -125,8 +125,8 @@ func (o *ProductAdResponse) HasAdId() bool {
 	return false
 }
 
-// SetAdId gets a reference to the given float32 and assigns it to the AdId field.
-func (o *ProductAdResponse) SetAdId(v float32) {
+// SetAdId gets a reference to the given int64 and assigns it to the AdId field.
+func (o *ProductAdResponse) SetAdId(v int64) {
 	o.AdId = &v
 }
 

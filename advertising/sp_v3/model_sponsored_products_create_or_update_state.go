@@ -11,14 +11,16 @@ type SponsoredProductsCreateOrUpdateState string
 
 // List of SponsoredProductsCreateOrUpdateState
 const (
-	SPONSOREDPRODUCTSCREATEORUPDATESTATE_ENABLED SponsoredProductsCreateOrUpdateState = "ENABLED"
-	SPONSOREDPRODUCTSCREATEORUPDATESTATE_PAUSED  SponsoredProductsCreateOrUpdateState = "PAUSED"
+	SPONSOREDPRODUCTSCREATEORUPDATESTATE_ENABLED  SponsoredProductsCreateOrUpdateState = "ENABLED"
+	SPONSOREDPRODUCTSCREATEORUPDATESTATE_PAUSED   SponsoredProductsCreateOrUpdateState = "PAUSED"
+	SPONSOREDPRODUCTSCREATEORUPDATESTATE_PROPOSED SponsoredProductsCreateOrUpdateState = "PROPOSED"
 )
 
 // All allowed values of SponsoredProductsCreateOrUpdateState enum
 var AllowedSponsoredProductsCreateOrUpdateStateEnumValues = []SponsoredProductsCreateOrUpdateState{
 	"ENABLED",
 	"PAUSED",
+	"PROPOSED",
 }
 
 func (v *SponsoredProductsCreateOrUpdateState) UnmarshalJSON(src []byte) error {
@@ -27,15 +29,10 @@ func (v *SponsoredProductsCreateOrUpdateState) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsCreateOrUpdateState(value)
-	for _, existing := range AllowedSponsoredProductsCreateOrUpdateStateEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsCreateOrUpdateState", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsCreateOrUpdateState(value)
+	return nil
 }
 
 // NewSponsoredProductsCreateOrUpdateStateFromValue returns a pointer to a valid SponsoredProductsCreateOrUpdateState

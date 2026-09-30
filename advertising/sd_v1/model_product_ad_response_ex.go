@@ -10,11 +10,11 @@ var _ MappedNullable = &ProductAdResponseEx{}
 // ProductAdResponseEx struct for ProductAdResponseEx
 type ProductAdResponseEx struct {
 	// The identifier of the ad.
-	AdId *float32 `json:"adId,omitempty"`
+	AdId *int64 `json:"adId,omitempty"`
 	// The identifier of the ad group associated with the ad.
-	AdGroupId *float32 `json:"adGroupId,omitempty"`
+	AdGroupId *int64 `json:"adGroupId,omitempty"`
 	// The identifier of the campaign associated with the ad.
-	CampaignId *float32 `json:"campaignId,omitempty"`
+	CampaignId *int64 `json:"campaignId,omitempty"`
 	// The URL where customers will land after clicking on its link. Must be provided if a LandingPageType is set. Please note that if a single product ad sets the landing page url, only one product ad can be added to the ad group. This field is not supported when using ASIN or SKU fields. ||Specifications| |------------------|------------------| |LandingPageType| Description| |STORE| The url should be in the format of https://www.amazon.com/stores/_* (using a correct Amazon url based on the marketplace)| |OFF_AMAZON_LINK| The url should be in the format of https://www.****.com. Note that this LandingPageType is not supported when using ASIN or SKU fields. A custom creative of headline, logo, image are require for this LandingPageType. | |MOMENT| Not yet supported. The url should be in the format of https://www.amazon.com/moments/promotion/{campaignId} (using a correct Amazon url based on the marketplace)|
 	LandingPageURL  *string          `json:"landingPageURL,omitempty"`
 	LandingPageType *LandingPageType `json:"landingPageType,omitempty"`
@@ -52,9 +52,9 @@ func NewProductAdResponseExWithDefaults() *ProductAdResponseEx {
 }
 
 // GetAdId returns the AdId field value if set, zero value otherwise.
-func (o *ProductAdResponseEx) GetAdId() float32 {
+func (o *ProductAdResponseEx) GetAdId() int64 {
 	if o == nil || IsNil(o.AdId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.AdId
@@ -62,7 +62,7 @@ func (o *ProductAdResponseEx) GetAdId() float32 {
 
 // GetAdIdOk returns a tuple with the AdId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductAdResponseEx) GetAdIdOk() (*float32, bool) {
+func (o *ProductAdResponseEx) GetAdIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.AdId) {
 		return nil, false
 	}
@@ -78,15 +78,15 @@ func (o *ProductAdResponseEx) HasAdId() bool {
 	return false
 }
 
-// SetAdId gets a reference to the given float32 and assigns it to the AdId field.
-func (o *ProductAdResponseEx) SetAdId(v float32) {
+// SetAdId gets a reference to the given int64 and assigns it to the AdId field.
+func (o *ProductAdResponseEx) SetAdId(v int64) {
 	o.AdId = &v
 }
 
 // GetAdGroupId returns the AdGroupId field value if set, zero value otherwise.
-func (o *ProductAdResponseEx) GetAdGroupId() float32 {
+func (o *ProductAdResponseEx) GetAdGroupId() int64 {
 	if o == nil || IsNil(o.AdGroupId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.AdGroupId
@@ -94,7 +94,7 @@ func (o *ProductAdResponseEx) GetAdGroupId() float32 {
 
 // GetAdGroupIdOk returns a tuple with the AdGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductAdResponseEx) GetAdGroupIdOk() (*float32, bool) {
+func (o *ProductAdResponseEx) GetAdGroupIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.AdGroupId) {
 		return nil, false
 	}
@@ -110,15 +110,15 @@ func (o *ProductAdResponseEx) HasAdGroupId() bool {
 	return false
 }
 
-// SetAdGroupId gets a reference to the given float32 and assigns it to the AdGroupId field.
-func (o *ProductAdResponseEx) SetAdGroupId(v float32) {
+// SetAdGroupId gets a reference to the given int64 and assigns it to the AdGroupId field.
+func (o *ProductAdResponseEx) SetAdGroupId(v int64) {
 	o.AdGroupId = &v
 }
 
 // GetCampaignId returns the CampaignId field value if set, zero value otherwise.
-func (o *ProductAdResponseEx) GetCampaignId() float32 {
+func (o *ProductAdResponseEx) GetCampaignId() int64 {
 	if o == nil || IsNil(o.CampaignId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.CampaignId
@@ -126,7 +126,7 @@ func (o *ProductAdResponseEx) GetCampaignId() float32 {
 
 // GetCampaignIdOk returns a tuple with the CampaignId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductAdResponseEx) GetCampaignIdOk() (*float32, bool) {
+func (o *ProductAdResponseEx) GetCampaignIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.CampaignId) {
 		return nil, false
 	}
@@ -142,8 +142,8 @@ func (o *ProductAdResponseEx) HasCampaignId() bool {
 	return false
 }
 
-// SetCampaignId gets a reference to the given float32 and assigns it to the CampaignId field.
-func (o *ProductAdResponseEx) SetCampaignId(v float32) {
+// SetCampaignId gets a reference to the given int64 and assigns it to the CampaignId field.
+func (o *ProductAdResponseEx) SetCampaignId(v int64) {
 	o.CampaignId = &v
 }
 

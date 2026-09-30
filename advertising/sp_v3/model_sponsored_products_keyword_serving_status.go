@@ -46,6 +46,7 @@ const (
 	SPONSOREDPRODUCTSKEYWORDSERVINGSTATUS_ADVERTISER_PAYMENT_FAILURE          SponsoredProductsKeywordServingStatus = "ADVERTISER_PAYMENT_FAILURE"
 	SPONSOREDPRODUCTSKEYWORDSERVINGSTATUS_ACCOUNT_OUT_OF_BUDGET               SponsoredProductsKeywordServingStatus = "ACCOUNT_OUT_OF_BUDGET"
 	SPONSOREDPRODUCTSKEYWORDSERVINGSTATUS_OTHER                               SponsoredProductsKeywordServingStatus = "OTHER"
+	SPONSOREDPRODUCTSKEYWORDSERVINGSTATUS_ADVERTISER_EXCEED_SPENDS_LIMIT      SponsoredProductsKeywordServingStatus = "ADVERTISER_EXCEED_SPENDS_LIMIT"
 )
 
 // All allowed values of SponsoredProductsKeywordServingStatus enum
@@ -85,6 +86,7 @@ var AllowedSponsoredProductsKeywordServingStatusEnumValues = []SponsoredProducts
 	"ADVERTISER_PAYMENT_FAILURE",
 	"ACCOUNT_OUT_OF_BUDGET",
 	"OTHER",
+	"ADVERTISER_EXCEED_SPENDS_LIMIT",
 }
 
 func (v *SponsoredProductsKeywordServingStatus) UnmarshalJSON(src []byte) error {
@@ -93,15 +95,10 @@ func (v *SponsoredProductsKeywordServingStatus) UnmarshalJSON(src []byte) error 
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsKeywordServingStatus(value)
-	for _, existing := range AllowedSponsoredProductsKeywordServingStatusEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsKeywordServingStatus", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsKeywordServingStatus(value)
+	return nil
 }
 
 // NewSponsoredProductsKeywordServingStatusFromValue returns a pointer to a valid SponsoredProductsKeywordServingStatus

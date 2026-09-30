@@ -57,24 +57,8 @@ func (s *AccessTokenCache) Invalidate(key any) {
 	s.Map.Delete(key)
 }
 
-// InvalidateIfMatch 仅当缓存中当前的 AccessToken 仍等于 failedToken 时才删除,
-// 专用于多 goroutine 并发重试的场景:
-//
-//	t0  A 用 T1 请求 -> 401
-//	t1  A Invalidate,singleflight 刷出 T2,写入 cache
-//	t2  B 用 T1 请求 -> 401 (B 是在 A 刷新前发出去的,返回慢了)
-//	t3  B 若无脑 Invalidate,会把 A 刚写的 T2 删掉,触发多余的一次 LwA 刷新
-//
-// 改用 InvalidateIfMatch(key, T1) 后:t3 时 cache 里已是 T2,failedToken=T1
-// 不匹配,不会误删;B 紧跟着的 acquireAccessToken 从 cache 直接命中 T2 复用。
-//
-// 对 Amazon 配额压力不大,但能让"token 自然过期那一刻"的刷新次数收敛到 1 次。
-//
-// DEBUG 日志区分三种结果,便于排查"并发竞态是否真的发生":
-//   - hit:成功删除了失败 token
-//   - skipped-newer-token:缓存里已经是别的 goroutine 刷出来的新 token,
-//     本方法保护了新 token 不被误删(就是避免冗余刷新的关键)
-//   - miss:key 不存在或值类型异常
+// InvalidateIfMatch 原子地删除读取到的失败 token 条目。
+// 并发刷新替换过的条目必须保留,使持旧 token 的重试能够复用刷新结果。
 func (s *AccessTokenCache) InvalidateIfMatch(key any, failedToken string) {
 	value, ok := s.Load(key)
 	if !ok {
@@ -91,7 +75,11 @@ func (s *AccessTokenCache) InvalidateIfMatch(key any, failedToken string) {
 		return
 	}
 	if item.AccessToken == failedToken {
-		s.Map.Delete(key)
+		if !s.Map.CompareAndDelete(key, item) {
+			DefaultLogger.Debug("access token cache invalidate-if-match: skipped-cache-changed",
+				"failed_at_suffix", TokenSuffix(failedToken))
+			return
+		}
 		DefaultLogger.Debug("access token cache invalidate-if-match: hit",
 			"failed_at_suffix", TokenSuffix(failedToken))
 		return

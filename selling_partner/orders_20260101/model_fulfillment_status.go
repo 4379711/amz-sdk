@@ -18,6 +18,8 @@ const (
 	FULFILLMENTSTATUS_SHIPPED              FulfillmentStatus = "SHIPPED"
 	FULFILLMENTSTATUS_CANCELLED            FulfillmentStatus = "CANCELLED"
 	FULFILLMENTSTATUS_UNFULFILLABLE        FulfillmentStatus = "UNFULFILLABLE"
+	// 官方模型 JSON 未收录此值,取自 Orders API 迁移指南(对应 v0 的 InvoiceUnconfirmed);按模型重新生成时需保留。
+	FULFILLMENTSTATUS_INVOICE_UNCONFIRMED FulfillmentStatus = "INVOICE_UNCONFIRMED"
 )
 
 // All allowed values of FulfillmentStatus enum
@@ -29,6 +31,7 @@ var AllowedFulfillmentStatusEnumValues = []FulfillmentStatus{
 	"SHIPPED",
 	"CANCELLED",
 	"UNFULFILLABLE",
+	"INVOICE_UNCONFIRMED",
 }
 
 func (v *FulfillmentStatus) UnmarshalJSON(src []byte) error {
@@ -37,15 +40,10 @@ func (v *FulfillmentStatus) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := FulfillmentStatus(value)
-	for _, existing := range AllowedFulfillmentStatusEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid FulfillmentStatus", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = FulfillmentStatus(value)
+	return nil
 }
 
 // NewFulfillmentStatusFromValue returns a pointer to a valid FulfillmentStatus

@@ -11,12 +11,12 @@ type SponsoredProductsUnauthenticatedExceptionCode string
 
 // List of SponsoredProductsUnauthenticatedExceptionCode
 const (
-	SPONSOREDPRODUCTSUNAUTHENTICATEDEXCEPTIONCODE_UNAUTHENTICATED SponsoredProductsUnauthenticatedExceptionCode = "unauthenticated"
+	SPONSOREDPRODUCTSUNAUTHENTICATEDEXCEPTIONCODE_UNAUTHENTICATED SponsoredProductsUnauthenticatedExceptionCode = "UNAUTHENTICATED"
 )
 
 // All allowed values of SponsoredProductsUnauthenticatedExceptionCode enum
 var AllowedSponsoredProductsUnauthenticatedExceptionCodeEnumValues = []SponsoredProductsUnauthenticatedExceptionCode{
-	"unauthenticated",
+	"UNAUTHENTICATED",
 }
 
 func (v *SponsoredProductsUnauthenticatedExceptionCode) UnmarshalJSON(src []byte) error {
@@ -25,15 +25,10 @@ func (v *SponsoredProductsUnauthenticatedExceptionCode) UnmarshalJSON(src []byte
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsUnauthenticatedExceptionCode(value)
-	for _, existing := range AllowedSponsoredProductsUnauthenticatedExceptionCodeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsUnauthenticatedExceptionCode", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsUnauthenticatedExceptionCode(value)
+	return nil
 }
 
 // NewSponsoredProductsUnauthenticatedExceptionCodeFromValue returns a pointer to a valid SponsoredProductsUnauthenticatedExceptionCode

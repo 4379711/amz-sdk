@@ -15,6 +15,7 @@ const (
 	SPONSOREDPRODUCTSTARGETTYPE_KEYWORD          SponsoredProductsTargetType = "KEYWORD"
 	SPONSOREDPRODUCTSTARGETTYPE_PRODUCT          SponsoredProductsTargetType = "PRODUCT"
 	SPONSOREDPRODUCTSTARGETTYPE_PRODUCT_CATEGORY SponsoredProductsTargetType = "PRODUCT_CATEGORY"
+	SPONSOREDPRODUCTSTARGETTYPE_ASIN             SponsoredProductsTargetType = "ASIN"
 )
 
 // All allowed values of SponsoredProductsTargetType enum
@@ -23,6 +24,7 @@ var AllowedSponsoredProductsTargetTypeEnumValues = []SponsoredProductsTargetType
 	"KEYWORD",
 	"PRODUCT",
 	"PRODUCT_CATEGORY",
+	"ASIN",
 }
 
 func (v *SponsoredProductsTargetType) UnmarshalJSON(src []byte) error {
@@ -31,15 +33,10 @@ func (v *SponsoredProductsTargetType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsTargetType(value)
-	for _, existing := range AllowedSponsoredProductsTargetTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsTargetType", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsTargetType(value)
+	return nil
 }
 
 // NewSponsoredProductsTargetTypeFromValue returns a pointer to a valid SponsoredProductsTargetType

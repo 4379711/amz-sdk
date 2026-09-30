@@ -161,7 +161,7 @@ amzsdk/
 
 ## 安装
 
-本模块的公开 module path 是 `github.com/4379711/amz-sdk`。在你自己的 Go 项目里:
+本模块的公开 module path 是 `github.com/4379711/amz-sdk`。生成接口的类型兼容说明见 [MIGRATION.md](./MIGRATION.md)。在你自己的 Go 项目里:
 
 ```bash
 go get github.com/4379711/amz-sdk@latest
@@ -180,7 +180,7 @@ import (
 )
 ```
 
-> **生产部署:** 请固定到具体 tag —— 到 [releases](https://github.com/4379711/amz-sdk/releases) 页取最新的那个(`go get github.com/4379711/amz-sdk@vX.Y.Z`)。开发期跟 `@main` 没问题,生产不推荐。
+> **生产部署:** 请固定到具体 tag —— 到 [releases](https://github.com/4379711/amz-sdk/releases) 页取最新的那个(`go get github.com/4379711/amz-sdk@v1.Y.Z`)。开发期跟 `@main` 没问题,生产不推荐。
 
 ### 想边改 SDK 边联调宿主应用
 
@@ -193,7 +193,7 @@ git clone https://github.com/4379711/amz-sdk.git ../amz-sdk
 宿主应用的 `go.mod`:
 
 ```go
-require github.com/4379711/amz-sdk vX.Y.Z // 固定到最新发布 tag
+require github.com/4379711/amz-sdk v1.Y.Z // 固定到最新发布 tag
 
 replace github.com/4379711/amz-sdk => ../amz-sdk
 ```
@@ -219,7 +219,7 @@ replace github.com/4379711/amz-sdk => ../amz-sdk
 
 ```go
 import (
-    adAuth "amzsdk/advertising/auth"
+    adAuth "github.com/4379711/amz-sdk/advertising/auth"
 )
 
 auth := &adAuth.AdAuth{
@@ -268,7 +268,7 @@ fmt.Println(auth.Token.AccessToken)  // Bearer token, ~60 分钟过期
 
 ```go
 import (
-    spAuth "amzsdk/selling_partner/auth"
+    spAuth "github.com/4379711/amz-sdk/selling_partner/auth"
 )
 
 auth := &spAuth.SpAuth{
@@ -317,9 +317,9 @@ import (
     "context"
     "fmt"
 
-    adAuth "amzsdk/advertising/auth"
-    "amzsdk/advertising/sp_v3"
-    "amzsdk/pkg"
+    adAuth "github.com/4379711/amz-sdk/advertising/auth"
+    "github.com/4379711/amz-sdk/advertising/sp_v3"
+    "github.com/4379711/amz-sdk/pkg"
 )
 
 func ListCampaigns(ctx context.Context, profileID string) error {
@@ -365,9 +365,9 @@ import (
     "fmt"
     "time"
 
-    spAuth "amzsdk/selling_partner/auth"
-    "amzsdk/selling_partner/orders_v0"
-    "amzsdk/pkg"
+    spAuth "github.com/4379711/amz-sdk/selling_partner/auth"
+    "github.com/4379711/amz-sdk/selling_partner/orders_v0"
+    "github.com/4379711/amz-sdk/pkg"
 )
 
 func ListOrders(ctx context.Context) error {
@@ -427,7 +427,7 @@ func ListOrders(ctx context.Context) error {
 `amzsdk` 不带 logger。它**只在真实工作发生时**抛事件 —— 命中缓存的情况完全静默。
 
 ```go
-import "amzsdk/pkg"
+import "github.com/4379711/amz-sdk/pkg"
 
 func init() {
     pkg.OnTokenRefresh = func(ev pkg.TokenRefreshEvent) {

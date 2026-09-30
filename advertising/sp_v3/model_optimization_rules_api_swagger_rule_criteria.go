@@ -1,8 +1,6 @@
 package sp_v3
 
 import (
-	"fmt"
-
 	"github.com/bytedance/sonic"
 )
 
@@ -23,49 +21,6 @@ func OptimizationRulesAPIRangeTypeRuleCriteriaAsOptimizationRulesAPIRuleCriteria
 func OptimizationRulesAPIValueTypeRuleCriteriaAsOptimizationRulesAPIRuleCriteria(v *OptimizationRulesAPIValueTypeRuleCriteria) OptimizationRulesAPIRuleCriteria {
 	return OptimizationRulesAPIRuleCriteria{
 		OptimizationRulesAPIValueTypeRuleCriteria: v,
-	}
-}
-
-// Unmarshal JSON data into one of the pointers in the struct
-func (dst *OptimizationRulesAPIRuleCriteria) UnmarshalJSON(data []byte) error {
-	var err error
-	match := 0
-	// try to unmarshal data into OptimizationRulesAPIRangeTypeRuleCriteria
-	err = sonic.Unmarshal(data, &dst.OptimizationRulesAPIRangeTypeRuleCriteria)
-	if err == nil {
-		jsonOptimizationRulesAPIRangeTypeRuleCriteria, _ := sonic.Marshal(dst.OptimizationRulesAPIRangeTypeRuleCriteria)
-		if string(jsonOptimizationRulesAPIRangeTypeRuleCriteria) == "{}" { // empty struct
-			dst.OptimizationRulesAPIRangeTypeRuleCriteria = nil
-		} else {
-			match++
-		}
-	} else {
-		dst.OptimizationRulesAPIRangeTypeRuleCriteria = nil
-	}
-
-	// try to unmarshal data into OptimizationRulesAPIValueTypeRuleCriteria
-	err = sonic.Unmarshal(data, &dst.OptimizationRulesAPIValueTypeRuleCriteria)
-	if err == nil {
-		jsonOptimizationRulesAPIValueTypeRuleCriteria, _ := sonic.Marshal(dst.OptimizationRulesAPIValueTypeRuleCriteria)
-		if string(jsonOptimizationRulesAPIValueTypeRuleCriteria) == "{}" { // empty struct
-			dst.OptimizationRulesAPIValueTypeRuleCriteria = nil
-		} else {
-			match++
-		}
-	} else {
-		dst.OptimizationRulesAPIValueTypeRuleCriteria = nil
-	}
-
-	if match > 1 { // more than 1 match
-		// reset to nil
-		dst.OptimizationRulesAPIRangeTypeRuleCriteria = nil
-		dst.OptimizationRulesAPIValueTypeRuleCriteria = nil
-
-		return fmt.Errorf("data matches more than one schema in oneOf(OptimizationRulesAPIRuleCriteria)")
-	} else if match == 1 {
-		return nil // exactly one match
-	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(OptimizationRulesAPIRuleCriteria)")
 	}
 }
 

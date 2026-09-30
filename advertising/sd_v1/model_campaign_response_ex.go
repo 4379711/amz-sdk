@@ -10,7 +10,7 @@ var _ MappedNullable = &CampaignResponseEx{}
 // CampaignResponseEx struct for CampaignResponseEx
 type CampaignResponseEx struct {
 	// The identifier of the campaign.
-	CampaignId *float32 `json:"campaignId,omitempty"`
+	CampaignId *int64 `json:"campaignId,omitempty"`
 	// The name of the campaign.
 	Name   *string `json:"name,omitempty"`
 	Tactic *Tactic `json:"tactic,omitempty"`
@@ -55,9 +55,9 @@ func NewCampaignResponseExWithDefaults() *CampaignResponseEx {
 }
 
 // GetCampaignId returns the CampaignId field value if set, zero value otherwise.
-func (o *CampaignResponseEx) GetCampaignId() float32 {
+func (o *CampaignResponseEx) GetCampaignId() int64 {
 	if o == nil || IsNil(o.CampaignId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.CampaignId
@@ -65,7 +65,7 @@ func (o *CampaignResponseEx) GetCampaignId() float32 {
 
 // GetCampaignIdOk returns a tuple with the CampaignId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CampaignResponseEx) GetCampaignIdOk() (*float32, bool) {
+func (o *CampaignResponseEx) GetCampaignIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.CampaignId) {
 		return nil, false
 	}
@@ -81,8 +81,8 @@ func (o *CampaignResponseEx) HasCampaignId() bool {
 	return false
 }
 
-// SetCampaignId gets a reference to the given float32 and assigns it to the CampaignId field.
-func (o *CampaignResponseEx) SetCampaignId(v float32) {
+// SetCampaignId gets a reference to the given int64 and assigns it to the CampaignId field.
+func (o *CampaignResponseEx) SetCampaignId(v int64) {
 	o.CampaignId = &v
 }
 

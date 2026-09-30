@@ -15,6 +15,7 @@ const (
 	OPTIMIZATIONRULESAPIEXPRESSIONTYPE_EXTENDED OptimizationRulesAPIExpressionType = "EXTENDED"
 	OPTIMIZATIONRULESAPIEXPRESSIONTYPE_BROAD    OptimizationRulesAPIExpressionType = "BROAD"
 	OPTIMIZATIONRULESAPIEXPRESSIONTYPE_PHRASE   OptimizationRulesAPIExpressionType = "PHRASE"
+	OPTIMIZATIONRULESAPIEXPRESSIONTYPE_EXPANDED OptimizationRulesAPIExpressionType = "EXPANDED"
 )
 
 // All allowed values of OptimizationRulesAPIExpressionType enum
@@ -23,6 +24,7 @@ var AllowedOptimizationRulesAPIExpressionTypeEnumValues = []OptimizationRulesAPI
 	"EXTENDED",
 	"BROAD",
 	"PHRASE",
+	"EXPANDED",
 }
 
 func (v *OptimizationRulesAPIExpressionType) UnmarshalJSON(src []byte) error {
@@ -31,15 +33,10 @@ func (v *OptimizationRulesAPIExpressionType) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := OptimizationRulesAPIExpressionType(value)
-	for _, existing := range AllowedOptimizationRulesAPIExpressionTypeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid OptimizationRulesAPIExpressionType", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = OptimizationRulesAPIExpressionType(value)
+	return nil
 }
 
 // NewOptimizationRulesAPIExpressionTypeFromValue returns a pointer to a valid OptimizationRulesAPIExpressionType

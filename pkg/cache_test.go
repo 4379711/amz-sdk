@@ -2,7 +2,6 @@ package pkg
 
 import (
 	"sync"
-	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -75,8 +74,7 @@ func TestAccessTokenCache_InvalidateIfMatch_HitsOldToken(t *testing.T) {
 }
 
 // TestAccessTokenCache_InvalidateIfMatch_SkipsNewerToken
-// 这是新增方法的核心行为:缓存已被别的 goroutine 刷到新 token T2,
-// 当前 goroutine 拿着过期的 T1 去失效,不能误删 T2。
+// 缓存已被别的 goroutine 刷到新 token T2,持旧 T1 的请求不能误删 T2。
 func TestAccessTokenCache_InvalidateIfMatch_SkipsNewerToken(t *testing.T) {
 	var c AccessTokenCache
 	c.Put("rt", CacheItem{
@@ -112,47 +110,33 @@ func TestAccessTokenCache_InvalidateIfMatch_MissingKey(t *testing.T) {
 //
 // 这里用 -race 运行可以同时检验 cache 并发读写的线程安全。
 func TestAccessTokenCache_Concurrent_InvalidateIfMatch(t *testing.T) {
-	var c AccessTokenCache
-	c.Put("rt", CacheItem{
-		AccessToken:            "T1",
-		AccessTokenExpiredTime: time.Now().Add(30 * time.Minute),
-	})
-
-	const n = 64
-	var wg sync.WaitGroup
-	var refreshCount int32
-
-	// 启动一个 goroutine 模拟"A 线程": 失效旧 token 并写入 T2
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		c.InvalidateIfMatch("rt", "T1")
-		atomic.AddInt32(&refreshCount, 1)
-		c.Put("rt", CacheItem{
-			AccessToken:            "T2",
-			AccessTokenExpiredTime: time.Now().Add(30 * time.Minute),
-		})
-	}()
-
-	// 其他 n 个 goroutine 拿着旧 T1 尝试失效 + Get,模拟"同一时刻一起打 401"的情况
-	for i := 0; i < n; i++ {
+	const attempts = 1000
+	const callers = 16
+	expiresAt := time.Now().Add(30 * time.Minute)
+	for attempt := 0; attempt < attempts; attempt++ {
+		var c AccessTokenCache
+		c.Put("rt", CacheItem{AccessToken: "T1", AccessTokenExpiredTime: expiresAt})
+		start := make(chan struct{})
+		var wg sync.WaitGroup
+		for i := 0; i < callers; i++ {
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				<-start
+				c.InvalidateIfMatch("rt", "T1")
+			}()
+		}
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
+			<-start
 			c.InvalidateIfMatch("rt", "T1")
-			_ = c.Get("rt")
+			c.Put("rt", CacheItem{AccessToken: "T2", AccessTokenExpiredTime: expiresAt})
 		}()
-	}
-
-	wg.Wait()
-
-	// 最终 cache 里只能是 T2 或空(T2 可能被最后一个 InvalidateIfMatch 刚好在 Put 前执行,导致空;
-	// 但任何情况下都不应该是 T1)
-	got := c.Get("rt")
-	if got != "T2" && got != "" {
-		t.Fatalf("after concurrent InvalidateIfMatch, cache should be T2 or empty, got %q", got)
-	}
-	if got == "" {
-		t.Logf("edge timing: Put happened before all InvalidateIfMatch finished, cache empty (acceptable)")
+		close(start)
+		wg.Wait()
+		if got := c.Get("rt"); got != "T2" {
+			t.Fatalf("attempt %d: fresh token must survive old-token invalidation, got %q", attempt, got)
+		}
 	}
 }

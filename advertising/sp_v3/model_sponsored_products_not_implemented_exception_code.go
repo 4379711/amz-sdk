@@ -11,12 +11,12 @@ type SponsoredProductsNotImplementedExceptionCode string
 
 // List of SponsoredProductsNotImplementedExceptionCode
 const (
-	SPONSOREDPRODUCTSNOTIMPLEMENTEDEXCEPTIONCODE_NOT_IMPLEMENTED SponsoredProductsNotImplementedExceptionCode = "notImplemented"
+	SPONSOREDPRODUCTSNOTIMPLEMENTEDEXCEPTIONCODE_NOT_IMPLEMENTED SponsoredProductsNotImplementedExceptionCode = "NOT_IMPLEMENTED"
 )
 
 // All allowed values of SponsoredProductsNotImplementedExceptionCode enum
 var AllowedSponsoredProductsNotImplementedExceptionCodeEnumValues = []SponsoredProductsNotImplementedExceptionCode{
-	"notImplemented",
+	"NOT_IMPLEMENTED",
 }
 
 func (v *SponsoredProductsNotImplementedExceptionCode) UnmarshalJSON(src []byte) error {
@@ -25,15 +25,10 @@ func (v *SponsoredProductsNotImplementedExceptionCode) UnmarshalJSON(src []byte)
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsNotImplementedExceptionCode(value)
-	for _, existing := range AllowedSponsoredProductsNotImplementedExceptionCodeEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsNotImplementedExceptionCode", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsNotImplementedExceptionCode(value)
+	return nil
 }
 
 // NewSponsoredProductsNotImplementedExceptionCodeFromValue returns a pointer to a valid SponsoredProductsNotImplementedExceptionCode

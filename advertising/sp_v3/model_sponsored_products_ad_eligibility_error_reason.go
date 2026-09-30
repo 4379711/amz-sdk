@@ -25,15 +25,10 @@ func (v *SponsoredProductsAdEligibilityErrorReason) UnmarshalJSON(src []byte) er
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsAdEligibilityErrorReason(value)
-	for _, existing := range AllowedSponsoredProductsAdEligibilityErrorReasonEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsAdEligibilityErrorReason", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsAdEligibilityErrorReason(value)
+	return nil
 }
 
 // NewSponsoredProductsAdEligibilityErrorReasonFromValue returns a pointer to a valid SponsoredProductsAdEligibilityErrorReason

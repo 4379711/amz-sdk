@@ -18,6 +18,7 @@ const (
 	SPONSOREDPRODUCTSENTITYSTATEERRORREASON_ARCHIVED_ENTITY_CANNOT_BE_MODIFIED                SponsoredProductsEntityStateErrorReason = "ARCHIVED_ENTITY_CANNOT_BE_MODIFIED"
 	SPONSOREDPRODUCTSENTITYSTATEERRORREASON_PARENT_ARCHIVED_FORBIDS_UPDATES                   SponsoredProductsEntityStateErrorReason = "PARENT_ARCHIVED_FORBIDS_UPDATES"
 	SPONSOREDPRODUCTSENTITYSTATEERRORREASON_PARENT_STATUS_FORBIDS_UPDATES_AND_CREATES         SponsoredProductsEntityStateErrorReason = "PARENT_STATUS_FORBIDS_UPDATES_AND_CREATES"
+	SPONSOREDPRODUCTSENTITYSTATEERRORREASON_INVALID_STATE_TRANSITION                          SponsoredProductsEntityStateErrorReason = "INVALID_STATE_TRANSITION"
 )
 
 // All allowed values of SponsoredProductsEntityStateErrorReason enum
@@ -29,6 +30,7 @@ var AllowedSponsoredProductsEntityStateErrorReasonEnumValues = []SponsoredProduc
 	"ARCHIVED_ENTITY_CANNOT_BE_MODIFIED",
 	"PARENT_ARCHIVED_FORBIDS_UPDATES",
 	"PARENT_STATUS_FORBIDS_UPDATES_AND_CREATES",
+	"INVALID_STATE_TRANSITION",
 }
 
 func (v *SponsoredProductsEntityStateErrorReason) UnmarshalJSON(src []byte) error {
@@ -37,15 +39,10 @@ func (v *SponsoredProductsEntityStateErrorReason) UnmarshalJSON(src []byte) erro
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsEntityStateErrorReason(value)
-	for _, existing := range AllowedSponsoredProductsEntityStateErrorReasonEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsEntityStateErrorReason", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsEntityStateErrorReason(value)
+	return nil
 }
 
 // NewSponsoredProductsEntityStateErrorReasonFromValue returns a pointer to a valid SponsoredProductsEntityStateErrorReason

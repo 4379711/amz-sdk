@@ -9,10 +9,10 @@ var _ MappedNullable = &NegativeTargetingClauseEx{}
 
 // NegativeTargetingClauseEx struct for NegativeTargetingClauseEx
 type NegativeTargetingClauseEx struct {
-	TargetId       *float32 `json:"targetId,omitempty"`
-	AdGroupId      *float32 `json:"adGroupId,omitempty"`
-	State          *string  `json:"state,omitempty"`
-	ExpressionType *string  `json:"expressionType,omitempty"`
+	TargetId       *int64  `json:"targetId,omitempty"`
+	AdGroupId      *int64  `json:"adGroupId,omitempty"`
+	State          *string `json:"state,omitempty"`
+	ExpressionType *string `json:"expressionType,omitempty"`
 	// The expression to negatively match against. * Only one brand may be specified per targeting expression. * Only one asin may be specified per targeting expression. * To exclude a brand from a targeting expression, you must create a negative targeting expression in the same ad group as the positive targeting expression.
 	Expression []NegativeTargetingClauseExExpressionInner `json:"expression,omitempty"`
 	// The status of the target.
@@ -41,9 +41,9 @@ func NewNegativeTargetingClauseExWithDefaults() *NegativeTargetingClauseEx {
 }
 
 // GetTargetId returns the TargetId field value if set, zero value otherwise.
-func (o *NegativeTargetingClauseEx) GetTargetId() float32 {
+func (o *NegativeTargetingClauseEx) GetTargetId() int64 {
 	if o == nil || IsNil(o.TargetId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.TargetId
@@ -51,7 +51,7 @@ func (o *NegativeTargetingClauseEx) GetTargetId() float32 {
 
 // GetTargetIdOk returns a tuple with the TargetId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NegativeTargetingClauseEx) GetTargetIdOk() (*float32, bool) {
+func (o *NegativeTargetingClauseEx) GetTargetIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.TargetId) {
 		return nil, false
 	}
@@ -67,15 +67,15 @@ func (o *NegativeTargetingClauseEx) HasTargetId() bool {
 	return false
 }
 
-// SetTargetId gets a reference to the given float32 and assigns it to the TargetId field.
-func (o *NegativeTargetingClauseEx) SetTargetId(v float32) {
+// SetTargetId gets a reference to the given int64 and assigns it to the TargetId field.
+func (o *NegativeTargetingClauseEx) SetTargetId(v int64) {
 	o.TargetId = &v
 }
 
 // GetAdGroupId returns the AdGroupId field value if set, zero value otherwise.
-func (o *NegativeTargetingClauseEx) GetAdGroupId() float32 {
+func (o *NegativeTargetingClauseEx) GetAdGroupId() int64 {
 	if o == nil || IsNil(o.AdGroupId) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.AdGroupId
@@ -83,7 +83,7 @@ func (o *NegativeTargetingClauseEx) GetAdGroupId() float32 {
 
 // GetAdGroupIdOk returns a tuple with the AdGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NegativeTargetingClauseEx) GetAdGroupIdOk() (*float32, bool) {
+func (o *NegativeTargetingClauseEx) GetAdGroupIdOk() (*int64, bool) {
 	if o == nil || IsNil(o.AdGroupId) {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *NegativeTargetingClauseEx) HasAdGroupId() bool {
 	return false
 }
 
-// SetAdGroupId gets a reference to the given float32 and assigns it to the AdGroupId field.
-func (o *NegativeTargetingClauseEx) SetAdGroupId(v float32) {
+// SetAdGroupId gets a reference to the given int64 and assigns it to the AdGroupId field.
+func (o *NegativeTargetingClauseEx) SetAdGroupId(v int64) {
 	o.AdGroupId = &v
 }
 

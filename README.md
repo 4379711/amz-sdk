@@ -161,7 +161,9 @@ amzsdk/
 
 ## Install
 
-The module is published as `github.com/4379711/amz-sdk`. In your own Go project:
+The module is published as `github.com/4379711/amz-sdk`. See
+[MIGRATION.md](./MIGRATION.md) for generated-type compatibility notes.
+In your own Go project:
 
 ```bash
 go get github.com/4379711/amz-sdk@latest
@@ -180,7 +182,7 @@ import (
 )
 ```
 
-> **Production tip:** pin a specific tag — grab the latest one from the [releases](https://github.com/4379711/amz-sdk/releases) page (`go get github.com/4379711/amz-sdk@vX.Y.Z`). Tracking `@main` is fine for development but not recommended for production deploys.
+> **Production tip:** pin a specific tag — grab the latest one from the [releases](https://github.com/4379711/amz-sdk/releases) page (`go get github.com/4379711/amz-sdk@v1.Y.Z`). Tracking `@main` is fine for development but not recommended for production deploys.
 
 ### Hacking on the SDK from a host application
 
@@ -193,7 +195,7 @@ git clone https://github.com/4379711/amz-sdk.git ../amz-sdk
 In your host app's `go.mod`:
 
 ```go
-require github.com/4379711/amz-sdk vX.Y.Z // pin the latest release tag
+require github.com/4379711/amz-sdk v1.Y.Z // pin the latest release tag
 
 replace github.com/4379711/amz-sdk => ../amz-sdk
 ```
@@ -219,7 +221,7 @@ Both API families use the same three-step OAuth flow, exposed through identical 
 
 ```go
 import (
-    adAuth "amzsdk/advertising/auth"
+    adAuth "github.com/4379711/amz-sdk/advertising/auth"
 )
 
 auth := &adAuth.AdAuth{
@@ -268,7 +270,7 @@ The flow is structurally identical — only the consent URL is different (Seller
 
 ```go
 import (
-    spAuth "amzsdk/selling_partner/auth"
+    spAuth "github.com/4379711/amz-sdk/selling_partner/auth"
 )
 
 auth := &spAuth.SpAuth{
@@ -317,9 +319,9 @@ import (
     "context"
     "fmt"
 
-    adAuth "amzsdk/advertising/auth"
-    "amzsdk/advertising/sp_v3"
-    "amzsdk/pkg"
+    adAuth "github.com/4379711/amz-sdk/advertising/auth"
+    "github.com/4379711/amz-sdk/advertising/sp_v3"
+    "github.com/4379711/amz-sdk/pkg"
 )
 
 func ListCampaigns(ctx context.Context, profileID string) error {
@@ -365,9 +367,9 @@ import (
     "fmt"
     "time"
 
-    spAuth "amzsdk/selling_partner/auth"
-    "amzsdk/selling_partner/orders_v0"
-    "amzsdk/pkg"
+    spAuth "github.com/4379711/amz-sdk/selling_partner/auth"
+    "github.com/4379711/amz-sdk/selling_partner/orders_v0"
+    "github.com/4379711/amz-sdk/pkg"
 )
 
 func ListOrders(ctx context.Context) error {
@@ -427,7 +429,7 @@ Every generated package follows the **builder → `Execute()`** pattern. Optiona
 `amzsdk` doesn't ship a logger. It instead emits structured events when **real** work happens — cache hits stay silent.
 
 ```go
-import "amzsdk/pkg"
+import "github.com/4379711/amz-sdk/pkg"
 
 func init() {
     pkg.OnTokenRefresh = func(ev pkg.TokenRefreshEvent) {

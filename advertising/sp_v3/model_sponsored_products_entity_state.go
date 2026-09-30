@@ -17,6 +17,7 @@ const (
 	SPONSOREDPRODUCTSENTITYSTATE_ENABLING     SponsoredProductsEntityState = "ENABLING"
 	SPONSOREDPRODUCTSENTITYSTATE_USER_DELETED SponsoredProductsEntityState = "USER_DELETED"
 	SPONSOREDPRODUCTSENTITYSTATE_OTHER        SponsoredProductsEntityState = "OTHER"
+	SPONSOREDPRODUCTSENTITYSTATE_PROPOSED     SponsoredProductsEntityState = "PROPOSED"
 )
 
 // All allowed values of SponsoredProductsEntityState enum
@@ -27,6 +28,7 @@ var AllowedSponsoredProductsEntityStateEnumValues = []SponsoredProductsEntitySta
 	"ENABLING",
 	"USER_DELETED",
 	"OTHER",
+	"PROPOSED",
 }
 
 func (v *SponsoredProductsEntityState) UnmarshalJSON(src []byte) error {
@@ -35,15 +37,10 @@ func (v *SponsoredProductsEntityState) UnmarshalJSON(src []byte) error {
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsEntityState(value)
-	for _, existing := range AllowedSponsoredProductsEntityStateEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsEntityState", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsEntityState(value)
+	return nil
 }
 
 // NewSponsoredProductsEntityStateFromValue returns a pointer to a valid SponsoredProductsEntityState

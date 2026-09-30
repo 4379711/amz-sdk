@@ -27,15 +27,10 @@ func (v *SponsoredProductsExpressionTypeWithoutOther) UnmarshalJSON(src []byte) 
 	if err != nil {
 		return err
 	}
-	enumTypeValue := SponsoredProductsExpressionTypeWithoutOther(value)
-	for _, existing := range AllowedSponsoredProductsExpressionTypeWithoutOtherEnumValues {
-		if existing == enumTypeValue {
-			*v = enumTypeValue
-			return nil
-		}
-	}
-
-	return fmt.Errorf("%+v is not a valid SponsoredProductsExpressionTypeWithoutOther", value)
+	// 未知枚举值保留原值而非报错:Amazon 会在不升级 API 版本的情况下新增枚举值,
+	// 严格校验会让含新值的整页响应反序列化失败。需要校验时用 IsValid()。
+	*v = SponsoredProductsExpressionTypeWithoutOther(value)
+	return nil
 }
 
 // NewSponsoredProductsExpressionTypeWithoutOtherFromValue returns a pointer to a valid SponsoredProductsExpressionTypeWithoutOther

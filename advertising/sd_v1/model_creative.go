@@ -10,7 +10,7 @@ var _ MappedNullable = &Creative{}
 // Creative Creative model.
 type Creative struct {
 	// Unique identifier of the creative.
-	CreativeId float32 `json:"creativeId"`
+	CreativeId int64 `json:"creativeId"`
 	// The identifier of the ad group.
 	AdGroupId    int64                          `json:"adGroupId"`
 	CreativeType CreativeTypeInCreativeResponse `json:"creativeType"`
@@ -25,7 +25,7 @@ type _Creative Creative
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreative(creativeId float32, adGroupId int64, creativeType CreativeTypeInCreativeResponse, properties CreativeProperties, moderationStatus string) *Creative {
+func NewCreative(creativeId int64, adGroupId int64, creativeType CreativeTypeInCreativeResponse, properties CreativeProperties, moderationStatus string) *Creative {
 	this := Creative{}
 	this.CreativeId = creativeId
 	this.AdGroupId = adGroupId
@@ -44,9 +44,9 @@ func NewCreativeWithDefaults() *Creative {
 }
 
 // GetCreativeId returns the CreativeId field value
-func (o *Creative) GetCreativeId() float32 {
+func (o *Creative) GetCreativeId() int64 {
 	if o == nil {
-		var ret float32
+		var ret int64
 		return ret
 	}
 
@@ -55,7 +55,7 @@ func (o *Creative) GetCreativeId() float32 {
 
 // GetCreativeIdOk returns a tuple with the CreativeId field value
 // and a boolean to check if the value has been set.
-func (o *Creative) GetCreativeIdOk() (*float32, bool) {
+func (o *Creative) GetCreativeIdOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -63,7 +63,7 @@ func (o *Creative) GetCreativeIdOk() (*float32, bool) {
 }
 
 // SetCreativeId sets field value
-func (o *Creative) SetCreativeId(v float32) {
+func (o *Creative) SetCreativeId(v int64) {
 	o.CreativeId = v
 }
 

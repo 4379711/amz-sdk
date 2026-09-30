@@ -11,7 +11,8 @@ var _ MappedNullable = &TargetingPredicateBase{}
 type TargetingPredicateBase struct {
 	Type *string `json:"type,omitempty"`
 	// The value to be targeted.
-	Value *string `json:"value,omitempty"`
+	Value     *string `json:"value,omitempty"`
+	jsonState *targetingJSONState
 }
 
 // NewTargetingPredicateBase instantiates a new TargetingPredicateBase object
