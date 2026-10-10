@@ -156,7 +156,7 @@ type ApiGetRankedKeywordRecommendationRequest struct {
 	amazonAdvertisingAPIScope             *string
 	amazonAdvertisingAPIMarketplaceId     *string
 	amazonAdvertisingAPIAdvertiserId      *string
-	getRankedKeywordRecommendationRequest *GetRankedKeywordRecommendationRequest
+	getRankedKeywordRecommendationRequest *GetRankedKeywordRecommendationRequest1
 }
 
 // The identifier of a client associated with a \&quot;Login with Amazon\&quot; account. This is a required header for advertisers and integrators using the Advertising API.
@@ -183,12 +183,12 @@ func (r ApiGetRankedKeywordRecommendationRequest) AmazonAdvertisingAPIAdvertiser
 	return r
 }
 
-func (r ApiGetRankedKeywordRecommendationRequest) GetRankedKeywordRecommendationRequest(getRankedKeywordRecommendationRequest GetRankedKeywordRecommendationRequest) ApiGetRankedKeywordRecommendationRequest {
+func (r ApiGetRankedKeywordRecommendationRequest) GetRankedKeywordRecommendationRequest(getRankedKeywordRecommendationRequest GetRankedKeywordRecommendationRequest1) ApiGetRankedKeywordRecommendationRequest {
 	r.getRankedKeywordRecommendationRequest = &getRankedKeywordRecommendationRequest
 	return r
 }
 
-func (r ApiGetRankedKeywordRecommendationRequest) Execute() (*KeywordTargetResponse, *http.Response, error) {
+func (r ApiGetRankedKeywordRecommendationRequest) Execute() (*RankedTargetWithThemedBidsResponse, *http.Response, error) {
 	return r.ApiService.GetRankedKeywordRecommendationExecute(r)
 }
 
@@ -201,13 +201,13 @@ func (a *KeywordTargetsAPIService) GetRankedKeywordRecommendation(ctx context.Co
 
 // Execute executes the request
 //
-//	@return KeywordTargetResponse
-func (a *KeywordTargetsAPIService) GetRankedKeywordRecommendationExecute(r ApiGetRankedKeywordRecommendationRequest) (*KeywordTargetResponse, *http.Response, error) {
+//	@return RankedTargetWithThemedBidsResponse
+func (a *KeywordTargetsAPIService) GetRankedKeywordRecommendationExecute(r ApiGetRankedKeywordRecommendationRequest) (*RankedTargetWithThemedBidsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *KeywordTargetResponse
+		localVarReturnValue *RankedTargetWithThemedBidsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "KeywordTargetsAPIService.GetRankedKeywordRecommendation")
@@ -222,7 +222,7 @@ func (a *KeywordTargetsAPIService) GetRankedKeywordRecommendationExecute(r ApiGe
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/vnd.spkeywordsrecommendation.v3+json", "application/vnd.spkeywordsrecommendation.v5+json", "application/vnd.spkeywordsrecommendation.v4+json"}
+	localVarHTTPContentTypes := []string{"application/vnd.spkeywordsrecommendation.v5+json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -231,7 +231,7 @@ func (a *KeywordTargetsAPIService) GetRankedKeywordRecommendationExecute(r ApiGe
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/vnd.spkeywordsrecommendation.v3+json", "application/vnd.spkeywordsrecommendation.v5+json", "application/vnd.spkeywordsrecommendation.v4+json"}
+	localVarHTTPHeaderAccepts := []string{"application/vnd.spkeywordsrecommendation.v5+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

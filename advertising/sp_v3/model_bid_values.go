@@ -13,6 +13,8 @@ type BidValues struct {
 	Suggested *float64 `json:"suggested,omitempty"`
 	// The bid range start
 	RangeStart *float64 `json:"rangeStart,omitempty"`
+	// The bid range median, returned by the keyword recommendations endpoint as the suggested bid
+	RangeMedian *float64 `json:"rangeMedian,omitempty"`
 	// The bid range end
 	RangeEnd *float64 `json:"rangeEnd,omitempty"`
 }
@@ -98,6 +100,38 @@ func (o *BidValues) SetRangeStart(v float64) {
 	o.RangeStart = &v
 }
 
+// GetRangeMedian returns the RangeMedian field value if set, zero value otherwise.
+func (o *BidValues) GetRangeMedian() float64 {
+	if o == nil || IsNil(o.RangeMedian) {
+		var ret float64
+		return ret
+	}
+	return *o.RangeMedian
+}
+
+// GetRangeMedianOk returns a tuple with the RangeMedian field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BidValues) GetRangeMedianOk() (*float64, bool) {
+	if o == nil || IsNil(o.RangeMedian) {
+		return nil, false
+	}
+	return o.RangeMedian, true
+}
+
+// HasRangeMedian returns a boolean if a field has been set.
+func (o *BidValues) HasRangeMedian() bool {
+	if o != nil && !IsNil(o.RangeMedian) {
+		return true
+	}
+
+	return false
+}
+
+// SetRangeMedian gets a reference to the given float64 and assigns it to the RangeMedian field.
+func (o *BidValues) SetRangeMedian(v float64) {
+	o.RangeMedian = &v
+}
+
 // GetRangeEnd returns the RangeEnd field value if set, zero value otherwise.
 func (o *BidValues) GetRangeEnd() float64 {
 	if o == nil || IsNil(o.RangeEnd) {
@@ -137,6 +171,9 @@ func (o BidValues) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.RangeStart) {
 		toSerialize["rangeStart"] = o.RangeStart
+	}
+	if !IsNil(o.RangeMedian) {
+		toSerialize["rangeMedian"] = o.RangeMedian
 	}
 	if !IsNil(o.RangeEnd) {
 		toSerialize["rangeEnd"] = o.RangeEnd

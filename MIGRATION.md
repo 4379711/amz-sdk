@@ -1,3 +1,37 @@
+# Upgrading to v1.4.0
+
+```bash
+go get github.com/4379711/amz-sdk@v1.4.0
+```
+
+`sp_v3` `KeywordTargetsAPI.GetRankedKeywordRecommendation` uses version 5 of the
+ranked keyword recommendations contract (`application/vnd.spkeywordsrecommendation.v5+json`).
+Amazon answers the version 3 media type with a JSON array, which earlier releases
+decoded as a single `KeywordTargetResponse`, so `Execute()` returned a type-mismatch error.
+
+| API | Earlier | From v1.4.0 |
+| --- | --- | --- |
+| `ApiGetRankedKeywordRecommendationRequest.GetRankedKeywordRecommendationRequest` | `GetRankedKeywordRecommendationRequest` | `GetRankedKeywordRecommendationRequest1` |
+| `ApiGetRankedKeywordRecommendationRequest.Execute` | `*KeywordTargetResponse` | `*RankedTargetWithThemedBidsResponse` |
+
+Build the request body with `RankedKeywordTargetsForAsinsRequestAsGetRankedKeywordRecommendationRequest1`
+or `RankedKeywordTargetsForAdGroupRequestAsGetRankedKeywordRecommendationRequest1`:
+
+```go
+req := sp_v3.RankedKeywordTargetsForAsinsRequest{Asins: asins, RecommendationType: "KEYWORDS_FOR_ASINS"}
+res, _, err := client.KeywordTargetsAPI.GetRankedKeywordRecommendation(ctx).
+    GetRankedKeywordRecommendationRequest(sp_v3.RankedKeywordTargetsForAsinsRequestAsGetRankedKeywordRecommendationRequest1(&req)).
+    Execute()
+```
+
+Each keyword carries one `bidInfo` entry per match type and theme. `bid` and the
+`suggestedBid` range are in minor currency units (for example cents). The suggested
+bid is `suggestedBid.rangeMedian`, exposed as `BidValues.RangeMedian`; this endpoint
+does not populate `suggested`. `impactMetrics` can be null.
+
+Version 5 is available in US, CA, BR, MX, UK, DE, FR, ES, IN, IT, NL, AE, SA, TR,
+EG, BE, SE, PL, JP, AU and SG.
+
 # Upgrading to v1.3.0
 
 The Go module path remains `github.com/4379711/amz-sdk`. Existing v1 import paths
